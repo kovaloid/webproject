@@ -12,54 +12,21 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Cars extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doPost(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-
-        /*response.setContentType("text/html; charset=utf-8");
-
-
-        Statement stmt;
-        ResultSet rs;
-        try {
-            Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
-            Connection con = ds.getConnection();
-
-
-            stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT ID, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO_PERSONNEL ORDER BY ID");
-
-
-            request.setAttribute("rs", rs);*/
-
-            //request.getRequestDispatcher("cars.jsp").forward(request, response);
-
-
-            //while (rs.next()) {
-            //    out.println("<tr><td>"+rs.getInt(1) + "</td><td>" + rs.getString(2) + "</td><td>" + rs.getString(3) + "</td></tr>");
-            //}
-
-        /*} catch (SQLException | NamingException e) {
-            e.printStackTrace();
-        }*/
-
-        String locale = "ru";
+        /*String locale = "ru";
         request.getSession().setAttribute("local", locale);
 
-
-
-
-
-
         Statement stmt;
         ResultSet rs;
         try {
@@ -68,26 +35,27 @@ public class Cars extends HttpServlet {
             DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
             Connection con = ds.getConnection();
 
-
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT ID, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO_PERSONNEL ORDER BY ID");
-
-            rs.next();
-            //Object o = rs;
-
             request.setAttribute("rs", rs);
         } catch (SQLException | NamingException e) {
             e.printStackTrace();
         }
 
-
-
-
         try {
             request.getRequestDispatcher("cars.jsp").forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        Set<String> set = new HashSet<>();
+        set.add("one");
+        set.add("two");
+        set.add("three");
+
+        JSPSetBean jsp = new JSPSetBean(set);
+        request.setAttribute("userbean", jsp);
+        request.getRequestDispatcher("cars.jsp").forward(request, response);
 
 
     }

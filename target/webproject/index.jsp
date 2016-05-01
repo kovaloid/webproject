@@ -69,8 +69,8 @@
       <div class="title">Автобаза</div>
   </div>
   <div class="login">
-      <form action="Controller" method="post">
-          <input type="text" name="login" placeholder="логин" /><br />
+      <form action="LoginController" method="post">
+          <input type="text" name="username" placeholder="логин" /><br />
           <input type="password" name="password" placeholder="пароль" /><br />
           <input type="submit" value="Войти" />
       </form>

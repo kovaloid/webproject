@@ -14,12 +14,11 @@ public class LoginController extends HttpServlet {
         super();
     }
 
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        RequestDispatcher rd = null;
+        RequestDispatcher rd;
 
         Authenticator authenticator = new Authenticator();
         String result = authenticator.authenticate(username, password);
