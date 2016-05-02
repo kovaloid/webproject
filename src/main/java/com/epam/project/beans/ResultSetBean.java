@@ -2,36 +2,55 @@ package com.epam.project.beans;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.Set;
-
-import static com.sun.org.apache.xml.internal.security.keys.keyresolver.KeyResolver.iterator;
 
 public class ResultSetBean {
-    private ResultSet set;
 
-    public ResultSetBean(ResultSet set) {
-        this.set = set;
+    private ResultSet rs;
+
+    public ResultSetBean(ResultSet rs) {
+        this.rs = rs;
     }
 
     public ResultSetBean() {
     }
 
-    public String getSize() {
+    public boolean getNext() {
         try {
-            return Integer.toString(set.getFetchSize());
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "0";
+        return false;
     }
 
-    public String getElement() {
+    public int getColumnCount() {
         try {
-            set.next();
+            return rs.getMetaData().getColumnCount();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
+    }
+
+    public String getColumnName(int i) {
+        try {
+            return rs.getMetaData().getColumnName(i);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "null";
+    }
+
+    public String[] getLine() {
+        String[] line = new String[3];
+        try {
+            line[0] = rs.getString(1);
+            line[1] = rs.getString(2);
+            line[2] = rs.getString(3);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return line;
     }
 
 }

@@ -1,5 +1,8 @@
 package com.epam.project.controllers;
 
+import com.epam.project.beans.ResultSetBean;
+import com.epam.project.beans.SimpleBean;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -31,7 +34,11 @@ public class CarsController extends HttpServlet {
 
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT ID, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO_PERSONNEL ORDER BY ID");
-            request.getSession().setAttribute("rs", rs);
+
+
+            request.getSession().setAttribute("rs", new ResultSetBean(rs));
+
+
             request.getRequestDispatcher("cars.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             e.printStackTrace();
