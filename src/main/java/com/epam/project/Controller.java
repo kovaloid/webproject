@@ -64,12 +64,13 @@ public class Controller extends HttpServlet {
 
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT ID, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO_PERSONNEL ORDER BY ID");
-            out.println("<table class=\"table\" border=1>");
+            out.println("<table class=\"table table-striped\" border=1>");
+            out.println("<thead> <tr> <th>#</th><th>first name</th><th>last name</th></tr></thead><tbody>");
             //out.println("<th><td>1</td><td>1</td><td>1</td></th>");
             while (rs.next()) {
                 out.println("<tr><td>"+rs.getInt(1) + "</td><td>" + rs.getString(2) + "</td><td>" + rs.getString(3) + "</td></tr>");
             }
-            out.println("</table>");
+            out.println("</tbody></table>");
         } catch (SQLException | NamingException e) {
             //} catch (ClassNotFoundException e) {
             e.printStackTrace();

@@ -24,7 +24,7 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/404.jsp</location>
+        <location>/error/404.jsp</location>
     </error-page>
 
     <servlet>
@@ -56,17 +56,98 @@
 
 
 
+
+
+
+
+
     <servlet>
-        <description></description>
+        <description>Dispatcher Servlet</description>
+        <display-name>DispatcherServlet</display-name>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>com.epam.project.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>/DispatcherServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description>Cars Controller</description>
+        <display-name>CarsController</display-name>
+        <servlet-name>CarsController</servlet-name>
+        <servlet-class>com.epam.project.controllers.CarsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CarsController</servlet-name>
+        <url-pattern>/CarsController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description>Drivers Controller</description>
+        <display-name>DriversController</display-name>
+        <servlet-name>DriversController</servlet-name>
+        <servlet-class>com.epam.project.controllers.DriversController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DriversController</servlet-name>
+        <url-pattern>/DriversController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description>Error Controller</description>
+        <display-name>ErrorController</display-name>
+        <servlet-name>ErrorController</servlet-name>
+        <servlet-class>com.epam.project.controllers.ErrorController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ErrorController</servlet-name>
+        <url-pattern>/ErrorController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description>Journal Controller</description>
+        <display-name>JournalController</display-name>
+        <servlet-name>JournalController</servlet-name>
+        <servlet-class>com.epam.project.controllers.JournalController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JournalController</servlet-name>
+        <url-pattern>/JournalController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description>Locale Controller</description>
+        <display-name>LocaleController</display-name>
+        <servlet-name>LocaleController</servlet-name>
+        <servlet-class>com.epam.project.controllers.LocaleController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LocaleController</servlet-name>
+        <url-pattern>/LocaleController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description>Login Controller</description>
         <display-name>LoginController</display-name>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>com.epam.project.LoginController</servlet-class>
+        <servlet-class>com.epam.project.controllers.LoginController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <description>Routes Controller</description>
+        <display-name>RoutesController</display-name>
+        <servlet-name>RoutesController</servlet-name>
+        <servlet-class>com.epam.project.controllers.RoutesController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RoutesController</servlet-name>
+        <url-pattern>/RoutesController</url-pattern>
+    </servlet-mapping>
 
 
 

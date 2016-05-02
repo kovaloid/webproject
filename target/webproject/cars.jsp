@@ -8,21 +8,17 @@
 <html>
 <head>
     <title>Title</title>
-    
-    
-    
-    <fmt:setLocale value="${sessionScope.local}" />
-    <fmt:setBundle basename="locale" var="loc" />
-    <fmt:message bundle="${loc}" key="local.message" var="mes" />
+
 
 </head>
 <body>
 
 
-<c:out value="${mes}" /> <br />
 Hello!
 
-<%--<c:out value="${requestScope['rs'].getInt(1)}" />--%>
+<c:out value="${sessionScope['rs'].getInt(1)}" />
+
+<br><br><br>
 
 <c:set var="salary" scope="request" value="${40}" /> <br>
 <c:out value="${requestScope.salary}" /><br>

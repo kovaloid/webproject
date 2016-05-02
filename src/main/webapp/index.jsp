@@ -1,94 +1,129 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 803337
-  Date: 30.04.2016
-  Time: 11:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!DOCTYPE html>
 <html>
-  <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <title>Автобаза</title>
-      <style type="text/css">
-          .header {
-              width: 100%;
-              height: 110px;
-              background: #ccc;
-              padding: 5px;
-              border: solid 1px black;
-              float: left;
-          }
-          .login {
-              width: 200px;
-              height: 70px;
-              background: #fc0;
-              padding: 5px;
-              border: solid 1px black;
-              float: left;
-              position: relative;
-              top: 80px;
-              left: 10px;
-          }
-          .footer {
-              width: 200px;
-              padding: 5px;
-              border: solid 1px black;
-              float: left;
-              top: 80px;
-              left: -70px;
-          }
-          .main {
-              width: 200px;
-              padding: 5px;
-              border: solid 1px black;
-              float: left;
-              top: 80px;
-              left: -70px;
-          }
-          .logo {
-              width: 300px;
-              padding: 5px;
-              border: solid 1px black;
-              float: left;
-          }
-          .title {
-              width: auto;
-              padding: 5px;
-              border: solid 1px black;
-              float: left;
-              left: 350px;
-          }
-      </style>
-  </head>
-  <body>
-  <div class="header">
-      <div class="logo">
-        <img src="img/logo.jpg" width="100" height="100">
-      </div>
-      <div class="title">Автобаза</div>
-  </div>
-  <div class="login">
-      <form action="LoginController" method="post">
-          <input type="text" name="username" placeholder="логин" /><br />
-          <input type="password" name="password" placeholder="пароль" /><br />
-          <input type="submit" value="Войти" />
-      </form>
-  </div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+<head>
+    <fmt:setLocale value="${sessionScope.locale}" />
+    <fmt:setBundle basename="locale" var="loc" />
+    <fmt:message bundle="${loc}" key="local.title" var="page_title" />
+    <fmt:message bundle="${loc}" key="local.navpanel.main_page" var="main_page" />
+    <fmt:message bundle="${loc}" key="local.navpanel.about_page" var="about_page" />
+    <fmt:message bundle="${loc}" key="local.navpanel.contacts_page" var="contacts_page" />
+    <fmt:message bundle="${loc}" key="local.signin.header" var="signin_header" />
+    <fmt:message bundle="${loc}" key="local.signin.login" var="login_text" />
+    <fmt:message bundle="${loc}" key="local.signin.password" var="password_text" />
+    <fmt:message bundle="${loc}" key="local.signin.enter" var="enter_button" />
+    <fmt:message bundle="${loc}" key="local.signin.reg" var="reg_button" />
+    <fmt:message bundle="${loc}" key="local.lang.header" var="lang_header" />
+    <fmt:message bundle="${loc}" key="local.lang.ru_button" var="ru_button" />
+    <fmt:message bundle="${loc}" key="local.lang.en_button" var="en_button" />
 
-  <a href="cars.jsp">cars</a>
-  <a href="drivers.jsp">drivers</a>
-  <form action="Cars" method="post">
-      <input type="submit" value="Cars" />
-  </form>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Artem Kovalev" />
+    <title>${page_title}</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/template.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="img/favicon.png" />
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand">${page_title}</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="/index.jsp">${main_page}</a></li>
+                <li><a href="about.jsp">${about_page}</a></li>
+                <li><a href="contacts.jsp">${contacts_page}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 
-  </body>
+<div class="lang">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">${lang_header}</h3>
+        </div>
+        <div class="panel-body">
+            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
+                <input type="hidden" name="command" value="locale"/>
+                <input type="hidden" name="lang" value="ru"/>
+                <input type="submit" class="btn btn-success" value="${ru_button}"/>
+            </form>
+            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
+                <input type="hidden" name="command" value="locale"/>
+                <input type="hidden" name="lang" value="en"/>
+                <input type="submit" class="btn btn-success" value="${en_button}"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="login">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">${signin_header}</h3>
+        </div>
+        <div class="panel-body">
+            <form action="DispatcherServlet" method="post" class="navbar-form" role="form">
+                <input type="hidden" name="command" value="login"/>
+                <input placeholder="${login_text}" class="form-control margin" type="text" name="username"><br/>
+                <input placeholder="${password_text}" class="form-control margin" type="password" name="password"><br/>
+                <button type="submit" class="btn btn-success margin">${enter_button}</button>
+                <a href="registration.jsp">${reg_button}</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="main">
+    <div class="well">
+
+        <div class="col-xs-1 col-md-4">
+            <a href="#" class="thumbnail">
+                <img src="img/logo.jpg" alt="Логотип">
+            </a>
+        </div>
+
+        <h2>Управление автобазой</h2>
+        <p>Данным приложением может воспользоваться диспетчер или клиенты.</p>
+        <p>Диспетчер может добавлять, удалять и модифицировать все данные в таблицах.</p>
+        <p>Клиенты могут лишь посмотреть содержимое таблицы заявки.</p>
+
+        <br/>
+
+        <br><br>
+        <div class="menu">
+            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
+                <input type="hidden" name="command" value="cars"/>
+                <input type="submit" class="btn btn-success" value="Машины"/>
+            </form>
+            <br/>
+            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
+                <input type="hidden" name="command" value="drivers"/>
+                <input type="submit" class="btn btn-success" value="Водители"/>
+            </form>
+            <br/>
+            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
+                <input type="hidden" name="command" value="routes"/>
+                <input type="submit" class="btn btn-success" value="Маршруты"/>
+            </form>
+            <br/>
+            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
+                <input type="hidden" name="command" value="journal"/>
+                <input type="submit" class="btn btn-success" value="Журнал"/>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+</body>
 </html>

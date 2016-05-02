@@ -22,9 +22,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="author" content="Artem Kovalev" />
     <title>${page_title}</title>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="css/template.css" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="img/favicon.png" />
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../css/template.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="../img/favicon.png" />
 </head>
 <body>
 
@@ -35,9 +35,9 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="/index.jsp">${main_page}</a></li>
-                <li><a href="about.jsp">${about_page}</a></li>
-                <li><a href="contacts.jsp">${contacts_page}</a></li>
+                <li class="active"><a href="../index.jsp">${main_page}</a></li>
+                <li><a href="../about.jsp">${about_page}</a></li>
+                <li><a href="../contacts.jsp">${contacts_page}</a></li>
             </ul>
         </div>
     </div>
@@ -71,12 +71,10 @@
             <h3 class="panel-title">${signin_header}</h3>
         </div>
         <div class="panel-body">
+            <p>Username: ${requestScope['user'].username}</p>
             <form action="DispatcherServlet" method="post" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="login"/>
-                <input placeholder="${login_text}" class="form-control margin" type="text" name="username"><br/>
-                <input placeholder="${password_text}" class="form-control margin" type="password" name="password"><br/>
+                <input type="hidden" name="command" value="logout"/>
                 <button type="submit" class="btn btn-success margin">${enter_button}</button>
-                <a href="registration.jsp">${reg_button}</a>
             </form>
         </div>
     </div>
@@ -86,40 +84,8 @@
 <div class="main">
     <div class="well">
 
-        <div class="col-xs-1 col-md-4">
-            <a href="#" class="thumbnail">
-                <img src="img/logo.jpg" alt="Логотип">
-            </a>
-        </div>
-
-        <h2>Управление автобазой</h2>
-        <p>Данным приложением может воспользоваться диспетчер или клиенты.</p>
-        <p>Диспетчер может добавлять, удалять и модифицировать все данные в таблицах.</p>
-        <p>Клиенты могут лишь посмотреть содержимое таблицы заявки.</p>
-
-        <br/>
-
-        <br><br>
-        <div class="menu">
-            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="cars"/>
-                <input type="submit" class="btn btn-success" value="Машины"/>
-            </form>
-            <br/>
-            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="drivers"/>
-                <input type="submit" class="btn btn-success" value="Водители"/>
-            </form>
-            <br/>
-            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="routes"/>
-                <input type="submit" class="btn btn-success" value="Маршруты"/>
-            </form>
-            <br/>
-            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="journal"/>
-                <input type="submit" class="btn btn-success" value="Журнал"/>
-            </form>
+        <div class="alert alert-success">
+            <strong>Success!</strong> Welcome ${requestScope['user'].username}.
         </div>
 
     </div>
