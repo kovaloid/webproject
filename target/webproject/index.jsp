@@ -30,8 +30,9 @@
     <jsp:param name="page" value="main" />
 </jsp:include>
 <jsp:include page="blocks/login_block.jsp" />
-<jsp:include page="blocks/lang_block.jsp" />
-
+<jsp:include page="blocks/lang_block.jsp">
+    <jsp:param name="page" value="/" />
+</jsp:include>
 <div class="main">
     <div class="well">
 

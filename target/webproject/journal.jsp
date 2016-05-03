@@ -37,7 +37,9 @@
 
 <jsp:include page="blocks/header_block.jsp"/>
 <jsp:include page="blocks/login_block.jsp"/>
-<jsp:include page="blocks/lang_block.jsp"/>
+<jsp:include page="blocks/lang_block.jsp">
+    <jsp:param name="page" value="main?command=journal" />
+</jsp:include>
 
 <div class="data">
     <div class="panel panel-info">

@@ -34,7 +34,9 @@
 
 <jsp:include page="blocks/header_block.jsp"/>
 <jsp:include page="blocks/login_block.jsp"/>
-<jsp:include page="blocks/lang_block.jsp"/>
+<jsp:include page="blocks/lang_block.jsp">
+    <jsp:param name="page" value="main?command=cars" />
+</jsp:include>
 
 
 <div class="data">

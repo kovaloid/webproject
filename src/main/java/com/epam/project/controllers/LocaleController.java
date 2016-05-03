@@ -14,6 +14,7 @@ public class LocaleController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.getSession(true).setAttribute("locale", request.getParameter("lang"));
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        String url = (String) request.getSession().getAttribute("url");
+        response.sendRedirect(url);
     }
 }
