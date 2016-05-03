@@ -42,11 +42,11 @@ public class ResultSetBean {
     }
 
     public String[] getLine() {
-        String[] line = new String[3];
+        String[] line = new String[getColumnCount()];
         try {
-            line[0] = rs.getString(1);
-            line[1] = rs.getString(2);
-            line[2] = rs.getString(3);
+            for (int i = 0; i < getColumnCount(); i++ ){
+                line[i] = rs.getString(i+1);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

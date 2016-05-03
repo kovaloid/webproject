@@ -20,6 +20,15 @@ body {
     padding: 5px;
 }
 
+.data {
+    position: absolute;
+    width: 300px;
+    top: 280px;
+    right: 30px;
+    text-align: center;
+    padding: 5px;
+}
+
 .main {
     position: absolute;
     top: 80px;
@@ -33,10 +42,10 @@ body {
     position: relative;
     text-align: center;
     padding: 5px;
+    margin: 5px;
     border: solid 1px black;
 }
 
 .margin {
     margin: 5px;
 }
-

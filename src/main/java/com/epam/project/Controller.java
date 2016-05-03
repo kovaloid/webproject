@@ -20,28 +20,9 @@ public class Controller extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //System.out.println("first tomcat log message");
 
         /*HttpSession session = request.getSession(true);
-
-
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<html><head><title>Title</title></head>");
-        out.println("<body>brilliant");
-
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-
-        out.println(login + "<br>");
-        out.println(password + "<br>");
-        out.println("</body></html>");*/
-
-
-
-
-        response.setContentType("text/html; charset=utf-8");
-        //response.setHeader();
+        response.setContentType("text/html; charset=utf-8");*/
 
         PrintWriter out = response.getWriter();
         out.println("<html><head><title>Title</title>" +
@@ -57,8 +38,8 @@ public class Controller extends HttpServlet {
             //con = DriverManager.getConnection("jdbc:oracle:thin:@localhost", "system", "koval");
 
             Context initContext = new InitialContext();
-            Context envContext  = (Context)initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");
+            Context envContext = (Context) initContext.lookup("java:/comp/env");
+            DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
             Connection con = ds.getConnection();
 
 
@@ -68,7 +49,7 @@ public class Controller extends HttpServlet {
             out.println("<thead> <tr> <th>#</th><th>first name</th><th>last name</th></tr></thead><tbody>");
             //out.println("<th><td>1</td><td>1</td><td>1</td></th>");
             while (rs.next()) {
-                out.println("<tr><td>"+rs.getInt(1) + "</td><td>" + rs.getString(2) + "</td><td>" + rs.getString(3) + "</td></tr>");
+                out.println("<tr><td>" + rs.getInt(1) + "</td><td>" + rs.getString(2) + "</td><td>" + rs.getString(3) + "</td></tr>");
             }
             out.println("</tbody></table>");
         } catch (SQLException | NamingException e) {

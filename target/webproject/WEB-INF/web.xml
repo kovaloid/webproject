@@ -22,42 +22,26 @@
         <welcome-file>default.html</welcome-file>
     </welcome-file-list>
 
+
     <error-page>
         <error-code>404</error-code>
         <location>/error/404.jsp</location>
     </error-page>
 
-    <servlet>
-        <description></description>
-        <display-name>Controller</display-name>
-        <servlet-name>Controller</servlet-name>
-        <servlet-class>com.epam.project.Controller</servlet-class>
-    </servlet>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error/403.jsp</location>
+    </error-page>
 
-    <servlet-mapping>
-        <servlet-name>Controller</servlet-name>
-        <url-pattern>/Controller</url-pattern>
-    </servlet-mapping>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/error/401.jsp</location>
+    </error-page>
 
-    <servlet>
-        <description></description>
-        <display-name>Cars</display-name>
-        <servlet-name>Cars</servlet-name>
-        <servlet-class>com.epam.project.Cars</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Cars</servlet-name>
-        <url-pattern>/Cars</url-pattern>
-    </servlet-mapping>
-
-
-
-
-
-
-
-
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error/error.jsp</location>
+    </error-page>
 
 
 
@@ -69,12 +53,10 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DispatcherServlet</servlet-name>
-        <url-pattern>/DispatcherServlet</url-pattern>
+        <url-pattern>/main</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <description>Cars Controller</description>
-        <display-name>CarsController</display-name>
         <servlet-name>CarsController</servlet-name>
         <servlet-class>com.epam.project.controllers.CarsController</servlet-class>
     </servlet>
@@ -84,8 +66,6 @@
     </servlet-mapping>
 
     <servlet>
-        <description>Drivers Controller</description>
-        <display-name>DriversController</display-name>
         <servlet-name>DriversController</servlet-name>
         <servlet-class>com.epam.project.controllers.DriversController</servlet-class>
     </servlet>
@@ -95,8 +75,6 @@
     </servlet-mapping>
 
     <servlet>
-        <description>Error Controller</description>
-        <display-name>ErrorController</display-name>
         <servlet-name>ErrorController</servlet-name>
         <servlet-class>com.epam.project.controllers.ErrorController</servlet-class>
     </servlet>
@@ -106,8 +84,6 @@
     </servlet-mapping>
 
     <servlet>
-        <description>Journal Controller</description>
-        <display-name>JournalController</display-name>
         <servlet-name>JournalController</servlet-name>
         <servlet-class>com.epam.project.controllers.JournalController</servlet-class>
     </servlet>
@@ -117,8 +93,6 @@
     </servlet-mapping>
 
     <servlet>
-        <description>Locale Controller</description>
-        <display-name>LocaleController</display-name>
         <servlet-name>LocaleController</servlet-name>
         <servlet-class>com.epam.project.controllers.LocaleController</servlet-class>
     </servlet>
@@ -128,8 +102,6 @@
     </servlet-mapping>
 
     <servlet>
-        <description>Login Controller</description>
-        <display-name>LoginController</display-name>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>com.epam.project.controllers.LoginController</servlet-class>
     </servlet>
@@ -139,8 +111,6 @@
     </servlet-mapping>
 
     <servlet>
-        <description>Routes Controller</description>
-        <display-name>RoutesController</display-name>
         <servlet-name>RoutesController</servlet-name>
         <servlet-class>com.epam.project.controllers.RoutesController</servlet-class>
     </servlet>
@@ -149,6 +119,33 @@
         <url-pattern>/RoutesController</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>AboutPage</servlet-name>
+        <jsp-file>/about.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AboutPage</servlet-name>
+        <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ContactsPage</servlet-name>
+        <jsp-file>/contacts.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactsPage</servlet-name>
+        <url-pattern>/contacts</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SignUpPage</servlet-name>
+        <jsp-file>/signup.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignUpPage</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
 
 
     <jsp-config>

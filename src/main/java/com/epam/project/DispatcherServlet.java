@@ -24,6 +24,9 @@ public class DispatcherServlet extends HttpServlet {
             case "logout":
                 request.getRequestDispatcher("LogoutController").forward(request, response);
                 break;
+            case "reg":
+                request.getRequestDispatcher("RegController").forward(request, response);
+                break;
             case "cars":
                 request.getRequestDispatcher("CarsController").forward(request, response);
                 break;

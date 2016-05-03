@@ -1,7 +1,7 @@
 package com.epam.project.controllers;
 
+import com.epam.project.beans.DriverSetBean;
 import com.epam.project.beans.ResultSetBean;
-import com.epam.project.beans.SimpleBean;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -24,8 +24,10 @@ public class CarsController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Statement stmt;
         ResultSet rs;
+        Statement stmt;
+        ResultSet rs_2;
+        Statement stmt_2;
         try {
             Context initContext = new InitialContext();
             Context envContext  = (Context)initContext.lookup("java:/comp/env");
@@ -33,13 +35,17 @@ public class CarsController extends HttpServlet {
             Connection con = ds.getConnection();
 
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT ID, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO_PERSONNEL ORDER BY ID");
+            rs = stmt.executeQuery("SELECT AUTO.ID, NUM, COLOR, MARK, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO "
+                    + "JOIN KOVAL.AUTO_PERSONNEL ON PERSONNEL_ID = AUTO_PERSONNEL.ID ORDER BY AUTO.ID");
 
+            stmt_2 = con.createStatement();
+            rs_2 = stmt_2.executeQuery("SELECT ID, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO_PERSONNEL");
 
-            request.getSession().setAttribute("rs", new ResultSetBean(rs));
-
-
+            request.getSession().setAttribute("cars_rs", new ResultSetBean(rs));
+            request.getSession().setAttribute("drivers_set", new DriverSetBean(rs_2));
+            //con.close();
             request.getRequestDispatcher("cars.jsp").forward(request, response);
+
         } catch (SQLException | NamingException e) {
             e.printStackTrace();
         }

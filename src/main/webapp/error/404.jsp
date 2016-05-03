@@ -1,16 +1,31 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 803337
-  Date: 30.04.2016
-  Time: 12:31
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="Artem Kovalev"/>
+    <title>404 Not found</title>
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/template.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="../img/favicon.png"/>
 </head>
 <body>
-404 error
+
+<jsp:include page="../blocks/header_block.jsp"/>
+
+<div class="main">
+    <div class="well">
+
+        <div class="alert alert-danger" align="center">
+            <h1>404 Not found</h1>
+            <p>
+                The page you tried to access does not exist.
+            </p>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
+

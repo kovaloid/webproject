@@ -4,20 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <fmt:setLocale value="${sessionScope.locale}" />
     <fmt:setBundle basename="locale" var="loc" />
     <fmt:message bundle="${loc}" key="local.title" var="page_title" />
-    <fmt:message bundle="${loc}" key="local.navpanel.main_page" var="main_page" />
-    <fmt:message bundle="${loc}" key="local.navpanel.about_page" var="about_page" />
-    <fmt:message bundle="${loc}" key="local.navpanel.contacts_page" var="contacts_page" />
-    <fmt:message bundle="${loc}" key="local.signin.header" var="signin_header" />
-    <fmt:message bundle="${loc}" key="local.signin.login" var="login_text" />
-    <fmt:message bundle="${loc}" key="local.signin.password" var="password_text" />
-    <fmt:message bundle="${loc}" key="local.signin.enter" var="enter_button" />
-    <fmt:message bundle="${loc}" key="local.signin.reg" var="reg_button" />
-    <fmt:message bundle="${loc}" key="local.lang.header" var="lang_header" />
-    <fmt:message bundle="${loc}" key="local.lang.ru_button" var="ru_button" />
-    <fmt:message bundle="${loc}" key="local.lang.en_button" var="en_button" />
+    <fmt:message bundle="${loc}" key="local.menu.cars_button" var="cars_button" />
+    <fmt:message bundle="${loc}" key="local.menu.drivers_button" var="drivers_button" />
+    <fmt:message bundle="${loc}" key="local.menu.routes_button" var="routes_button" />
+    <fmt:message bundle="${loc}" key="local.menu.journal_button" var="journal_button" />
+    <fmt:message bundle="${loc}" key="local.main_wall.head" var="wall_head" />
+    <fmt:message bundle="${loc}" key="local.main_wall.text_1" var="wall_text_1" />
+    <fmt:message bundle="${loc}" key="local.main_wall.text_2" var="wall_text_2" />
+    <fmt:message bundle="${loc}" key="local.main_wall.text_3" var="wall_text_3" />
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="author" content="Artem Kovalev" />
@@ -28,97 +26,48 @@
 </head>
 <body>
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand">${page_title}</a>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="${pageContext.request.contextPath}/index.jsp">${main_page}</a></li>
-                <li><a href="about.jsp">${about_page}</a></li>
-                <li><a href="contacts.jsp">${contacts_page}</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-
-<div class="lang">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">${lang_header}</h3>
-        </div>
-        <div class="panel-body">
-            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="locale"/>
-                <input type="hidden" name="lang" value="ru"/>
-                <input type="submit" class="btn btn-success" value="${ru_button}"/>
-            </form>
-            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="locale"/>
-                <input type="hidden" name="lang" value="en"/>
-                <input type="submit" class="btn btn-success" value="${en_button}"/>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<div class="login">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">${signin_header}</h3>
-        </div>
-        <div class="panel-body">
-            <form action="DispatcherServlet" method="post" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="login"/>
-                <input placeholder="${login_text}" class="form-control margin" type="text" name="username"><br/>
-                <input placeholder="${password_text}" class="form-control margin" type="password" name="password"><br/>
-                <button type="submit" class="btn btn-success margin">${enter_button}</button>
-                <a href="registration.jsp">${reg_button}</a>
-            </form>
-        </div>
-    </div>
-</div>
-
+<jsp:include page="blocks/header_block.jsp">
+    <jsp:param name="page" value="main" />
+</jsp:include>
+<jsp:include page="blocks/login_block.jsp" />
+<jsp:include page="blocks/lang_block.jsp" />
 
 <div class="main">
     <div class="well">
 
         <div class="col-xs-1 col-md-4">
             <a href="#" class="thumbnail">
-                <img src="img/logo.jpg" alt="Логотип">
+                <img src="img/logo.jpg">
             </a>
         </div>
 
-        <h2>Управление автобазой</h2>
-        <p>Данным приложением может воспользоваться диспетчер или клиенты.</p>
-        <p>Диспетчер может добавлять, удалять и модифицировать все данные в таблицах.</p>
-        <p>Клиенты могут лишь посмотреть содержимое таблицы заявки.</p>
+        <h2>${wall_head}</h2>
+        <p>${wall_text_1}</p>
+        <p>${wall_text_2}</p>
+        <p>${wall_text_3}</p>
 
         <br/>
 
         <br><br>
-        <div class="menu">
-            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
+        <div class="alert alert-warning menu">
+            <form action="main" method="get" class="navbar-form" role="form">
                 <input type="hidden" name="command" value="cars"/>
-                <input type="submit" class="btn btn-success" value="Машины"/>
+                <input type="submit" class="btn btn-success" value="${cars_button}"/>
             </form>
             <br/>
-            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
+            <form action="main" method="get" class="navbar-form" role="form">
                 <input type="hidden" name="command" value="drivers"/>
-                <input type="submit" class="btn btn-success" value="Водители"/>
+                <input type="submit" class="btn btn-success" value="${drivers_button}"/>
             </form>
             <br/>
-            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
+            <form action="main" method="get" class="navbar-form" role="form">
                 <input type="hidden" name="command" value="routes"/>
-                <input type="submit" class="btn btn-success" value="Маршруты"/>
+                <input type="submit" class="btn btn-success" value="${routes_button}"/>
             </form>
             <br/>
-            <form action="DispatcherServlet" method="get" class="navbar-form" role="form">
+            <form action="main" method="get" class="navbar-form" role="form">
                 <input type="hidden" name="command" value="journal"/>
-                <input type="submit" class="btn btn-success" value="Журнал"/>
+                <input type="submit" class="btn btn-success" value="${journal_button}"/>
             </form>
         </div>
 
