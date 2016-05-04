@@ -32,7 +32,44 @@
     <div class="well">
 
         <h2>Об автобазе</h2>
-        <p>Диспетчер управляет автобазой.</p>
+
+        <table class="table">
+            <tr>
+                <td rowspan="4" align="center">
+                    <img src="${pageContext.request.contextPath}/img/cars.jpg" height="150" width="200" />
+                </td>
+                <td>
+                    <b>Название</b>
+                </td>
+                <td>
+                    Автобаза "Заря"
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Адрес</b>
+                </td>
+                <td>
+                    СПб, ул. Ленина, д. 10
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Год основания</b>
+                </td>
+                <td>
+                    1992
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>E-mail</b>
+                </td>
+                <td>
+                    <a href="mailto:kov3000@yandex.ru">kov3000@yandex.ru</a>
+                </td>
+            </tr>
+        </table>
 
     </div>
 </div>

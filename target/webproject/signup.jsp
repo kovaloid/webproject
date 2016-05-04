@@ -17,17 +17,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="author" content="Artem Kovalev"/>
     <title>${reg_subtitle} - ${page_title}</title>
-    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/template.css" rel="stylesheet" type="text/css"/>
-    <link rel="shortcut icon" href="../img/favicon.png"/>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="css/template.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="img/favicon.png"/>
 </head>
 <body>
 
-<jsp:include page="../blocks/header_block.jsp"/>
-<jsp:include page="../blocks/login_block.jsp">
+<jsp:include page="blocks/header_block.jsp"/>
+<jsp:include page="blocks/login_block.jsp">
     <jsp:param name="page" value="signup" />
 </jsp:include>
-<jsp:include page="../blocks/lang_block.jsp">
+<jsp:include page="blocks/lang_block.jsp">
     <jsp:param name="page" value="signup" />
 </jsp:include>
 

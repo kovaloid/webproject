@@ -149,7 +149,7 @@
 
     <servlet>
         <servlet-name>SignUpPage</servlet-name>
-        <jsp-file>/account/signup.jsp</jsp-file>
+        <jsp-file>/signup.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>SignUpPage</servlet-name>

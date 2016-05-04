@@ -42,7 +42,7 @@ public class LoginController extends HttpServlet {
 
             response.sendRedirect(successUrl);
         } else {
-            request.getRequestDispatcher("auth/auth_error.jsp").forward(request, response);
+            request.getRequestDispatcher("account/auth_error.jsp").forward(request, response);
         }
     }
 

@@ -35,7 +35,7 @@
     <div class="well">
 
         <div class="col-xs-1 col-md-4">
-            <a href="#" class="thumbnail">
+            <a href="${pageContext.request.contextPath}/about" class="thumbnail">
                 <img src="img/logo.jpg">
             </a>
         </div>

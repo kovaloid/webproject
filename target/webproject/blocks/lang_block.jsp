@@ -18,12 +18,16 @@
             <form action="main" method="post" class="navbar-form" role="form">
                 <input type="hidden" name="command" value="locale"/>
                 <input type="hidden" name="lang" value="ru"/>
-                <input type="submit" class="btn btn-success" value="${ru_button}"/>
+                <button type="submit" class="btn btn-success">
+                    ${ru_button} <img src="${pageContext.request.contextPath}/img/RU.png" />
+                </button>
             </form>
             <form action="main" method="post" class="navbar-form" role="form">
                 <input type="hidden" name="command" value="locale"/>
                 <input type="hidden" name="lang" value="en"/>
-                <input type="submit" class="btn btn-success" value="${en_button}"/>
+                <button type="submit" class="btn btn-success">
+                    ${en_button} <img src="${pageContext.request.contextPath}/img/GB.png" />
+                </button>
             </form>
         </div>
     </div>

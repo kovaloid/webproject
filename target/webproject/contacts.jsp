@@ -32,7 +32,43 @@
     <div class="well">
 
         <h2>Контакты</h2>
-        <p>Ковалев Артем - 8(911)760-37-24</p>
+        <table class="table">
+            <tr>
+                <td rowspan="4" align="center">
+                    <img src="${pageContext.request.contextPath}/img/admin.jpg" width="110" height="150" />
+                </td>
+                <td>
+                    <b>Ф.И.О.</b>
+                </td>
+                <td>
+                    Ковалев Артем Дмитриевич
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Возраст</b>
+                </td>
+                <td>
+                    22
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Должность</b>
+                </td>
+                <td>
+                    Администратор
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Телефон</b>
+                </td>
+                <td>
+                    8 (911) 760-37-24
+                </td>
+            </tr>
+        </table>
 
     </div>
 </div>
