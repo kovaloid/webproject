@@ -1,7 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
+
+    <fmt:setLocale value="${sessionScope.locale}"/>
+    <fmt:setBundle basename="locale" var="loc"/>
+    <fmt:message bundle="${loc}" key="local.error.403" var="error_text"/>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="author" content="Artem Kovalev"/>
     <title>403 Access Denied</title>
@@ -19,7 +25,7 @@
         <div class="alert alert-danger" align="center">
             <h1>403 Access Denied</h1>
             <p>
-                You are not authorized to view this page.
+                ${error_text}
             </p>
         </div>
 

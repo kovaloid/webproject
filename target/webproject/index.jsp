@@ -5,33 +5,31 @@
 <html>
 <head>
 
-    <fmt:setLocale value="${sessionScope.locale}" />
-    <fmt:setBundle basename="locale" var="loc" />
-    <fmt:message bundle="${loc}" key="local.title" var="page_title" />
-    <fmt:message bundle="${loc}" key="local.menu.cars_button" var="cars_button" />
-    <fmt:message bundle="${loc}" key="local.menu.drivers_button" var="drivers_button" />
-    <fmt:message bundle="${loc}" key="local.menu.routes_button" var="routes_button" />
-    <fmt:message bundle="${loc}" key="local.menu.journal_button" var="journal_button" />
-    <fmt:message bundle="${loc}" key="local.main_wall.head" var="wall_head" />
-    <fmt:message bundle="${loc}" key="local.main_wall.text_1" var="wall_text_1" />
-    <fmt:message bundle="${loc}" key="local.main_wall.text_2" var="wall_text_2" />
-    <fmt:message bundle="${loc}" key="local.main_wall.text_3" var="wall_text_3" />
+    <fmt:setLocale value="${sessionScope.locale}"/>
+    <fmt:setBundle basename="locale" var="loc"/>
+    <fmt:message bundle="${loc}" key="local.title" var="page_title"/>
+    <fmt:message bundle="${loc}" key="local.main_wall.head" var="wall_head"/>
+    <fmt:message bundle="${loc}" key="local.main_wall.text_1" var="wall_text_1"/>
+    <fmt:message bundle="${loc}" key="local.main_wall.text_2" var="wall_text_2"/>
+    <fmt:message bundle="${loc}" key="local.main_wall.text_3" var="wall_text_3"/>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="author" content="Artem Kovalev" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="Artem Kovalev"/>
     <title>${page_title}</title>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="css/template.css" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="img/favicon.png" />
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="css/template.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="img/favicon.png"/>
 </head>
 <body>
 
 <jsp:include page="blocks/header_block.jsp">
-    <jsp:param name="page" value="main" />
+    <jsp:param name="page" value="main"/>
 </jsp:include>
-<jsp:include page="blocks/login_block.jsp" />
+<jsp:include page="blocks/login_block.jsp">
+    <jsp:param name="page" value="/"/>
+</jsp:include>
 <jsp:include page="blocks/lang_block.jsp">
-    <jsp:param name="page" value="/" />
+    <jsp:param name="page" value="/"/>
 </jsp:include>
 <div class="main">
     <div class="well">
@@ -49,28 +47,9 @@
 
         <br/>
 
-        <br><br>
-        <div class="alert alert-warning menu">
-            <form action="main" method="get" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="cars"/>
-                <input type="submit" class="btn btn-success" value="${cars_button}"/>
-            </form>
-            <br/>
-            <form action="main" method="get" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="drivers"/>
-                <input type="submit" class="btn btn-success" value="${drivers_button}"/>
-            </form>
-            <br/>
-            <form action="main" method="get" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="routes"/>
-                <input type="submit" class="btn btn-success" value="${routes_button}"/>
-            </form>
-            <br/>
-            <form action="main" method="get" class="navbar-form" role="form">
-                <input type="hidden" name="command" value="journal"/>
-                <input type="submit" class="btn btn-success" value="${journal_button}"/>
-            </form>
-        </div>
+        <c:if test="${sessionScope.status eq 'in'}">
+            <jsp:include page="blocks/menu_block.jsp"/>
+        </c:if>
 
     </div>
 </div>

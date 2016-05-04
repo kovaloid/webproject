@@ -20,26 +20,30 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(true);
-
+        String successUrl = (String) session.getAttribute("successUrl");
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        RequestDispatcher rd;
 
         Authenticator authenticator = new Authenticator();
         String result = authenticator.authenticate(username, password);
         if (result.equals("success")) {
-            rd = request.getRequestDispatcher("auth/success.jsp");
-            UserBean user = new UserBean(username, password);
-            request.setAttribute("user", user);
 
+            //UserBean user = new UserBean(username, password);
+            //request.setAttribute("user", user);
 
+            session.setAttribute("status", "in");
             session.setAttribute("login", username);
             session.setAttribute("password", password);
+            if(username.equals("admin"))
+                session.setAttribute("role", "admin");
+            else
+                session.setAttribute("role", "client");
+
+            response.sendRedirect(successUrl);
         } else {
-            rd = request.getRequestDispatcher("auth/error.jsp");
+            request.getRequestDispatcher("auth/auth_error.jsp").forward(request, response);
         }
-        rd.forward(request, response);
     }
 
 }

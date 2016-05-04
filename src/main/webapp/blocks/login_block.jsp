@@ -8,6 +8,9 @@
 <fmt:message bundle="${loc}" key="local.signin.password" var="password_text"/>
 <fmt:message bundle="${loc}" key="local.signin.enter" var="enter_button"/>
 <fmt:message bundle="${loc}" key="local.signin.reg" var="reg_button"/>
+<fmt:message bundle="${loc}" key="local.signin.welcome" var="welcome_text"/>
+
+<c:set var="successUrl" scope="session" value="${param.page}" />
 
 <div class="login">
     <div class="panel panel-info">
@@ -19,7 +22,7 @@
 
 
             <c:if test="${sessionScope.status eq 'in'}">
-                <p>Welcome, <c:out value="${sessionScope.login}" /></p>
+                <p>${welcome_text}, <c:out value="${sessionScope.login}" /></p>
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="logout"/>
                     <button type="submit" class="btn btn-success margin">Sign Out</button>
