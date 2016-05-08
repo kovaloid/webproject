@@ -15,123 +15,33 @@
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
-        <welcome-file>index.htm</welcome-file>
-        <welcome-file>index.html</welcome-file>
-        <welcome-file>default.jsp</welcome-file>
-        <welcome-file>default.htm</welcome-file>
-        <welcome-file>default.html</welcome-file>
     </welcome-file-list>
 
 
     <error-page>
         <error-code>404</error-code>
-        <location>/error/404.jsp</location>
+        <location>/WEB-INF/jsp/errors/404.jsp</location>
     </error-page>
 
     <error-page>
         <error-code>403</error-code>
-        <location>/error/403.jsp</location>
+        <location>/WEB-INF/jsp/errors/403.jsp</location>
     </error-page>
 
     <error-page>
         <error-code>401</error-code>
-        <location>/error/401.jsp</location>
+        <location>/WEB-INF/jsp/errors/401.jsp</location>
     </error-page>
 
-    <error-page>
+    <!--<error-page>
         <exception-type>java.lang.Throwable</exception-type>
-        <location>/error/error.jsp</location>
-    </error-page>
-
-
-
-    <servlet>
-        <description>Dispatcher Servlet</description>
-        <display-name>DispatcherServlet</display-name>
-        <servlet-name>DispatcherServlet</servlet-name>
-        <servlet-class>com.epam.project.DispatcherServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DispatcherServlet</servlet-name>
-        <url-pattern>/main</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>CarsController</servlet-name>
-        <servlet-class>com.epam.project.controllers.CarsController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CarsController</servlet-name>
-        <url-pattern>/CarsController</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>DriversController</servlet-name>
-        <servlet-class>com.epam.project.controllers.DriversController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DriversController</servlet-name>
-        <url-pattern>/DriversController</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ErrorController</servlet-name>
-        <servlet-class>com.epam.project.controllers.ErrorController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ErrorController</servlet-name>
-        <url-pattern>/ErrorController</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>JournalController</servlet-name>
-        <servlet-class>com.epam.project.controllers.JournalController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>JournalController</servlet-name>
-        <url-pattern>/JournalController</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>LocaleController</servlet-name>
-        <servlet-class>com.epam.project.controllers.LocaleController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LocaleController</servlet-name>
-        <url-pattern>/LocaleController</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>LoginController</servlet-name>
-        <servlet-class>com.epam.project.controllers.LoginController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginController</servlet-name>
-        <url-pattern>/LoginController</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>LogoutController</servlet-name>
-        <servlet-class>com.epam.project.controllers.LogoutController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LogoutController</servlet-name>
-        <url-pattern>/LogoutController</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>RoutesController</servlet-name>
-        <servlet-class>com.epam.project.controllers.RoutesController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RoutesController</servlet-name>
-        <url-pattern>/RoutesController</url-pattern>
-    </servlet-mapping>
+        <location>/WEB-INF/jsp/errors/exception.jsp</location>
+    </error-page>-->
 
 
     <servlet>
         <servlet-name>AboutPage</servlet-name>
-        <jsp-file>/about.jsp</jsp-file>
+        <jsp-file>/WEB-INF/jsp/info/about.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>AboutPage</servlet-name>
@@ -140,7 +50,7 @@
 
     <servlet>
         <servlet-name>ContactsPage</servlet-name>
-        <jsp-file>/contacts.jsp</jsp-file>
+        <jsp-file>/WEB-INF/jsp/info/contacts.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>ContactsPage</servlet-name>
@@ -149,12 +59,44 @@
 
     <servlet>
         <servlet-name>SignUpPage</servlet-name>
-        <jsp-file>/signup.jsp</jsp-file>
+        <jsp-file>/WEB-INF/jsp/account/signup.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>SignUpPage</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
+
+
+    <filter>
+        <filter-name>CharsetFilter</filter-name>
+        <filter-class>com.epam.project.filters.CharsetFilter</filter-class>
+        <init-param>
+            <param-name>charEncoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/about</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>RequestLoggingFilter</filter-name>
+        <filter-class>com.epam.project.filters.RequestLoggingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RequestLoggingFilter</filter-name>
+        <url-pattern>/about</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>RequestDispatcherFilter</filter-name>
+        <filter-class>com.epam.project.filters.RequestDispatcherFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RequestDispatcherFilter</filter-name>
+        <url-pattern>/main</url-pattern>
+    </filter-mapping>
 
 
     <jsp-config>

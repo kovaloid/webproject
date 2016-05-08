@@ -14,7 +14,7 @@
     <tag>
         <description>Tag, which prints tables</description>
         <name>printtable</name>
-        <tag-class>com.epam.project.JSPTagPrintTable</tag-class>
+        <tag-class>com.epam.project.service.JSPTagPrintTable</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <description>Object that contains the data model from the table</description>

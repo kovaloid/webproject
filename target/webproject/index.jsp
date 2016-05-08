@@ -22,13 +22,13 @@
 </head>
 <body>
 
-<jsp:include page="blocks/header_block.jsp">
+<jsp:include page="/WEB-INF/jsp/blocks/header_block.jsp">
     <jsp:param name="page" value="main"/>
 </jsp:include>
-<jsp:include page="blocks/login_block.jsp">
+<jsp:include page="/WEB-INF/jsp/blocks/login_block.jsp">
     <jsp:param name="page" value="/"/>
 </jsp:include>
-<jsp:include page="blocks/lang_block.jsp">
+<jsp:include page="/WEB-INF/jsp/blocks/lang_block.jsp">
     <jsp:param name="page" value="/"/>
 </jsp:include>
 <div class="main">
@@ -48,7 +48,7 @@
         <br/>
 
         <c:if test="${sessionScope.status eq 'in'}">
-            <jsp:include page="blocks/menu_block.jsp"/>
+            <jsp:include page="/WEB-INF/jsp/blocks/menu_block.jsp"/>
         </c:if>
 
     </div>
