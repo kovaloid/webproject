@@ -25,19 +25,20 @@ public class RemoveRoutesController extends HttpServlet {
         Statement stmt;
         try {
             Context initContext = new InitialContext();
-            Context envContext  = (Context)initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");
+            Context envContext = (Context) initContext.lookup("java:/comp/env");
+            DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
             Connection con = ds.getConnection();
 
             stmt = con.createStatement();
             int countRows = stmt.executeUpdate("DELETE FROM KOVAL.ROUTES WHERE ID='" + request.getParameter("id") + "'");
 
+            log.info(countRows + " was deleted");
             request.getRequestDispatcher("RoutesController").forward(request, response);
-
         } catch (SQLException | NamingException e) {
             log.error(e.getMessage());
-            e.printStackTrace();
-            request.getRequestDispatcher("ErrorController").forward(request, response);
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
     }
+
 }

@@ -108,7 +108,6 @@ public class DispatcherServlet extends HttpServlet {
             default:
                 request.getRequestDispatcher("index.jsp").forward(request, response);
         }
-
     }
 
 }

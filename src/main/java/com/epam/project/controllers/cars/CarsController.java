@@ -33,12 +33,20 @@ public class CarsController extends HttpServlet {
         Statement stmt;
         ResultSet rs_2;
         Statement stmt_2;
+
+        DataSource ds = null;
         try {
             Context initContext = new InitialContext();
             Context envContext  = (Context)initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");
-            Connection con = ds.getConnection();
+            ds = (DataSource)envContext.lookup("jdbc/myoracle");
+        } catch (NamingException e) {
+            log.error(e.getMessage());
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+        }
 
+        assert ds != null;
+        try (Connection con = ds.getConnection()) {
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT AUTO.ID, NUM, COLOR, MARK, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO "
                     + "JOIN KOVAL.AUTO_PERSONNEL ON PERSONNEL_ID = AUTO_PERSONNEL.ID ORDER BY AUTO.ID");
@@ -48,11 +56,12 @@ public class CarsController extends HttpServlet {
 
             request.getSession().setAttribute("cars_rs", new ResultSetBean(rs));
             request.getSession().setAttribute("drivers_set", new DriverSetBean(rs_2));
-            //con.close();
             request.getRequestDispatcher("/WEB-INF/jsp/data_tables/cars.jsp").forward(request, response);
-
-        } catch (SQLException | NamingException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
     }
+
 }

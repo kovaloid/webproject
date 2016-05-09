@@ -1,6 +1,7 @@
 <%@ page isErrorPage="true" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="locale" var="loc"/>
     <fmt:message bundle="${loc}" key="local.error.other_error_1" var="text_1"/>
-    <fmt:message bundle="${loc}" key="local.error.other_error_1" var="text_2"/>
+    <fmt:message bundle="${loc}" key="local.error.other_error_2" var="text_2"/>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="author" content="Artem Kovalev"/>
@@ -28,12 +29,12 @@
             <h1>${text_1}!</h1>
             <p>
                 ${text_2} : <br/>
-                    Message:<br />
-                <%= exception.getMessage() %><br />
-                    StackTrace:<br />
-                    <%= exception.getStackTrace() %><br />
-                    Cause:<br />
-                    <%= exception.getCause() %><br />
+                <c:if test="${requestScope.exception != null}">
+                    <c:out value="${requestScope.exception}"/>
+                </c:if>
+                <c:if test="${requestScope.exception == null}">
+                    Unknown exception
+                </c:if>
             </p>
         </div>
 

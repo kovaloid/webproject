@@ -24,16 +24,12 @@ public class RoutesController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        doPost(request, response);
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Statement stmt;
         ResultSet rs;
         try {
             Context initContext = new InitialContext();
-            Context envContext  = (Context)initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");
+            Context envContext = (Context) initContext.lookup("java:/comp/env");
+            DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
             Connection con = ds.getConnection();
 
             stmt = con.createStatement();
@@ -43,7 +39,10 @@ public class RoutesController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/jsp/data_tables/routes.jsp").forward(request, response);
 
         } catch (SQLException | NamingException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
     }
+
 }

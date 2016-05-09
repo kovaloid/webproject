@@ -44,7 +44,9 @@ public class DriversController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/jsp/data_tables/drivers.jsp").forward(request, response);
 
         } catch (SQLException | NamingException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
     }
 }

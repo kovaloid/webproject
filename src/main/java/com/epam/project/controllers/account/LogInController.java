@@ -16,10 +16,6 @@ public class LogInController extends HttpServlet {
 
     private final static Logger log = Logger.getRootLogger();
 
-    public LogInController() {
-        super();
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(true);
@@ -43,15 +39,9 @@ public class LogInController extends HttpServlet {
             else
                 session.setAttribute("role", "client");
 
-
-
-            //request.login(username, password);
-            //request.authenticate(response);
-
-
             response.sendRedirect(successUrl);
         } else {
-            request.getRequestDispatcher("account/fail_auth.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/account/fail_auth.jsp").forward(request, response);
         }
     }
 

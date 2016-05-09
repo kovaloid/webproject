@@ -21,10 +21,6 @@ public class UpdateRoutesController extends HttpServlet {
 
     private final static Logger log = Logger.getRootLogger();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        doPost(request, response);
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Statement stmt;
         try {
@@ -36,12 +32,13 @@ public class UpdateRoutesController extends HttpServlet {
             stmt = con.createStatement();
             int countRows = stmt.executeUpdate("UPDATE KOVAL.ROUTES SET NAME='" + request.getParameter("route_name") + "' WHERE ID='" + request.getParameter("id") + "'");
 
+            log.info(countRows + " was updated");
             request.getRequestDispatcher("RoutesController").forward(request, response);
-
         } catch (SQLException | NamingException e) {
             log.error(e.getMessage());
-            e.printStackTrace();
-            request.getRequestDispatcher("ErrorController").forward(request, response);
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
     }
+
 }

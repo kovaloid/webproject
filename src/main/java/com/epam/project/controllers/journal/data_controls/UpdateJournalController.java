@@ -57,8 +57,8 @@ public class UpdateJournalController extends HttpServlet {
 
         } catch (SQLException | NamingException e) {
             log.error(e.getMessage());
-            e.printStackTrace();
-            request.getRequestDispatcher("ErrorController").forward(request, response);
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
     }
 }
