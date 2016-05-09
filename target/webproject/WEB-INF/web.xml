@@ -34,12 +34,12 @@
         <error-code>401</error-code>
         <location>/WEB-INF/jsp/errors/401.jsp</location>
     </error-page>
-
+<!--
     <error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/WEB-INF/jsp/errors/exception.jsp</location>
     </error-page>
-
+-->
 
     <servlet>
         <servlet-name>AboutPage</servlet-name>
@@ -79,7 +79,7 @@
     </filter>
     <filter-mapping>
         <filter-name>CharsetFilter</filter-name>
-        <url-pattern>/about</url-pattern>
+        <url-pattern>/main</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -88,7 +88,7 @@
     </filter>
     <filter-mapping>
         <filter-name>RequestLoggingFilter</filter-name>
-        <url-pattern>/about</url-pattern>
+        <url-pattern>/main</url-pattern>
     </filter-mapping>
 
     <filter>

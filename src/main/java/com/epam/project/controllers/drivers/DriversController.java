@@ -1,6 +1,7 @@
 package com.epam.project.controllers.drivers;
 
 import com.epam.project.beans.ResultSetBean;
+import com.epam.project.database.connection_pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
@@ -28,25 +29,22 @@ public class DriversController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Statement stmt;
-        ResultSet rs;
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
-            Context initContext = new InitialContext();
-            Context envContext  = (Context)initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");
-            Connection con = ds.getConnection();
-
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT ID, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO_PERSONNEL ORDER BY ID");
 
             request.getSession().setAttribute("drivers_rs", new ResultSetBean(rs));
-            //con.close();
             request.getRequestDispatcher("/WEB-INF/jsp/data_tables/drivers.jsp").forward(request, response);
-
-        } catch (SQLException | NamingException e) {
+        } catch (SQLException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+        } finally {
+            pool.closeConnection(con, stmt, rs);
         }
     }
 }

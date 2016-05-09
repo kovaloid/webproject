@@ -3,6 +3,7 @@ package com.epam.project.controllers.journal;
 import com.epam.project.beans.select_box.CarSetBean;
 import com.epam.project.beans.ResultSetBean;
 import com.epam.project.beans.select_box.RouteSetBean;
+import com.epam.project.database.connection_pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
@@ -30,18 +31,15 @@ public class JournalController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ResultSet rs;
-        Statement stmt;
-        ResultSet rs_2;
-        Statement stmt_2;
-        ResultSet rs_3;
-        Statement stmt_3;
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Statement stmt_2 = null;
+        ResultSet rs_2 = null;
+        Statement stmt_3 = null;
+        ResultSet rs_3 = null;
         try {
-            Context initContext = new InitialContext();
-            Context envContext  = (Context)initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");
-            Connection con = ds.getConnection();
-
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT JOURNAL.ID, NUM, TIME_IN, TIME_OUT, NAME, LAST_NAME FROM KOVAL.JOURNAL "
                     + "JOIN KOVAL.AUTO ON AUTO_ID = AUTO.ID "
@@ -58,13 +56,15 @@ public class JournalController extends HttpServlet {
             request.getSession().setAttribute("journal_rs", new ResultSetBean(rs));
             request.getSession().setAttribute("cars_set", new CarSetBean(rs_2));
             request.getSession().setAttribute("routes_set", new RouteSetBean(rs_3));
-            //con.close();
             request.getRequestDispatcher("/WEB-INF/jsp/data_tables/journal.jsp").forward(request, response);
-
-        } catch (SQLException | NamingException e) {
+        } catch (SQLException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+        } finally {
+            pool.closeStatement(stmt_2, rs_2);
+            pool.closeStatement(stmt_3, rs_3);
+            pool.closeConnection(con, stmt, rs);
         }
     }
 }

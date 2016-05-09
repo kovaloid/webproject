@@ -1,5 +1,6 @@
 package com.epam.project.controllers.journal.data_controls;
 
+import com.epam.project.database.connection_pool.ConnectionPool;
 import com.epam.project.service.DateMaker;
 import org.apache.log4j.Logger;
 
@@ -27,42 +28,26 @@ public class AddJournalController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Statement stmt;
-        Statement stmt_2;
-        Statement stmt_3;
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
         try {
-            Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
-            Connection con = ds.getConnection();
-
-            stmt = con.createStatement();
-
-
-            //stmt_2 = con.createStatement();
-            //stmt_3 = con.createStatement();
-
-            //ResultSet rs_2 = stmt.executeQuery("SELECT ID FROM KOVAL.AUTO WHERE NUM = '" + request.getParameter("num") + "'");
-            //ResultSet rs_3 = stmt.executeQuery("");
-
-
             String day_out = request.getParameter("day_out");
             String month_out = request.getParameter("month_out");
             String year_out = request.getParameter("year_out");
-
-
             String date_out = DateMaker.make(day_out, month_out, year_out);
 
+            stmt = con.createStatement();
+            int rows = stmt.executeUpdate("INSERT INTO KOVAL.JOURNAL(TIME_OUT,AUTO_ID,ROUTE_ID) VALUES('" + date_out + "','" + request.getParameter("num") + "','" + request.getParameter("route") + "')");
 
-            int countRows = stmt.executeUpdate("INSERT INTO KOVAL.JOURNAL(TIME_OUT,AUTO_ID,ROUTE_ID) VALUES('" + date_out + "','" + request.getParameter("num") + "','" + request.getParameter("route") + "')");
-
-
+            log.info(rows + " row(s) was inserted");
             request.getRequestDispatcher("JournalController").forward(request, response);
-
-        } catch (SQLException | NamingException e) {
+        } catch (SQLException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+        } finally {
+            pool.closeConnection(con, stmt);
         }
     }
 }

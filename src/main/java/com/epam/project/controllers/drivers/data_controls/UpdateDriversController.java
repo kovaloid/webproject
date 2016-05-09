@@ -1,5 +1,6 @@
 package com.epam.project.controllers.drivers.data_controls;
 
+import com.epam.project.database.connection_pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
@@ -26,22 +27,21 @@ public class UpdateDriversController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Statement stmt;
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
         try {
-            Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
-            Connection con = ds.getConnection();
-
             stmt = con.createStatement();
-            int countRows = stmt.executeUpdate("UPDATE KOVAL.AUTO_PERSONNEL SET FIRST_NAME='" + request.getParameter("first_name") + "', LAST_NAME='" + request.getParameter("last_name") + "' WHERE ID='" + request.getParameter("id") + "'");
+            int rows = stmt.executeUpdate("UPDATE KOVAL.AUTO_PERSONNEL SET FIRST_NAME='" + request.getParameter("first_name") + "', LAST_NAME='" + request.getParameter("last_name") + "' WHERE ID='" + request.getParameter("id") + "'");
 
+            log.info(rows + " row(s) was updated");
             request.getRequestDispatcher("DriversController").forward(request, response);
-
-        } catch (SQLException | NamingException e) {
+        } catch (SQLException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+        } finally {
+            pool.closeConnection(con, stmt);
         }
     }
 }

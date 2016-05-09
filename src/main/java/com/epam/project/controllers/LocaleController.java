@@ -15,9 +15,15 @@ public class LocaleController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getSession(true).setAttribute("locale", request.getParameter("lang"));
-        String url = (String) request.getSession().getAttribute("url");
-        response.sendRedirect(url);
+        String lang = request.getParameter("lang");
+        if (lang != null) {
+            log.info("Change locale to '" + lang + "' language");
+            request.getSession(true).setAttribute("locale", lang);
+            String url = (String) request.getSession().getAttribute("url");
+            response.sendRedirect(url);
+        } else {
+            log.warn("Bad request for Locale Controller");
+        }
     }
 
 }

@@ -2,7 +2,7 @@ package com.epam.project.database.connection_pool;
 
 import java.util.ResourceBundle;
 
-public class DBResourceManager {
+class DBResourceManager {
     private final static DBResourceManager instance = new DBResourceManager();
 
     private ResourceBundle bundle = ResourceBundle.getBundle("db");
@@ -11,7 +11,7 @@ public class DBResourceManager {
         return instance;
     }
 
-    public String getValue(String key) {
+    String getValue(String key) {
         return bundle.getString(key);
     }
 }

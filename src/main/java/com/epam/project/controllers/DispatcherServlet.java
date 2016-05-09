@@ -8,22 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
 
 @WebServlet("/main")
 public class DispatcherServlet extends HttpServlet {
 
     private final static Logger log = Logger.getRootLogger();
 
-    private String command;
-    private String doStr;
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doPost(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        command = request.getParameter("command");
+        String doParam;
+        String command = request.getParameter("command");
         switch (command) {
             case "locale":
                 request.getRequestDispatcher("LocaleController").forward(request, response);
@@ -38,11 +35,11 @@ public class DispatcherServlet extends HttpServlet {
                 request.getRequestDispatcher("SignUpController").forward(request, response);
                 break;
             case "cars":
-                doStr = request.getParameter("do");
-                if (doStr == null)
+                doParam = request.getParameter("do");
+                if (doParam == null)
                     request.getRequestDispatcher("CarsController").forward(request, response);
                 else
-                    switch (doStr) {
+                    switch (doParam) {
                         case "add":
                             request.getRequestDispatcher("AddCarsController").forward(request, response);
                             break;
@@ -55,11 +52,11 @@ public class DispatcherServlet extends HttpServlet {
                     }
                 break;
             case "drivers":
-                doStr = request.getParameter("do");
-                if (doStr == null)
+                doParam = request.getParameter("do");
+                if (doParam == null)
                     request.getRequestDispatcher("DriversController").forward(request, response);
                 else
-                    switch (doStr) {
+                    switch (doParam) {
                         case "add":
                             request.getRequestDispatcher("AddDriversController").forward(request, response);
                             break;
@@ -72,11 +69,11 @@ public class DispatcherServlet extends HttpServlet {
                     }
                 break;
             case "routes":
-                doStr = request.getParameter("do");
-                if (doStr == null)
+                doParam = request.getParameter("do");
+                if (doParam == null)
                     request.getRequestDispatcher("RoutesController").forward(request, response);
                 else
-                    switch (doStr) {
+                    switch (doParam) {
                         case "add":
                             request.getRequestDispatcher("AddRoutesController").forward(request, response);
                             break;
@@ -89,11 +86,11 @@ public class DispatcherServlet extends HttpServlet {
                     }
                 break;
             case "journal":
-                doStr = request.getParameter("do");
-                if (doStr == null)
+                doParam = request.getParameter("do");
+                if (doParam == null)
                     request.getRequestDispatcher("JournalController").forward(request, response);
                 else
-                    switch (doStr) {
+                    switch (doParam) {
                         case "add":
                             request.getRequestDispatcher("AddJournalController").forward(request, response);
                             break;
@@ -106,6 +103,7 @@ public class DispatcherServlet extends HttpServlet {
                     }
                 break;
             default:
+                log.warn("Bad request for Dispatcher Servlet");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }

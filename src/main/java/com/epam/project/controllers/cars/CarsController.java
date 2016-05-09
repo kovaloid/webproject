@@ -2,6 +2,7 @@ package com.epam.project.controllers.cars;
 
 import com.epam.project.beans.select_box.DriverSetBean;
 import com.epam.project.beans.ResultSetBean;
+import com.epam.project.database.connection_pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
@@ -29,24 +30,13 @@ public class CarsController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ResultSet rs;
-        Statement stmt;
-        ResultSet rs_2;
-        Statement stmt_2;
-
-        DataSource ds = null;
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Statement stmt_2 = null;
+        ResultSet rs_2 = null;
         try {
-            Context initContext = new InitialContext();
-            Context envContext  = (Context)initContext.lookup("java:/comp/env");
-            ds = (DataSource)envContext.lookup("jdbc/myoracle");
-        } catch (NamingException e) {
-            log.error(e.getMessage());
-            request.setAttribute("exception", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
-        }
-
-        assert ds != null;
-        try (Connection con = ds.getConnection()) {
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT AUTO.ID, NUM, COLOR, MARK, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO "
                     + "JOIN KOVAL.AUTO_PERSONNEL ON PERSONNEL_ID = AUTO_PERSONNEL.ID ORDER BY AUTO.ID");
@@ -61,6 +51,9 @@ public class CarsController extends HttpServlet {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+        } finally {
+            pool.closeStatement(stmt_2, rs_2);
+            pool.closeConnection(con, stmt, rs);
         }
     }
 

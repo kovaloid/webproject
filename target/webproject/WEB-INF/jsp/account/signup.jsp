@@ -13,6 +13,7 @@
     <fmt:message bundle="${loc}" key="local.signup.enter_password" var="password_text"/>
     <fmt:message bundle="${loc}" key="local.signup.enter_repeat" var="repeat_text"/>
     <fmt:message bundle="${loc}" key="local.signup.reg_button" var="reg_button"/>
+    <fmt:message bundle="${loc}" key="local.input.if_empty" var="if_empty"/>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="author" content="Artem Kovalev"/>
@@ -44,7 +45,7 @@
                         ${login_text}:
                     </td>
                     <td>
-                        <input title="${login_text}" class="form-control margin" type="text" name="username" size="30">
+                        <input title="${login_text}" class="form-control margin" type="text" name="username" size="30" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')">
                     </td>
                 </tr>
                 <tr>
@@ -53,7 +54,7 @@
                     </td>
                     <td>
                         <input title="${password_text}" class="form-control margin" type="password" name="password"
-                               size="30">
+                               size="30" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')">
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +63,7 @@
                     </td>
                     <td>
                         <input title="${repeat_text}" class="form-control margin" type="password" name="repeat"
-                               size="30">
+                               size="30" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')">
                     </td>
                 </tr>
                 <tr>

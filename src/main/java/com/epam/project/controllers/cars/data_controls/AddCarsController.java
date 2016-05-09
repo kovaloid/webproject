@@ -1,5 +1,6 @@
 package com.epam.project.controllers.cars.data_controls;
 
+import com.epam.project.database.connection_pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
@@ -26,23 +27,21 @@ public class AddCarsController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Statement stmt;
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
         try {
-            Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
-            Connection con = ds.getConnection();
-
             stmt = con.createStatement();
+            int rows = stmt.executeUpdate("INSERT INTO KOVAL.AUTO(NUM,MARK,COLOR,PERSONNEL_ID) VALUES('" + request.getParameter("num") + "','" + request.getParameter("mark") + "','" + request.getParameter("color") + "','" + request.getParameter("driver") + "')");
 
-            int countRows = stmt.executeUpdate("INSERT INTO KOVAL.AUTO(NUM,MARK,COLOR,PERSONNEL_ID) VALUES('" + request.getParameter("num") + "','" + request.getParameter("mark") + "','" + request.getParameter("color") + "','" + request.getParameter("driver") + "')");
-
+            log.info(rows + " row(s) was inserted");
             request.getRequestDispatcher("CarsController").forward(request, response);
-
-        } catch (SQLException | NamingException e) {
+        } catch (SQLException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+        } finally {
+            pool.closeConnection(con, stmt);
         }
     }
 }

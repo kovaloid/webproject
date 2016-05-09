@@ -4,10 +4,15 @@ public class UserBean {
 
     private String username;
     private String password;
+    private String role;
 
-    public UserBean(String username, String password) {
+    public UserBean() {
+    }
+
+    public UserBean(String username, String password, String role) {
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -26,4 +31,11 @@ public class UserBean {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

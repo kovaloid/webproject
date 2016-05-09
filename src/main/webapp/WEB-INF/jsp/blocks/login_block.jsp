@@ -10,6 +10,7 @@
 <fmt:message bundle="${loc}" key="local.signin.enter" var="enter_button"/>
 <fmt:message bundle="${loc}" key="local.signin.reg" var="reg_button"/>
 <fmt:message bundle="${loc}" key="local.signin.welcome" var="welcome_text"/>
+<fmt:message bundle="${loc}" key="local.input.if_empty" var="if_empty"/>
 
 <c:set var="successUrl" scope="session" value="${param.page}" />
 
@@ -21,9 +22,11 @@
         <div class="panel-body">
 
 
-
             <c:if test="${sessionScope.status eq 'in'}">
-                <p>${welcome_text}, <c:out value="${sessionScope.login}" /></p>
+                <jsp:useBean id="user" class="com.epam.project.beans.UserBean" scope="session" />
+                <p>${welcome_text}, <c:out value="${user.username}"/></p>
+                <p>Role is <c:out value="${user.role}"/></p>
+
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="logout"/>
                     <button type="submit" class="btn btn-success margin">Sign Out</button>
@@ -33,8 +36,8 @@
             <c:if test="${sessionScope.status ne 'in'}">
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="login"/>
-                    <input placeholder="${login_text}" class="form-control margin" type="text" name="username"><br/>
-                    <input placeholder="${password_text}" class="form-control margin" type="password" name="password"><br/>
+                    <input placeholder="${login_text}" class="form-control margin" type="text" name="username" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')"><br/>
+                    <input placeholder="${password_text}" class="form-control margin" type="password" name="password" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')"><br/>
                     <button type="submit" class="btn btn-success margin">${enter_button}</button>
                     <a href="${pageContext.request.contextPath}/signup">${reg_button}</a>
                 </form>

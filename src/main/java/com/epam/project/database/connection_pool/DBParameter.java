@@ -1,6 +1,6 @@
 package com.epam.project.database.connection_pool;
 
-public interface DBParameter {
+interface DBParameter {
     String DB_DRIVER = "db.driver";
     String DB_URL = "db.url";
     String DB_USER = "db.user";

@@ -1,6 +1,8 @@
 package com.epam.project.controllers.account;
 
+import com.epam.project.database.connection_pool.ConnectionPool;
 import com.epam.project.service.AccountManager;
+import com.epam.project.service.constants.Account;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -27,30 +30,34 @@ public class SignUpController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Statement stmt;
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
         try {
-            Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
-            Connection con = ds.getConnection();
+            String username = request.getParameter(Account.USERNAME);
+            String password = request.getParameter(Account.PASSWORD);
+            String repeat = request.getParameter(Account.REPEAT);
 
-            stmt = con.createStatement();
-            AccountManager m = new AccountManager();
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            String repeat = request.getParameter("repeat");
-            String result = m.signup(username, password, repeat);
-            if (result.equals("success")) {
-                int countRows = stmt.executeUpdate("INSERT INTO KOVAL.USERS(LOGIN,PASSWORD) VALUES('" + request.getParameter("username") + "','" + request.getParameter("password") + "')");
-            } else
-                log.info("sign up error");
+            AccountManager account = new AccountManager();
+            String result = account.signup(username, password, repeat);
 
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            if (result.equals(Account.Result.SUCCESS)) {
+                stmt = con.createStatement();
+                int rows = stmt.executeUpdate("INSERT INTO KOVAL.USERS(LOGIN,PASSWORD) VALUES('" + username + "','" + password + "')");
 
-        } catch (SQLException | NamingException e) {
+                log.info(rows + " user(s) was inserted");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            } else {
+                log.warn("User has problems with sign up");
+                request.setAttribute("result_signup", result);
+                request.getRequestDispatcher("/WEB-INF/jsp/account/fail_signup.jsp").forward(request, response);
+            }
+        } catch (SQLException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+        } finally {
+            pool.closeConnection(con, stmt);
         }
     }
 }

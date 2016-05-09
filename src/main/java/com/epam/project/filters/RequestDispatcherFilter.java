@@ -21,11 +21,10 @@ public class RequestDispatcherFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-
         HttpServletRequest req = (HttpServletRequest) request;
         String param = req.getParameter("command");
         if (param == null) {
-            log.info("bad param");
+            log.info("Bad request");
         } else {
             if (param.equals(Commands.LOGIN) ||
                     param.equals(Commands.LOGOUT) ||
@@ -36,13 +35,11 @@ public class RequestDispatcherFilter implements Filter {
                     param.equals(Commands.ROUTES) ||
                     param.equals(Commands.CARS)) {
 
-
                 chain.doFilter(request, response);
             } else {
-                log.info("bad param");
+                log.info("Bad parameter");
             }
         }
-
     }
 
     @Override

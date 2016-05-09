@@ -1,5 +1,6 @@
 package com.epam.project.controllers.routes.data_controls;
 
+import com.epam.project.database.connection_pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
@@ -22,22 +23,21 @@ public class AddRoutesController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Statement stmt;
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
         try {
-            Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
-            Connection con = ds.getConnection();
-
             stmt = con.createStatement();
-            int countRows = stmt.executeUpdate("INSERT INTO KOVAL.ROUTES(NAME) VALUES('" + request.getParameter("route_name") + "')");
+            int rows = stmt.executeUpdate("INSERT INTO KOVAL.ROUTES(NAME) VALUES('" + request.getParameter("route_name") + "')");
 
-            log.info(countRows + " was inserted");
+            log.info(rows + " row(s) was inserted");
             request.getRequestDispatcher("RoutesController").forward(request, response);
-        } catch (SQLException | NamingException e) {
+        } catch (SQLException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+        } finally {
+            pool.closeConnection(con, stmt);
         }
     }
 

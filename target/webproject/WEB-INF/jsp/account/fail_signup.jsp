@@ -1,16 +1,50 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 803337
-  Date: 04.05.2016
-  Time: 21:52
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+
+    <fmt:setLocale value="${sessionScope.locale}" />
+    <fmt:setBundle basename="locale" var="loc" />
+    <fmt:message bundle="${loc}" key="local.title" var="page_title" />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Artem Kovalev" />
+    <title>${page_title}</title>
+    <link href="../../../css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../../../css/template.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="../../../img/favicon.png" />
 </head>
 <body>
 
+<jsp:include page="/WEB-INF/jsp/blocks/header_block.jsp" />
+
+<div class="main">
+    <div class="well">
+
+        <div class="alert alert-danger">
+            <strong>Error!</strong><br />
+            <c:choose>
+                <c:when test="${requestScope.result_signup == 'fail_username'}">
+                    Bad username
+                </c:when>
+                <c:when test="${requestScope.result_signup == 'fail_password'}">
+                    Bad password
+                </c:when>
+                <c:when test="${requestScope.result_signup == 'fail_repeat'}">
+                    Bad repeat
+                </c:when>
+                <c:otherwise>
+                    Other error
+                </c:otherwise>
+            </c:choose>
+            <input type="button" onclick="history.back();" value="Назад"/>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
+

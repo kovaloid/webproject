@@ -8,7 +8,7 @@ import java.io.IOException;
 public class CharsetFilter implements Filter {
 
     private String encoding;
-    private ServletContext context;
+
     private final static Logger log = Logger.getRootLogger();
 
     @Override
@@ -21,8 +21,7 @@ public class CharsetFilter implements Filter {
         request.setCharacterEncoding(encoding);
         response.setCharacterEncoding(encoding);
 
-        log.info("charset was set");
-
+        log.info("Charset '" + encoding + "' was set");
         chain.doFilter(request, response);
     }
 
