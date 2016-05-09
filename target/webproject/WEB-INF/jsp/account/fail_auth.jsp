@@ -39,7 +39,8 @@
                     Other error
                 </c:otherwise>
             </c:choose>
-            <input type="button" onclick="history.back();" value="Назад"/>
+            <br />
+            <input type="button" class="btn btn-success margin" onclick="history.back();" value="Назад"/>
 
         </div>
 
