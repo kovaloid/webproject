@@ -25,7 +25,7 @@
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="cars"/>
                     <input type="hidden" name="do" value="add"/>
-                    <input placeholder="${car_num}" class="form-control margin" type="text" name="num"><br/>
+                    <input placeholder="${car_num}" class="form-control margin" type="text" name="car_number"><br/>
                     <select title="color" required name="color" class="form-control margin">
                         <option selected disabled>${choose_color}</option>
                         <option value="blue">синий</option>
@@ -37,7 +37,7 @@
                         <option value="black">черный</option>
                         <option value="white">белый</option>
                     </select>
-                    <select title="mark" required name="mark" class="form-control margin">
+                    <select title="brand" required name="brand" class="form-control margin">
                         <option selected disabled>${choose_mark}</option>
                         <option value="Gazel">Газель</option>
                         <option value="Mercedez">Мерседес</option>
@@ -45,19 +45,22 @@
                         <option value="Lada">Лада</option>
                         <option value="Volga">Волга</option>
                     </select>
-                    <select title="driver" required name="driver" class="form-control margin">
+                    <select title="driver" required name="driver_id" class="form-control margin">
                         <option selected disabled>${choose_driver}</option>
 
-                        <%--<jsp:useBean id="drivers_set" class="com.epam.project.beans.select_box.DriverSetBean" scope="session"/>
-                        <c:forEach var="i" begin="0" end="${drivers_set.size}">
-                            <option value="${drivers_set.listIDs[i]}">
-                                <c:out value="${drivers_set.listIDs[i]} - ${drivers_set.listNames[i]}"/>
-                            </option>
-                        </c:forEach>--%>
-                        <jsp:useBean id="drivers_set" class="com.epam.project.beans.TableBean" scope="session"/>
-                        <mytag:select_box bean="${drivers_set}" />
+                        <mytag:select_box bean="${sessionScope.drivers_select}" />
 
                     </select>
+                    <!--<select title="driver" required name="ready" class="form-control margin">
+                        <option selected disabled>готов ли?</option>
+                        <option value="yes">готов</option>
+                        <option value="no">не готов</option>
+
+                    </select>--><br />
+                    <label><input name="ready" type="radio" value="yes" checked> Исправен</label><br>
+                    <label><input name="ready" type="radio" value="no"> Не исправен</label><br />
+
+
                     <input type="submit" class="btn btn-success" value="${add_button}"/>
                 </form>
             </div>
@@ -66,7 +69,7 @@
                     <input type="hidden" name="command" value="cars"/>
                     <input type="hidden" name="do" value="update"/>
                     <input placeholder="ID" class="form-control margin" type="text" name="id"><br/>
-                    <input placeholder="${car_num}" class="form-control margin" type="text" name="num"><br/>
+                    <input placeholder="${car_num}" class="form-control margin" type="text" name="car_number"><br/>
                     <select title="color" required name="color" class="form-control margin">
                         <option selected disabled>${choose_color}</option>
                         <option value="blue">синий</option>
@@ -78,7 +81,7 @@
                         <option value="black">черный</option>
                         <option value="white">белый</option>
                     </select>
-                    <select title="mark" required name="mark" class="form-control margin">
+                    <select title="brand" required name="brand" class="form-control margin">
                         <option selected disabled>${choose_mark}</option>
                         <option value="Gazel">Газель</option>
                         <option value="Mercedez">Мерседес</option>
@@ -86,20 +89,24 @@
                         <option value="Lada">Лада</option>
                         <option value="Volga">Волга</option>
                     </select>
-                    <select title="driver" required name="driver" class="form-control margin">
+                    <select title="driver" required name="driver_id" class="form-control margin">
                         <option selected disabled>${choose_driver}</option>
 
-                        <%--<c:forEach var="i" begin="0" end="${drivers_set.size}">
-                            <option value="${drivers_set.listIDs[i]}">
-                                <c:out value="${drivers_set.listIDs[i]} - ${drivers_set.listNames[i]}"/>
-                            </option>
-                        </c:forEach>--%>
 
-
-                        <mytag:select_box bean="${drivers_set}" />
+                        <mytag:select_box bean="${sessionScope.drivers_select}" />
 
 
                     </select>
+
+                    <!--<select title="driver" required name="ready" class="form-control margin">
+                        <option selected disabled>готов ли?</option>
+                        <option value="yes">готов</option>
+                        <option value="no">не готов</option>
+
+                    </select>--><br />
+                    <label><input name="ready" type="radio" value="yes" checked> Исправен</label><br>
+                    <label><input name="ready" type="radio" value="no"> Не исправен</label><br />
+                    
                     <input type="submit" class="btn btn-success" value="${update_button}"/>
                 </form>
             </div>

@@ -18,22 +18,6 @@ public class RemoveJournalController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        /*ConnectionPool pool = ConnectionPool.getInstance();
-        Connection con = pool.takeConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
-            int rows = stmt.executeUpdate("DELETE FROM KOVAL.JOURNAL WHERE ID='" + request.getParameter("id") + "'");
-
-            log.info(rows + " row(s) was deleted");
-            request.getRequestDispatcher("JournalController").forward(request, response);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            request.setAttribute("exception", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
-        } finally {
-            pool.closeConnection(con, stmt);
-        }*/
         DAO<JournalBean> dao = new JournalDAO();
 
         try {

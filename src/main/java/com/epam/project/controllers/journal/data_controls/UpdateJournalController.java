@@ -24,34 +24,6 @@ public class UpdateJournalController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        /*ConnectionPool pool = ConnectionPool.getInstance();
-        Connection con = pool.takeConnection();
-        Statement stmt = null;
-        try {
-            String day_in = request.getParameter("day_in");
-            String month_in = request.getParameter("month_in");
-            String year_in = request.getParameter("year_in");
-            String date_in = DateMaker.make(day_in, month_in, year_in);
-
-            stmt = con.createStatement();
-            int rows = stmt.executeUpdate("UPDATE KOVAL.JOURNAL SET TIME_IN='" + date_in + "' WHERE ID='" + request.getParameter("id") + "'");
-
-            log.info(rows + " row(s) was updated");
-            request.getRequestDispatcher("JournalController").forward(request, response);
-        } catch (SQLException e) {
-            //log.error(e.getMessage());
-            //request.setAttribute("exception", e.getMessage());
-            //request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
-
-            throw new RuntimeException("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-
-            //response.sendError(404, "12");
-        } finally {
-            pool.closeConnection(con, stmt);
-        }*/
-
-
-
         try {
             DAO<JournalBean> dao = new JournalDAO();
 

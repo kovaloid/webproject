@@ -29,15 +29,15 @@ public class JournalController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         DAO<JournalBean> dao = new JournalDAO();
         TableBean journal = dao.getAll();
-        request.getSession().setAttribute("journal_rs", journal);
+        request.getSession().setAttribute("journal_table", journal);
 
         DAO<CarBean> dao2 = new CarsDAO();
         TableBean cars = dao2.getAll();
-        request.getSession().setAttribute("cars_set", cars);
+        request.getSession().setAttribute("cars_select", cars);
 
         DAO<RouteBean> dao3 = new RoutesDAO();
         TableBean routes = dao3.getAll();
-        request.getSession().setAttribute("routes_set", routes);
+        request.getSession().setAttribute("routes_select", routes);
 
         request.getRequestDispatcher("/WEB-INF/jsp/data_tables/journal.jsp").forward(request, response);
     }

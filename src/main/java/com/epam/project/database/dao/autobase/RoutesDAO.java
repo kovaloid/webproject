@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RoutesDAO extends AbstractDAO<RouteBean> {
-
     @Override
     public TableBean getAll() {
         Connection con = pool.takeConnection();
@@ -19,7 +18,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
         ResultSet rs = null;
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT ID, NAME FROM KOVAL.ROUTES ORDER BY ID");
+            rs = stmt.executeQuery("SELECT ID, ROUTE_NAME, LENGTH, PRICE FROM AUTOBASE.ROUTES ORDER BY ID");
             List<String> headers = parseTableHeaders(rs);
             List<RouteBean> lines = parseTableLines(rs);
             routesTable.setHeaders(headers);
@@ -40,11 +39,13 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("INSERT INTO KOVAL.ROUTES(NAME) VALUES(?)");
-            stmt.setString(1, route.getName());
+            stmt = con.prepareStatement("INSERT INTO AUTOBASE.ROUTES(ROUTE_NAME, LENGTH, PRICE) VALUES(?,?,?)");
+            stmt.setString(1, route.getRouteName());
+            stmt.setInt(2, route.getLength());
+            stmt.setInt(3, route.getPrice());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On insert modify more then 1 record: " + rows);
+                throw new DAOException("On insert modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was inserted");
         } catch (SQLException e) {
@@ -60,12 +61,14 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("UPDATE KOVAL.ROUTES SET NAME=? WHERE ID=?");
-            stmt.setString(1, route.getName());
-            stmt.setInt(2, route.getId());
+            stmt = con.prepareStatement("UPDATE AUTOBASE.ROUTES SET ROUTE_NAME=?, LENGTH=?, PRICE=? WHERE ID=?");
+            stmt.setString(1, route.getRouteName());
+            stmt.setInt(2, route.getLength());
+            stmt.setInt(3, route.getPrice());
+            stmt.setInt(4, route.getId());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On update modify more then 1 record: " + rows);
+                throw new DAOException("On update modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was updated");
         } catch (SQLException e) {
@@ -81,11 +84,11 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("DELETE FROM KOVAL.ROUTES WHERE ID=?");
+            stmt = con.prepareStatement("DELETE FROM AUTOBASE.ROUTES WHERE ID=?");
             stmt.setInt(1, route.getId());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On delete modify more then 1 record: " + rows);
+                throw new DAOException("On delete modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was deleted");
         } catch (SQLException e) {
@@ -103,7 +106,9 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
             while (rs.next()) {
                 RouteBean route = new RouteBean();
                 route.setId(rs.getInt("ID"));
-                route.setName(rs.getString("NAME"));
+                route.setRouteName(rs.getString("ROUTE_NAME"));
+                route.setLength(rs.getInt("LENGTH"));
+                route.setPrice(rs.getInt("PRICE"));
                 result.add(route);
             }
         } catch (SQLException e) {
@@ -112,6 +117,5 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
         }
         return result;
     }
-
 }
 

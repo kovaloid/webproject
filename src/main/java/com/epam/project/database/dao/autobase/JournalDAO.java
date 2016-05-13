@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class JournalDAO extends AbstractDAO<JournalBean> {
-
+    @Override
     public TableBean getAll() {
         Connection con = pool.takeConnection();
         TableBean<JournalBean> journalTable = new TableBean<>();
@@ -18,10 +18,10 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
         ResultSet rs = null;
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT JOURNAL.ID, NUM, TIME_OUT, TIME_IN, NAME, LAST_NAME FROM KOVAL.JOURNAL "
-                    + "JOIN KOVAL.AUTO ON AUTO_ID = AUTO.ID "
-                    + "JOIN KOVAL.ROUTES ON ROUTE_ID = ROUTES.ID "
-                    + "JOIN KOVAL.AUTO_PERSONNEL ON PERSONNEL_ID = AUTO_PERSONNEL.ID "
+            rs = stmt.executeQuery("SELECT JOURNAL.ID, CAR_NUMBER, DATE_OUT, DATE_IN, ROUTE_NAME, SURNAME FROM AUTOBASE.JOURNAL "
+                    + "JOIN AUTOBASE.CARS ON CAR_ID = CARS.ID "
+                    + "JOIN AUTOBASE.ROUTES ON ROUTE_ID = ROUTES.ID "
+                    + "JOIN AUTOBASE.DRIVERS ON DRIVER_ID = DRIVERS.ID "
                     + "ORDER BY JOURNAL.ID");
             List<String> headers = parseTableHeaders(rs);
             List<JournalBean> lines = parseTableLines(rs);
@@ -35,29 +35,21 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
         } finally {
             pool.closeConnection(con, stmt, rs);
         }
-
-        //log.info(journalTable.getLines().get(1).getTimeIn().toString());
-        //log.info(journalTable.getLines().get(2).getTimeIn().toString());
-        //if(journalTable.getLines().get(3).getTimeIn().toString() == null) {
-        //    log.info("HOLY SHIT!");
-        //}
-        //log.info(journalTable.getLines().get(3).getTimeIn().toString());
         return journalTable;
     }
 
+    @Override
     public void add(JournalBean journal) {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("INSERT INTO KOVAL.JOURNAL(TIME_OUT,AUTO_ID,ROUTE_ID) VALUES(?,?,?)");
-
-            stmt.setDate(1, journal.getTimeOut());
+            stmt = con.prepareStatement("INSERT INTO AUTOBASE.JOURNAL(DATE_OUT,CAR_ID,ROUTE_ID) VALUES(?,?,?)");
+            stmt.setDate(1, journal.getDateOut());
             stmt.setInt(2, journal.getCarId());
             stmt.setInt(3, journal.getRouteId());
-
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On insert modify more then 1 record: " + rows);
+                throw new DAOException("On insert modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was inserted");
         } catch (SQLException e) {
@@ -68,17 +60,17 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
         }
     }
 
+    @Override
     public void update(JournalBean journal) {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("UPDATE KOVAL.JOURNAL SET TIME_IN=? WHERE ID=?");
-
-            stmt.setDate(1, journal.getTimeIn());
+            stmt = con.prepareStatement("UPDATE AUTOBASE.JOURNAL SET DATE_IN=? WHERE ID=?");
+            stmt.setDate(1, journal.getDateIn());
             stmt.setInt(2, journal.getId());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On update modify more then 1 record: " + rows);
+                throw new DAOException("On update modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was updated");
         } catch (SQLException e) {
@@ -89,16 +81,16 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
         }
     }
 
+    @Override
     public void remove(JournalBean journal) {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("DELETE FROM KOVAL.JOURNAL WHERE ID=?");
-
+            stmt = con.prepareStatement("DELETE FROM AUTOBASE.JOURNAL WHERE ID=?");
             stmt.setInt(1, journal.getId());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On delete modify more then 1 record: " + rows);
+                throw new DAOException("On delete modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was deleted");
         } catch (SQLException e) {
@@ -109,17 +101,18 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
         }
     }
 
+    @Override
     protected List<JournalBean> parseTableLines(ResultSet rs) {
         List<JournalBean> result = new LinkedList<>();
         try {
             while (rs.next()) {
                 JournalBean journal = new JournalBean();
                 journal.setId(rs.getInt("ID"));
-                journal.setNumber(rs.getString("NUM"));
-                journal.setTimeOut(rs.getDate("TIME_OUT"));
-                journal.setTimeIn(rs.getDate("TIME_IN"));
-                journal.setRouteName(rs.getString("NAME"));
-                journal.setDriverSurname(rs.getString("LAST_NAME"));
+                journal.setNumber(rs.getString("CAR_NUMBER"));
+                journal.setDateOut(rs.getDate("DATE_OUT"));
+                journal.setDateIn(rs.getDate("DATE_IN"));
+                journal.setRouteName(rs.getString("ROUTE_NAME"));
+                journal.setDriverSurname(rs.getString("SURNAME"));
                 result.add(journal);
             }
         } catch (SQLException e) {
@@ -128,5 +121,4 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
         }
         return result;
     }
-
 }

@@ -1,6 +1,6 @@
 package com.epam.project.controllers.account;
 
-import com.epam.project.database.pool.ConnectionPool;
+import com.epam.project.database.connection_pool.ConnectionPool;
 import com.epam.project.service.AccountManager;
 import com.epam.project.service.constants.Account;
 import org.apache.log4j.Logger;
@@ -29,7 +29,7 @@ public class SignUpController extends HttpServlet {
         Connection con = pool.takeConnection();
         Statement stmt = null;
         try {
-            String username = request.getParameter(Account.USERNAME);
+            String username = request.getParameter(Account.LOGIN);
             String password = request.getParameter(Account.PASSWORD);
             String repeat = request.getParameter(Account.REPEAT);
 

@@ -24,33 +24,17 @@ public class UpdateCarsController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        /*ConnectionPool pool = ConnectionPool.getInstance();
-        Connection con = pool.takeConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
-            int rows = stmt.executeUpdate("UPDATE KOVAL.AUTO SET NUM='" + request.getParameter("num") + "', MARK='" + request.getParameter("mark") + "', COLOR='" + request.getParameter("color") + "', PERSONNEL_ID='" + request.getParameter("driver") + "' WHERE ID='" + request.getParameter("id") + "'");
-
-            log.info(rows + " row(s) was updated");
-            request.getRequestDispatcher("CarsController").forward(request, response);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            request.setAttribute("exception", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
-        } finally {
-            pool.closeConnection(con, stmt);
-        }*/
-
         try {
             DAO<CarBean> dao = new CarsDAO();
 
             Integer id = Integer.valueOf(request.getParameter("id"));
-            String number = request.getParameter("num");
-            String mark = request.getParameter("mark");
+            String number = request.getParameter("car_number");
+            String brand = request.getParameter("brand");
             String color = request.getParameter("color");
-            String driverId = request.getParameter("driver");
+            String ready = request.getParameter("ready");
+            Integer driverId = Integer.valueOf(request.getParameter("driver_id"));
 
-            dao.update(new CarBean(id, number, mark, color, driverId));
+            dao.update(new CarBean(id, number, brand, color, driverId, ready));
             request.getRequestDispatcher("CarsController").forward(request, response);
         } catch (NumberFormatException e) {
             log.error(e.getMessage());

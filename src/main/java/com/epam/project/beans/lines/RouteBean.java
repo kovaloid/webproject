@@ -3,7 +3,9 @@ package com.epam.project.beans.lines;
 public class RouteBean implements Line {
 
     private Integer id = null;
-    private String name;
+    private String routeName;
+    private Integer length;
+    private Integer price;
 
     public RouteBean() {}
 
@@ -11,13 +13,17 @@ public class RouteBean implements Line {
         this.id = id;
     }
 
-    public RouteBean(String name) {
-        this.name = name;
+    public RouteBean(String routeName, Integer length, Integer price) {
+        this.routeName = routeName;
+        this.length = length;
+        this.price = price;
     }
 
-    public RouteBean(Integer id, String name) {
+    public RouteBean(Integer id, String routeName, Integer length, Integer price) {
         this.id = id;
-        this.name = name;
+        this.routeName = routeName;
+        this.length = length;
+        this.price = price;
     }
 
     @Override
@@ -28,10 +34,14 @@ public class RouteBean implements Line {
                 value = String.valueOf(getId());
                 break;
             case 1:
-                value = getName();
+                if (getRouteName() == null)
+                    value = "---";
+                else
+                    value = getRouteName();
+                //value = getRouteName();
                 break;
             default:
-                value = "none";
+                value = "---";
         }
         return value;
     }
@@ -42,12 +52,27 @@ public class RouteBean implements Line {
 
     public void setId(int id) { this.id = id;  }
 
-    public String getName() {
-        return name;
+    public String getRouteName() {
+        return routeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRouteName(String name) {
+        this.routeName = name;
     }
 
+    public Integer getLength() {
+        return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 }

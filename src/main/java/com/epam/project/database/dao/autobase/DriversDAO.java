@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DriversDAO extends AbstractDAO<DriverBean> {
-
     @Override
     public TableBean getAll() {
         Connection con = pool.takeConnection();
@@ -19,7 +18,7 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
         ResultSet rs = null;
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT ID, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO_PERSONNEL ORDER BY ID");
+            rs = stmt.executeQuery("SELECT ID, NAME, SURNAME, GENDER, PHONE FROM AUTOBASE.DRIVERS ORDER BY ID");
             List<String> headers = parseTableHeaders(rs);
             List<DriverBean> lines = parseTableLines(rs);
             driversTable.setHeaders(headers);
@@ -40,12 +39,14 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("INSERT INTO KOVAL.AUTO_PERSONNEL(FIRST_NAME,LAST_NAME) VALUES(?,?)");
+            stmt = con.prepareStatement("INSERT INTO AUTOBASE.DRIVERS(NAME,SURNAME,GENDER,PHONE) VALUES(?,?,?,?)");
             stmt.setString(1, driver.getName());
             stmt.setString(2, driver.getSurname());
+            stmt.setString(3, driver.getGender());
+            stmt.setInt(4, driver.getPhone());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On insert modify more then 1 record: " + rows);
+                throw new DAOException("On insert modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was inserted");
         } catch (SQLException e) {
@@ -61,13 +62,15 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("UPDATE KOVAL.AUTO_PERSONNEL SET FIRST_NAME=?, LAST_NAME=? WHERE ID=?");
+            stmt = con.prepareStatement("UPDATE AUTOBASE.DRIVERS SET NAME=?, SURNAME=?, GENDER=?, PHONE=? WHERE ID=?");
             stmt.setString(1, driver.getName());
             stmt.setString(2, driver.getSurname());
-            stmt.setInt(3, driver.getId());
+            stmt.setString(3, driver.getGender());
+            stmt.setInt(4, driver.getPhone());
+            stmt.setInt(5, driver.getId());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On update modify more then 1 record: " + rows);
+                throw new DAOException("On update modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was updated");
         } catch (SQLException e) {
@@ -83,11 +86,11 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("DELETE FROM KOVAL.AUTO_PERSONNEL WHERE ID=?");
+            stmt = con.prepareStatement("DELETE FROM AUTOBASE.DRIVERS WHERE ID=?");
             stmt.setInt(1, driver.getId());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On delete modify more then 1 record: " + rows);
+                throw new DAOException("On delete modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was deleted");
         } catch (SQLException e) {
@@ -105,8 +108,10 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
             while (rs.next()) {
                 DriverBean driver = new DriverBean();
                 driver.setId(rs.getInt("ID"));
-                driver.setName(rs.getString("FIRST_NAME"));
-                driver.setSurname(rs.getString("LAST_NAME"));
+                driver.setName(rs.getString("NAME"));
+                driver.setSurname(rs.getString("SURNAME"));
+                driver.setGender(rs.getString("GENDER"));
+                driver.setPhone(rs.getInt("PHONE"));
                 result.add(driver);
             }
         } catch (SQLException e) {
@@ -115,5 +120,4 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
         }
         return result;
     }
-
 }

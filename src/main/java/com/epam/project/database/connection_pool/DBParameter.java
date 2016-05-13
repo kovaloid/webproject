@@ -1,4 +1,4 @@
-package com.epam.project.database.pool;
+package com.epam.project.database.connection_pool;
 
 interface DBParameter {
     String DB_DRIVER = "db.driver";

@@ -100,7 +100,7 @@
                     </table>
                     --%>
 
-                    <select title="num" required name="num" class="form-control margin">
+                    <select title="num" required name="car_id" class="form-control margin">
                         <option selected disabled>${choose_car}</option>
 
                         <%--<jsp:useBean id="cars_set" class="com.epam.project.beans.select_box.CarSetBean" scope="session"/>
@@ -109,13 +109,12 @@
                                 <c:out value="${cars_set.listIDs[i]} - ${cars_set.listNames[i]}"/>
                             </option>
                         </c:forEach>--%>
-                        <jsp:useBean id="cars_set" class="com.epam.project.beans.TableBean" scope="session"/>
-                        <jsp:useBean id="routes_set" class="com.epam.project.beans.TableBean" scope="session"/>
 
-                        <mytag:select_box bean="${cars_set}" />
+
+                        <mytag:select_box bean="${sessionScope.cars_select}" />
 
                     </select>
-                    <select title="route" required name="route" class="form-control margin">
+                    <select title="route" required name="route_id" class="form-control margin">
                         <option selected disabled>${choose_route}</option>
 
                         <%--<jsp:useBean id="routes_set" class="com.epam.project.beans.select_box.RouteSetBean" scope="session"/>
@@ -124,7 +123,7 @@
                                 <c:out value="${routes_set.listIDs[i]} - ${routes_set.listNames[i]}"/>
                             </option>
                         </c:forEach>--%>
-                        <mytag:select_box bean="${routes_set}" />
+                        <mytag:select_box bean="${sessionScope.routes_select}" />
 
                     </select>
                     <input type="submit" class="btn btn-success" value="${add_button}"/>

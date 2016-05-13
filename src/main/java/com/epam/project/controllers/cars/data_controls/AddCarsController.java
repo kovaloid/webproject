@@ -24,31 +24,21 @@ public class AddCarsController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        /*ConnectionPool pool = ConnectionPool.getInstance();
-        Connection con = pool.takeConnection();
-        Statement stmt = null;
         try {
-            stmt = con.createStatement();
-            int rows = stmt.executeUpdate("INSERT INTO KOVAL.AUTO(NUM,MARK,COLOR,PERSONNEL_ID) VALUES('" + request.getParameter("num") + "','" + request.getParameter("mark") + "','" + request.getParameter("color") + "','" + request.getParameter("driver") + "')");
+            DAO<CarBean> dao = new CarsDAO();
 
-            log.info(rows + " row(s) was inserted");
+            String number = request.getParameter("car_number");
+            String brand = request.getParameter("brand");
+            String color = request.getParameter("color");
+            String ready = request.getParameter("ready");
+            Integer driverId = Integer.valueOf(request.getParameter("driver_id"));
+
+            dao.add(new CarBean(number, brand, color, driverId, ready));
             request.getRequestDispatcher("CarsController").forward(request, response);
-        } catch (SQLException e) {
+        } catch (NumberFormatException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
-        } finally {
-            pool.closeConnection(con, stmt);
-        }*/
-
-        DAO<CarBean> dao = new CarsDAO();
-
-        String number = request.getParameter("num");
-        String mark = request.getParameter("mark");
-        String color = request.getParameter("color");
-        String driverId = request.getParameter("driver");
-
-        dao.add(new CarBean(number, mark, color, driverId));
-        request.getRequestDispatcher("CarsController").forward(request, response);
+        }
     }
 }

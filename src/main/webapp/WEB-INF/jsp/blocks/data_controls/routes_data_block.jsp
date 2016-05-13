@@ -21,6 +21,8 @@
                     <input type="hidden" name="command" value="routes"/>
                     <input type="hidden" name="do" value="add"/>
                     <input placeholder="${new_route}" class="form-control margin" type="text" name="route_name"><br/>
+                    <input placeholder="route_length" class="form-control margin" type="text" name="length"><br/>
+                    <input placeholder="route_price" class="form-control margin" type="text" name="price"><br/>
                     <input type="submit" class="btn btn-success" value="${add_button}"/>
                 </form>
             </div>
@@ -30,6 +32,8 @@
                     <input type="hidden" name="do" value="update"/>
                     <input placeholder="ID" class="form-control margin" type="text" name="id"><br/>
                     <input placeholder="${new_route}" class="form-control margin" type="text" name="route_name"><br/>
+                    <input placeholder="route_length" class="form-control margin" type="text" name="length"><br/>
+                    <input placeholder="route_price" class="form-control margin" type="text" name="price"><br/>
                     <input type="submit" class="btn btn-success" value="${update_button}"/>
                 </form>
             </div>

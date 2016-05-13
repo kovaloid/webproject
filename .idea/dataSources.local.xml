@@ -3,8 +3,8 @@
   <component name="dataSourceStorageLocal">
     <data-source name="oracle - localhost" uuid="01cd9554-b232-463a-a7e4-8616b278bf77">
       <secret-storage>memory</secret-storage>
-      <user-name>koval</user-name>
-      <schema-pattern>*.KOVAL *.SYSTEM</schema-pattern>
+      <user-name>autobase</user-name>
+      <schema-pattern>*.AUTOBASE *.SYSTEM</schema-pattern>
       <default-schemas>*.PUBLIC *.SYSTEM</default-schemas>
     </data-source>
   </component>

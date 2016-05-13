@@ -1,26 +1,38 @@
 package com.epam.project.beans;
 
 public class UserBean {
-
-    private String username;
+    private Integer id;
+    private String login;
     private String password;
     private String role;
 
     public UserBean() {
     }
 
-    public UserBean(String username, String password, String role) {
-        this.username = username;
+    public UserBean(String login, String password, String role) {
+        this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public String getUsername() {
-        return username;
+    public UserBean(String login) {
+        this.login = login;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -38,4 +50,6 @@ public class UserBean {
     public void setRole(String role) {
         this.role = role;
     }
+
+
 }

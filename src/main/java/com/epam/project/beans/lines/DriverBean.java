@@ -4,7 +4,8 @@ public class DriverBean implements Line {
     private Integer id;
     private String name;
     private String surname;
-    private Integer age;
+    private String gender;
+    private Integer phone;
 
     public DriverBean() {}
 
@@ -12,15 +13,19 @@ public class DriverBean implements Line {
         this.id = id;
     }
 
-    public DriverBean(String name, String surname) {
+    public DriverBean(String name, String surname, String gender, Integer phone) {
         this.name = name;
         this.surname = surname;
+        this.gender = gender;
+        this.phone = phone;
     }
 
-    public DriverBean(int id, String name, String surname) {
+    public DriverBean(int id, String name, String surname, String gender, Integer phone) {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.gender = gender;
+        this.phone = phone;
     }
 
     @Override
@@ -37,7 +42,7 @@ public class DriverBean implements Line {
                 value = getSurname();
                 break;
             default:
-                value = "none";
+                value = "---";
         }
         return value;
     }
@@ -66,12 +71,19 @@ public class DriverBean implements Line {
         this.surname = surname;
     }
 
-    public int getAge() {
-        return age;
+    public String getGender() {
+        return gender;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
 }

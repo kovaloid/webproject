@@ -6,8 +6,8 @@ public class JournalBean implements Line {
     private Integer id = null;
     private Integer carId;
     private String number;
-    private Date timeIn;
-    private Date timeOut;
+    private Date dateIn;
+    private Date dateOut;
     private Integer routeId;
     private String routeName;
     private String driverSurname;
@@ -21,12 +21,12 @@ public class JournalBean implements Line {
 
     public JournalBean(Integer id, Date date_in) {
         this.id = id;
-        this.timeIn = date_in;
+        this.dateIn = date_in;
     }
 
-    public JournalBean(Date date_out, String number, int routeId) {
-        this.timeOut = date_out;
-        this.number = number;
+    public JournalBean(Date date_out, Integer carId, int routeId) {
+        this.dateOut = date_out;
+        this.carId = carId;
         this.routeId = routeId;
     }
 
@@ -41,16 +41,16 @@ public class JournalBean implements Line {
                 value = getNumber();
                 break;
             case 2:
-                if (getTimeOut() == null)
+                if (getDateOut() == null)
                     value = "---";
                 else
-                    value = getTimeOut().toString();
+                    value = getDateOut().toString();
                 break;
             case 3:
-                if (getTimeIn() == null)
+                if (getDateIn() == null)
                     value = "---";
                 else
-                    value = getTimeIn().toString();
+                    value = getDateIn().toString();
                 break;
             case 4:
                 value = getRouteName();
@@ -59,7 +59,7 @@ public class JournalBean implements Line {
                 value = getDriverSurname();
                 break;
             default:
-                value = "none";
+                value = "---";
         }
         return value;
     }
@@ -88,20 +88,20 @@ public class JournalBean implements Line {
         this.number = number;
     }
 
-    public Date getTimeIn() {
-        return timeIn;
+    public Date getDateIn() {
+        return dateIn;
     }
 
-    public void setTimeIn(Date timeIn) {
-        this.timeIn = timeIn;
+    public void setDateIn(Date dateIn) {
+        this.dateIn = dateIn;
     }
 
-    public Date getTimeOut() {
-        return timeOut;
+    public Date getDateOut() {
+        return dateOut;
     }
 
-    public void setTimeOut(Date timeOut) {
-        this.timeOut = timeOut;
+    public void setDateOut(Date dateOut) {
+        this.dateOut = dateOut;
     }
 
     public Integer getRouteId() {

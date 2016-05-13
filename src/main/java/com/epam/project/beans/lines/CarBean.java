@@ -4,11 +4,11 @@ public class CarBean implements Line {
     private Integer id;
     private String number;
     private String color;
-    private String mark;
+    private String brand;
     private Integer driverId;
     private String driverName;
     private String driverSurname;
-    private Boolean ready;
+    private String ready;
 
     public CarBean() {
     }
@@ -17,19 +17,21 @@ public class CarBean implements Line {
         this.id = id;
     }
 
-    public CarBean(String number, String mark, String color, Integer driverId) {
+    public CarBean(String number, String mark, String color, Integer driverId, String ready) {
         this.number = number;
-        this.mark = mark;
+        this.brand = mark;
         this.color = color;
         this.driverId = driverId;
+        this.ready = ready;
     }
 
-    public CarBean(Integer id, String number, String mark, String color, Integer driverId) {
+    public CarBean(Integer id, String number, String mark, String color, Integer driverId, String ready) {
         this.id = id;
         this.number = number;
-        this.mark = mark;
+        this.brand = mark;
         this.color = color;
         this.driverId = driverId;
+        this.ready = ready;
     }
 
     @Override
@@ -46,13 +48,16 @@ public class CarBean implements Line {
                 value = getColor();
                 break;
             case 3:
-                value = getMark();
+                value = getBrand();
                 break;
             case 4:
                 value = getDriverName();
                 break;
             case 5:
                 value = getDriverSurname();
+                break;
+            case 6:
+                value = getReady();
                 break;
             default:
                 value = "---";
@@ -84,12 +89,12 @@ public class CarBean implements Line {
         this.color = color;
     }
 
-    public String getMark() {
-        return mark;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setMark(String mark) {
-        this.mark = mark;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getDriverName() {
@@ -116,11 +121,11 @@ public class CarBean implements Line {
         this.driverId = driverId;
     }
 
-    public Boolean getReady() {
+    public String getReady() {
         return ready;
     }
 
-    public void setReady(Boolean ready) {
+    public void setReady(String ready) {
         this.ready = ready;
     }
 }

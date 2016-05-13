@@ -1,4 +1,4 @@
-package com.epam.project.database.pool;
+package com.epam.project.database.connection_pool;
 
 import org.apache.log4j.Logger;
 
@@ -103,7 +103,7 @@ public class ConnectionPool {
         try {
             con.close();
         } catch (SQLException e) {
-            log.error("Connection isn't return to the pool");
+            log.error("Connection isn't return to the connection_pool");
         }
         log.info("Connection is closed");
     }
@@ -117,7 +117,7 @@ public class ConnectionPool {
         try {
             con.close();
         } catch (SQLException e) {
-            log.error("Connection isn't return to the pool");
+            log.error("Connection isn't return to the connection_pool");
         }
     }
 
@@ -205,10 +205,10 @@ public class ConnectionPool {
                 connection.setReadOnly(false);
             }
             if (!givenAwayConQueue.remove(this)) {
-                throw new SQLException("Error deleting connection from the given away connections pool");
+                throw new SQLException("Error deleting connection from the given away connections connection_pool");
             }
             if (!connectionQueue.offer(this)) {
-                throw new SQLException("Error allocating connection in the pool");
+                throw new SQLException("Error allocating connection in the connection_pool");
             }
         }
 

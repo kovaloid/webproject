@@ -18,29 +18,14 @@ public class UpdateRoutesController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        /*ConnectionPool pool = ConnectionPool.getInstance();
-        Connection con = pool.takeConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
-            int rows = stmt.executeUpdate("UPDATE KOVAL.ROUTES SET NAME='" + request.getParameter("route_name") + "' WHERE ID='" + request.getParameter("id") + "'");
-
-            log.info(rows + " row(s) was updated");
-            request.getRequestDispatcher("RoutesController").forward(request, response);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            request.setAttribute("exception", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
-        } finally {
-            pool.closeConnection(con, stmt);
-        }*/
-
         try {
             DAO<RouteBean> dao = new RoutesDAO();
 
             Integer id = Integer.valueOf(request.getParameter("id"));
             String name = request.getParameter("route_name");
-            dao.update(new RouteBean(id, name));
+            Integer length = Integer.valueOf(request.getParameter("route_length"));
+            Integer price = Integer.valueOf(request.getParameter("route_name"));
+            dao.update(new RouteBean(id, name, length, price));
             request.getRequestDispatcher("RoutesController").forward(request, response);
         } catch (NumberFormatException e) {
             log.error(e.getMessage());

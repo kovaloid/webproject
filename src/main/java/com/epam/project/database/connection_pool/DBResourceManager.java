@@ -1,4 +1,4 @@
-package com.epam.project.database.pool;
+package com.epam.project.database.connection_pool;
 
 import java.util.ResourceBundle;
 

@@ -24,7 +24,7 @@
 
             <c:if test="${sessionScope.status eq 'in'}">
                 <jsp:useBean id="user" class="com.epam.project.beans.UserBean" scope="session" />
-                <p>${welcome_text}, <c:out value="${user.username}"/></p>
+                <p>${welcome_text}, <c:out value="${user.login}"/></p>
                 <p>Role is <c:out value="${user.role}"/></p>
 
                 <form action="main" method="post" class="navbar-form" role="form">

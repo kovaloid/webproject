@@ -38,13 +38,9 @@
 
 <div class="main">
     <div class="well">
-        <c:out value="${sessionScope.catchVar}" /><br/><br/>
 
         <c:if test="${sessionScope.status eq 'in'}">
-            <%--<jsp:useBean id="drivers_rs" class="com.epam.project.beans.ResultSetBean" scope="session"/>--%>
-
-            <jsp:useBean id="drivers_rs" class="com.epam.project.beans.TableBean" scope="session"/>
-            <mytag:print_table bean="${drivers_rs}"/>
+            <mytag:print_table bean="${sessionScope.drivers_table}"/>
         </c:if>
 
         <c:if test="${sessionScope.status ne 'in'}">

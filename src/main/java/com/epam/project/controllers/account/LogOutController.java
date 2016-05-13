@@ -20,7 +20,7 @@ public class LogOutController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.setAttribute(Account.STATUS, Account.Status.OUT);
-        log.info("User '" + ((UserBean) session.getAttribute(Account.USER)).getUsername() + "' is logged out");
+        log.info("User '" + ((UserBean) session.getAttribute(Account.USER)).getLogin() + "' is logged out");
         session.removeAttribute(Account.USER);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }

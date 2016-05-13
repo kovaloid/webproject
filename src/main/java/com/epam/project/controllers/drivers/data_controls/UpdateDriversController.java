@@ -27,9 +27,11 @@ public class UpdateDriversController extends HttpServlet {
         try {
             DAO<DriverBean> dao = new DriversDAO();
             Integer id = Integer.valueOf(request.getParameter("id"));
-            String name = request.getParameter("first_name");
-            String surname = request.getParameter("last_name");
-            dao.update(new DriverBean(id, name, surname));
+            String name = request.getParameter("name");
+            String surname = request.getParameter("surname");
+            String gender = request.getParameter("gender");
+            Integer phone = Integer.valueOf(request.getParameter("phone"));
+            dao.update(new DriverBean(id, name, surname, gender, phone));
             request.getRequestDispatcher("DriversController").forward(request, response);
         } catch (NumberFormatException e) {
             log.error(e.getMessage());

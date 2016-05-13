@@ -1,7 +1,7 @@
 package com.epam.project.database.dao;
 
 import com.epam.project.beans.TableBean;
-import com.epam.project.database.pool.ConnectionPool;
+import com.epam.project.database.connection_pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -38,5 +38,4 @@ public abstract class AbstractDAO<T> implements DAO<T> {
         }
         return result;
     }
-
 }

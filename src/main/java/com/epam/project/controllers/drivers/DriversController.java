@@ -28,7 +28,7 @@ public class DriversController extends HttpServlet {
         DAO<DriverBean> dao = new DriversDAO();
 
         TableBean drivers = dao.getAll();
-        request.getSession().setAttribute("drivers_rs", drivers);
+        request.getSession().setAttribute("drivers_table", drivers);
         request.getRequestDispatcher("/WEB-INF/jsp/data_tables/drivers.jsp").forward(request, response);
     }
 }

@@ -21,8 +21,15 @@
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="drivers"/>
                     <input type="hidden" name="do" value="add"/>
-                    <input placeholder="${first_name}" class="form-control margin" type="text" name="first_name"><br/>
-                    <input placeholder="${second_name}" class="form-control margin" type="text" name="last_name"><br/>
+                    <input placeholder="${first_name}" class="form-control margin" type="text" name="name"><br/>
+                    <input placeholder="${second_name}" class="form-control margin" type="text" name="surname"><br/>
+
+                    <select title="gender" required name="gender" class="form-control margin">
+                        <option selected disabled>Выбери маршрут</option>
+                        <option value="man">MAN</option>
+                        <option value="woman">WOMAN</option>
+                    </select><br/>
+                    <input placeholder="phone" class="form-control margin" type="text" name="phone"><br/>
                     <input type="submit" class="btn btn-success" value="${add_button}"/>
                 </form>
             </div>
@@ -31,8 +38,14 @@
                     <input type="hidden" name="command" value="drivers"/>
                     <input type="hidden" name="do" value="update"/>
                     <input placeholder="ID" class="form-control margin" type="text" name="id"><br/>
-                    <input placeholder="${first_name}" class="form-control margin" type="text" name="first_name"><br/>
-                    <input placeholder="${second_name}" class="form-control margin" type="text" name="last_name"><br/>
+                    <input placeholder="${first_name}" class="form-control margin" type="text" name="name"><br/>
+                    <input placeholder="${second_name}" class="form-control margin" type="text" name="surname"><br/>
+                    <select title="gender" required name="gender" class="form-control margin">
+                        <option selected disabled>Выбери маршрут</option>
+                        <option value="man">MAN</option>
+                        <option value="woman">WOMAN</option>
+                    </select><br/>
+                    <input placeholder="phone" class="form-control margin" type="text" name="phone"><br/>
                     <input type="submit" class="btn btn-success" value="${update_button}"/>
                 </form>
             </div>

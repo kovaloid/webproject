@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CarsDAO extends AbstractDAO<CarBean> {
-
     @Override
     public TableBean getAll() {
         Connection con = pool.takeConnection();
@@ -19,8 +18,8 @@ public class CarsDAO extends AbstractDAO<CarBean> {
         ResultSet rs = null;
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT AUTO.ID, NUM, COLOR, MARK, FIRST_NAME, LAST_NAME FROM KOVAL.AUTO "
-                    + "JOIN KOVAL.AUTO_PERSONNEL ON PERSONNEL_ID = AUTO_PERSONNEL.ID ORDER BY AUTO.ID");
+            rs = stmt.executeQuery("SELECT CARS.ID, CAR_NUMBER, COLOR, BRAND, NAME, SURNAME, READY FROM AUTOBASE.CARS "
+                    + "JOIN AUTOBASE.DRIVERS ON DRIVER_ID = DRIVERS.ID ORDER BY CARS.ID");
             List<String> headers = parseTableHeaders(rs);
             List<CarBean> lines = parseTableLines(rs);
             carsTable.setHeaders(headers);
@@ -41,14 +40,15 @@ public class CarsDAO extends AbstractDAO<CarBean> {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("INSERT INTO KOVAL.AUTO(NUM,MARK,COLOR,PERSONNEL_ID) VALUES(?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO AUTOBASE.CARS(CAR_NUMBER,BRAND,COLOR,DRIVER_ID,READY) VALUES(?,?,?,?,?)");
             stmt.setString(1, car.getNumber());
-            stmt.setString(2, car.getMark());
+            stmt.setString(2, car.getBrand());
             stmt.setString(3, car.getColor());
-            stmt.setString(4, car.getDriverId());
+            stmt.setInt(4, car.getDriverId());
+            stmt.setString(5, car.getReady());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On insert modify more then 1 record: " + rows);
+                throw new DAOException("On insert modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was inserted");
         } catch (SQLException e) {
@@ -64,15 +64,16 @@ public class CarsDAO extends AbstractDAO<CarBean> {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("UPDATE KOVAL.AUTO SET NUM=?, MARK=?, COLOR=?, PERSONNEL_ID=? WHERE ID=?");
+            stmt = con.prepareStatement("UPDATE AUTOBASE.CARS SET CAR_NUMBER=?, BRAND=?, COLOR=?, DRIVER_ID=?, READY=? WHERE ID=?");
             stmt.setString(1, car.getNumber());
-            stmt.setString(2, car.getMark());
+            stmt.setString(2, car.getBrand());
             stmt.setString(3, car.getColor());
-            stmt.setString(4, car.getDriverId());
-            stmt.setInt(5, car.getId());
+            stmt.setInt(4, car.getDriverId());
+            stmt.setString(5, car.getReady());
+            stmt.setInt(6, car.getId());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On update modify more then 1 record: " + rows);
+                throw new DAOException("On update modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was updated");
         } catch (SQLException e) {
@@ -88,11 +89,11 @@ public class CarsDAO extends AbstractDAO<CarBean> {
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("DELETE FROM KOVAL.AUTO WHERE ID=?");
+            stmt = con.prepareStatement("DELETE FROM AUTOBASE.CARS WHERE ID=?");
             stmt.setInt(1, car.getId());
             int rows = stmt.executeUpdate();
             if (rows != 1) {
-                throw new DAOException("On delete modify more then 1 record: " + rows);
+                throw new DAOException("On delete modify more or less than 1 record: " + rows);
             }
             log.info(rows + " row(s) was deleted");
         } catch (SQLException e) {
@@ -110,11 +111,12 @@ public class CarsDAO extends AbstractDAO<CarBean> {
             while (rs.next()) {
                 CarBean car = new CarBean();
                 car.setId(rs.getInt("ID"));
-                car.setNumber(rs.getString("NUM"));
+                car.setNumber(rs.getString("CAR_NUMBER"));
                 car.setColor(rs.getString("COLOR"));
-                car.setMark(rs.getString("MARK"));
-                car.setDriverName(rs.getString("FIRST_NAME"));
-                car.setDriverSurname(rs.getString("LAST_NAME"));
+                car.setBrand(rs.getString("BRAND"));
+                car.setDriverName(rs.getString("NAME"));
+                car.setDriverSurname(rs.getString("SURNAME"));
+                car.setReady(rs.getString("READY"));
                 result.add(car);
             }
         } catch (SQLException e) {

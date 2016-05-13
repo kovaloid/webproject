@@ -24,10 +24,19 @@ public class AddDriversController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        DAO<DriverBean> dao = new DriversDAO();
-        String name = request.getParameter("first_name");
-        String surname = request.getParameter("last_name");
-        dao.add(new DriverBean(name, surname));
-        request.getRequestDispatcher("DriversController").forward(request, response);
+        try {
+            DAO<DriverBean> dao = new DriversDAO();
+
+            String name = request.getParameter("name");
+            String surname = request.getParameter("surname");
+            String gender = request.getParameter("gender");
+            Integer phone = Integer.valueOf(request.getParameter("phone"));
+            dao.add(new DriverBean(name, surname, gender, phone));
+            request.getRequestDispatcher("DriversController").forward(request, response);
+        } catch (NumberFormatException e) {
+            log.error(e.getMessage());
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+        }
     }
 }

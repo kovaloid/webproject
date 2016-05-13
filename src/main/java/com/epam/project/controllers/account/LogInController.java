@@ -22,21 +22,21 @@ public class LogInController extends HttpServlet {
         HttpSession session = request.getSession(true);
         String successUrl = (String) session.getAttribute("successUrl");
 
-        String username = request.getParameter(Account.USERNAME);
+        String login = request.getParameter(Account.LOGIN);
         String password = request.getParameter(Account.PASSWORD);
 
         AccountManager account = new AccountManager();
-        String result = account.authenticate(username, password);
-        String role = account.defineRole(username);
+        String result = account.authenticate(login, password);
+        String role = account.defineRole(login);
 
         if (result.equals(Account.Result.SUCCESS)) {
-            session.setAttribute(Account.USER, new UserBean(username, password, role));
+            session.setAttribute(Account.USER, new UserBean(login, password, role));
             session.setAttribute(Account.STATUS, Account.Status.IN);
 
-            log.info("User '" + username + "' is logged in");
+            log.info("User '" + login + "' is logged in");
             response.sendRedirect(successUrl);
         } else {
-            log.warn("User '" + username + "' has problems with login");
+            log.warn("User '" + login + "' has problems with login");
             request.setAttribute("result_auth", result);
             request.getRequestDispatcher("/WEB-INF/jsp/account/fail_auth.jsp").forward(request, response);
         }

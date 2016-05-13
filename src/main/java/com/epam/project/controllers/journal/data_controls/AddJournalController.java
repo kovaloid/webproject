@@ -24,29 +24,6 @@ public class AddJournalController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        /*ConnectionPool pool = ConnectionPool.getInstance();
-        Connection con = pool.takeConnection();
-        Statement stmt = null;
-        try {
-            String day_out = request.getParameter("day_out");
-            String month_out = request.getParameter("month_out");
-            String year_out = request.getParameter("year_out");
-            String date_out = DateMaker.make(day_out, month_out, year_out);
-
-            stmt = con.createStatement();
-            int rows = stmt.executeUpdate("INSERT INTO KOVAL.JOURNAL(TIME_OUT,AUTO_ID,ROUTE_ID) VALUES('" + date_out + "','" + request.getParameter("num") + "','" + request.getParameter("route") + "')");
-
-            log.info(rows + " row(s) was inserted");
-            request.getRequestDispatcher("JournalController").forward(request, response);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            request.setAttribute("exception", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
-        } finally {
-            pool.closeConnection(con, stmt);
-        }*/
-
-
         try {
             DAO<JournalBean> dao = new JournalDAO();
 
@@ -56,10 +33,10 @@ public class AddJournalController extends HttpServlet {
 
             Date date_out = DateMaker.make(day_out, month_out, year_out);
 
-            String number = request.getParameter("num");
-            int routeId = Integer.valueOf(request.getParameter("route"));
+            Integer carId = Integer.valueOf(request.getParameter("car_id"));
+            Integer routeId = Integer.valueOf(request.getParameter("route_id"));
 
-            dao.add(new JournalBean(date_out, number, routeId));
+            dao.add(new JournalBean(date_out, carId, routeId));
             request.getRequestDispatcher("JournalController").forward(request, response);
         } catch (NumberFormatException e) {
             log.error(e.getMessage());

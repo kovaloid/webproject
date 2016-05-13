@@ -18,28 +18,19 @@ public class AddRoutesController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        /*ConnectionPool pool = ConnectionPool.getInstance();
-        Connection con = pool.takeConnection();
-        Statement stmt = null;
         try {
-            stmt = con.createStatement();
-            int rows = stmt.executeUpdate("INSERT INTO KOVAL.ROUTES(NAME) VALUES('" + request.getParameter("route_name") + "')");
+            DAO<RouteBean> dao = new RoutesDAO();
 
-            log.info(rows + " row(s) was inserted");
+            String name = request.getParameter("route_name");
+            Integer length = Integer.valueOf(request.getParameter("route_length"));
+            Integer price = Integer.valueOf(request.getParameter("route_name"));
+            dao.add(new RouteBean(name, length, price));
             request.getRequestDispatcher("RoutesController").forward(request, response);
-        } catch (SQLException e) {
+        } catch (NumberFormatException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
-        } finally {
-            pool.closeConnection(con, stmt);
-        }*/
-
-        DAO<RouteBean> dao = new RoutesDAO();
-        String name = request.getParameter("route_name");
-        dao.add(new RouteBean(name));
-        request.getRequestDispatcher("RoutesController").forward(request, response);
-
+        }
     }
 
 }

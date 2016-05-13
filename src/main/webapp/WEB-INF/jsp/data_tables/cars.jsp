@@ -38,10 +38,7 @@
     <div class="well">
 
         <c:if test="${sessionScope.status eq 'in'}">
-            <%--<jsp:useBean id="cars_rs" class="com.epam.project.beans.ResultSetBean" scope="session"/>--%>
-
-            <jsp:useBean id="cars_rs" class="com.epam.project.beans.TableBean" scope="session"/>
-            <mytag:print_table bean="${cars_rs}"/>
+            <mytag:print_table bean="${sessionScope.cars_table}"/>
         </c:if>
 
         <c:if test="${sessionScope.status ne 'in'}">
