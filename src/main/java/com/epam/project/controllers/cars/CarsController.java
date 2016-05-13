@@ -1,24 +1,19 @@
 package com.epam.project.controllers.cars;
 
-import com.epam.project.beans.select_box.DriverSetBean;
-import com.epam.project.beans.ResultSetBean;
-import com.epam.project.database.connection_pool.ConnectionPool;
+import com.epam.project.beans.lines.CarBean;
+import com.epam.project.beans.lines.DriverBean;
+import com.epam.project.beans.TableBean;
+import com.epam.project.database.dao.DAO;
+import com.epam.project.database.dao.autobase.CarsDAO;
+import com.epam.project.database.dao.autobase.DriversDAO;
 import org.apache.log4j.Logger;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 @WebServlet("/CarsController")
 public class CarsController extends HttpServlet {
@@ -30,7 +25,7 @@ public class CarsController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ConnectionPool pool = ConnectionPool.getInstance();
+        /*ConnectionPool pool = ConnectionPool.getInstance();
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -54,7 +49,17 @@ public class CarsController extends HttpServlet {
         } finally {
             pool.closeStatement(stmt_2, rs_2);
             pool.closeConnection(con, stmt, rs);
-        }
+        }*/
+
+        DAO<CarBean> cardao = new CarsDAO();
+        TableBean cars = cardao.getAll();
+        request.getSession().setAttribute("cars_rs", cars);
+
+        DAO<DriverBean> driverdao = new DriversDAO();
+        TableBean drivers = driverdao.getAll();
+        request.getSession().setAttribute("drivers_set", drivers);
+
+        request.getRequestDispatcher("/WEB-INF/jsp/data_tables/cars.jsp").forward(request, response);
     }
 
 }

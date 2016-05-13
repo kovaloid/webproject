@@ -1,6 +1,10 @@
 package com.epam.project.controllers.cars.data_controls;
 
-import com.epam.project.database.connection_pool.ConnectionPool;
+import com.epam.project.beans.lines.CarBean;
+import com.epam.project.beans.lines.RouteBean;
+import com.epam.project.database.dao.DAO;
+import com.epam.project.database.dao.autobase.CarsDAO;
+import com.epam.project.database.dao.autobase.RoutesDAO;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -9,9 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 @WebServlet("/UpdateCarsController")
 public class UpdateCarsController extends HttpServlet {
@@ -23,7 +24,7 @@ public class UpdateCarsController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ConnectionPool pool = ConnectionPool.getInstance();
+        /*ConnectionPool pool = ConnectionPool.getInstance();
         Connection con = pool.takeConnection();
         Statement stmt = null;
         try {
@@ -38,6 +39,23 @@ public class UpdateCarsController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         } finally {
             pool.closeConnection(con, stmt);
+        }*/
+
+        try {
+            DAO<CarBean> dao = new CarsDAO();
+
+            Integer id = Integer.valueOf(request.getParameter("id"));
+            String number = request.getParameter("num");
+            String mark = request.getParameter("mark");
+            String color = request.getParameter("color");
+            String driverId = request.getParameter("driver");
+
+            dao.update(new CarBean(id, number, mark, color, driverId));
+            request.getRequestDispatcher("CarsController").forward(request, response);
+        } catch (NumberFormatException e) {
+            log.error(e.getMessage());
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
     }
 }

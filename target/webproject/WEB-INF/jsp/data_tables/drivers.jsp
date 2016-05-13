@@ -30,7 +30,9 @@
     <jsp:param name="page" value="main?command=drivers"/>
 </jsp:include>
 
-<c:if test="${sessionScope.status eq 'in' and sessionScope.role eq 'admin'}">
+
+
+<c:if test="${sessionScope.status eq 'in' and sessionScope.user.role eq 'admin'}">
     <jsp:include page="/WEB-INF/jsp/blocks/data_controls/drivers_data_block.jsp"/>
 </c:if>
 
@@ -39,8 +41,10 @@
         <c:out value="${sessionScope.catchVar}" /><br/><br/>
 
         <c:if test="${sessionScope.status eq 'in'}">
-            <jsp:useBean id="drivers_rs" class="com.epam.project.beans.ResultSetBean" scope="session"/>
-            <mytag:printtable bean="${drivers_rs}"/>
+            <%--<jsp:useBean id="drivers_rs" class="com.epam.project.beans.ResultSetBean" scope="session"/>--%>
+
+            <jsp:useBean id="drivers_rs" class="com.epam.project.beans.TableBean" scope="session"/>
+            <mytag:print_table bean="${drivers_rs}"/>
         </c:if>
 
         <c:if test="${sessionScope.status ne 'in'}">

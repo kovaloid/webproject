@@ -30,7 +30,7 @@
     <jsp:param name="page" value="main?command=routes"/>
 </jsp:include>
 
-<c:if test="${sessionScope.status eq 'in' and sessionScope.role eq 'admin'}">
+<c:if test="${sessionScope.status eq 'in' and sessionScope.user.role eq 'admin'}">
     <jsp:include page="/WEB-INF/jsp/blocks/data_controls/routes_data_block.jsp"/>
 </c:if>
 
@@ -38,8 +38,10 @@
     <div class="well">
 
         <c:if test="${sessionScope.status eq 'in'}">
-            <jsp:useBean id="routes_rs" class="com.epam.project.beans.ResultSetBean" scope="session"/>
-            <mytag:printtable bean="${routes_rs}"/>
+            <%--<jsp:useBean id="routes_rs" class="com.epam.project.beans.ResultSetBean" scope="session"/>--%>
+
+            <jsp:useBean id="routes_rs" class="com.epam.project.beans.TableBean" scope="session"/>
+            <mytag:print_table bean="${routes_rs}"/>
         </c:if>
 
         <c:if test="${sessionScope.status ne 'in'}">

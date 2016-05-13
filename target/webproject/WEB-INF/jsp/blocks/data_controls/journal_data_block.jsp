@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="/WEB-INF/tld/taglib.tld" prefix="mytag" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale" var="loc"/>
@@ -102,23 +103,28 @@
                     <select title="num" required name="num" class="form-control margin">
                         <option selected disabled>${choose_car}</option>
 
-                        <jsp:useBean id="cars_set" class="com.epam.project.beans.select_box.CarSetBean" scope="session"/>
+                        <%--<jsp:useBean id="cars_set" class="com.epam.project.beans.select_box.CarSetBean" scope="session"/>
                         <c:forEach var="i" begin="0" end="${cars_set.size}">
                             <option value="${cars_set.listIDs[i]}">
                                 <c:out value="${cars_set.listIDs[i]} - ${cars_set.listNames[i]}"/>
                             </option>
-                        </c:forEach>
+                        </c:forEach>--%>
+                        <jsp:useBean id="cars_set" class="com.epam.project.beans.TableBean" scope="session"/>
+                        <jsp:useBean id="routes_set" class="com.epam.project.beans.TableBean" scope="session"/>
+
+                        <mytag:select_box bean="${cars_set}" />
 
                     </select>
                     <select title="route" required name="route" class="form-control margin">
                         <option selected disabled>${choose_route}</option>
 
-                        <jsp:useBean id="routes_set" class="com.epam.project.beans.select_box.RouteSetBean" scope="session"/>
+                        <%--<jsp:useBean id="routes_set" class="com.epam.project.beans.select_box.RouteSetBean" scope="session"/>
                         <c:forEach var="i" begin="0" end="${routes_set.size}">
                             <option value="${routes_set.listIDs[i]}">
                                 <c:out value="${routes_set.listIDs[i]} - ${routes_set.listNames[i]}"/>
                             </option>
-                        </c:forEach>
+                        </c:forEach>--%>
+                        <mytag:select_box bean="${routes_set}" />
 
                     </select>
                     <input type="submit" class="btn btn-success" value="${add_button}"/>

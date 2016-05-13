@@ -1,6 +1,6 @@
 package com.epam.project.service;
 
-import com.epam.project.database.connection_pool.ConnectionPool;
+import com.epam.project.database.pool.ConnectionPool;
 import com.epam.project.service.constants.Account;
 import org.apache.log4j.Logger;
 

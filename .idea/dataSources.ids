@@ -10,8 +10,8 @@
       <schema id="1" name="KOVAL">
         <object-id>53</object-id>
         <created-timestamp>2015-03-28.10:37:31</created-timestamp>
-        <modified-timestamp>2016-05-09.16:46:39</modified-timestamp>
-        <introspection-timestamp>2016-05-09.16:58:47</introspection-timestamp>
+        <modified-timestamp>2016-05-13.13:40:40</modified-timestamp>
+        <introspection-timestamp>2016-05-13.14:12:27</introspection-timestamp>
       </schema>
       <schema id="2" name="SYSTEM">
         <object-id>5</object-id>
@@ -100,7 +100,7 @@
       <view id="15" parent="1" name="VIEW_4">
         <object-id>21783</object-id>
         <created-timestamp>2015-05-16.05:51:35</created-timestamp>
-        <modified-timestamp>2015-05-16.05:51:35</modified-timestamp>
+        <modified-timestamp>2016-05-13.13:06:00</modified-timestamp>
         <modifiable>1</modifiable>
       </view>
       <view id="16" parent="1" name="VIEW_5">
@@ -1568,7 +1568,7 @@
       </trigger>
       <trigger id="242" parent="8" name="TRIGGER_33">
         <created-timestamp>2015-05-22.20:35:52</created-timestamp>
-        <modified-timestamp>2016-05-08.19:15:21</modified-timestamp>
+        <modified-timestamp>2016-05-13.13:40:40</modified-timestamp>
         <trig-events>D</trig-events>
         <trig-turn>BEFORE_ROW</trig-turn>
       </trigger>
@@ -1733,7 +1733,7 @@
         <data-type>VARCHAR2(20)</data-type>
       </column>
       <column id="278" parent="15" name="MARK">
-        <data-type>VARCHAR2(20)</data-type>
+        <data-type>VARCHAR2(50)</data-type>
       </column>
       <column id="279" parent="16" name="NAME">
         <data-type>VARCHAR2(50)</data-type>

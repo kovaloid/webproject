@@ -1,21 +1,16 @@
 package com.epam.project.controllers.journal.data_controls;
 
-import com.epam.project.database.connection_pool.ConnectionPool;
+import com.epam.project.beans.lines.JournalBean;
+import com.epam.project.database.dao.DAO;
+import com.epam.project.database.dao.autobase.JournalDAO;
 import org.apache.log4j.Logger;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 @WebServlet("/RemoveJournalController")
 public class RemoveJournalController extends HttpServlet {
@@ -23,7 +18,7 @@ public class RemoveJournalController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ConnectionPool pool = ConnectionPool.getInstance();
+        /*ConnectionPool pool = ConnectionPool.getInstance();
         Connection con = pool.takeConnection();
         Statement stmt = null;
         try {
@@ -38,6 +33,17 @@ public class RemoveJournalController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         } finally {
             pool.closeConnection(con, stmt);
+        }*/
+        DAO<JournalBean> dao = new JournalDAO();
+
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            dao.remove(new JournalBean(id));
+            request.getRequestDispatcher("JournalController").forward(request, response);
+        } catch (NumberFormatException e) {
+            log.error(e.getMessage());
+            request.setAttribute("exception", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
     }
 }

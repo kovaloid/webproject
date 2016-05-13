@@ -13,15 +13,30 @@
 
     <tag>
         <description>Tag, which prints tables</description>
-        <name>printtable</name>
-        <tag-class>com.epam.project.service.JSPTagPrintTable</tag-class>
+        <name>print_table</name>
+        <tag-class>com.epam.project.tag.JSPTagPrintTable</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <description>Object that contains the data model from the table</description>
             <name>bean</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
-            <type>com.epam.project.beans.ResultSetBean</type>
+            <!--<type>com.epam.project.beans.ResultSetBean</type>-->
+            <type>com.epam.project.beans.TableBean</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>Select box</description>
+        <name>select_box</name>
+        <tag-class>com.epam.project.tag.JSPTagSelectBox</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>bean</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <!--<type>com.epam.project.beans.ResultSetBean</type>-->
+            <type>com.epam.project.beans.TableBean</type>
         </attribute>
     </tag>
 

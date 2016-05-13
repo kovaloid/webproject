@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="/WEB-INF/tld/taglib.tld" prefix="mytag" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale" var="loc"/>
@@ -47,12 +48,14 @@
                     <select title="driver" required name="driver" class="form-control margin">
                         <option selected disabled>${choose_driver}</option>
 
-                        <jsp:useBean id="drivers_set" class="com.epam.project.beans.select_box.DriverSetBean" scope="session"/>
+                        <%--<jsp:useBean id="drivers_set" class="com.epam.project.beans.select_box.DriverSetBean" scope="session"/>
                         <c:forEach var="i" begin="0" end="${drivers_set.size}">
                             <option value="${drivers_set.listIDs[i]}">
                                 <c:out value="${drivers_set.listIDs[i]} - ${drivers_set.listNames[i]}"/>
                             </option>
-                        </c:forEach>
+                        </c:forEach>--%>
+                        <jsp:useBean id="drivers_set" class="com.epam.project.beans.TableBean" scope="session"/>
+                        <mytag:select_box bean="${drivers_set}" />
 
                     </select>
                     <input type="submit" class="btn btn-success" value="${add_button}"/>
@@ -86,11 +89,15 @@
                     <select title="driver" required name="driver" class="form-control margin">
                         <option selected disabled>${choose_driver}</option>
 
-                        <c:forEach var="i" begin="0" end="${drivers_set.size}">
+                        <%--<c:forEach var="i" begin="0" end="${drivers_set.size}">
                             <option value="${drivers_set.listIDs[i]}">
                                 <c:out value="${drivers_set.listIDs[i]} - ${drivers_set.listNames[i]}"/>
                             </option>
-                        </c:forEach>
+                        </c:forEach>--%>
+
+
+                        <mytag:select_box bean="${drivers_set}" />
+
 
                     </select>
                     <input type="submit" class="btn btn-success" value="${update_button}"/>

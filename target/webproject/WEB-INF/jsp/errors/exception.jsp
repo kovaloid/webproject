@@ -35,6 +35,9 @@
                 <c:if test="${requestScope.exception == null}">
                     Unknown exception
                 </c:if>
+
+
+                <%=exception.getMessage()%>
             </p>
         </div>
 

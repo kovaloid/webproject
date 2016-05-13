@@ -1,5 +1,7 @@
 package com.epam.project.service;
 
+import java.sql.Date;
+
 public class DateMaker {
 
     private static String getMonthString(int number) {
@@ -34,7 +36,12 @@ public class DateMaker {
         return month;
     }
 
-    public static String make(String day, String month, String year) {
-        return day + "-" + month + "-" + year;
+    //public static String make(String day, String month, String year) {
+    //    return day + "-" + month + "-" + year;
+    //}
+
+    public static Date make(String day, String month, String year) {
+        String date = year + "-" + month + "-" + day;
+        return Date.valueOf(date);
     }
 }
