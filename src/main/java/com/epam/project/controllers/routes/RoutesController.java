@@ -26,23 +26,33 @@ public class RoutesController extends HttpServlet {
     }
 
     private Table[] cutTable(int sizeOfOneCut, Table<RouteBean> oldTable) {
-        int countOfTables = (int)((float)oldTable.getCountLines() / sizeOfOneCut);
+        Logger log = Logger.getRootLogger();
 
-        List<TableBean<RouteBean>> newTwoTables = new ArrayList<>();
-        List<RouteBean> linesInFirstTable = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            linesInFirstTable.add(oldTable.getLines().get(i));
+        int countOfNewTables = (int) ((float) oldTable.getCountLines() / sizeOfOneCut);
+
+        log.info(countOfNewTables);
+
+        Table[] newTables = (TableBean<RouteBean>[])new TableBean[countOfNewTables];
+        List<RouteBean>[] linesInNewTables = (ArrayList<RouteBean>[])new ArrayList[sizeOfOneCut];
+        for (int i = 0; i < countOfNewTables; i++) {
+            newTables[i] = new TableBean<RouteBean>();
+            linesInNewTables[i] = new ArrayList<>();
         }
 
-        List<RouteBean> linesInSecondTable = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            linesInSecondTable.add(oldTable.getLines().get(i));
+        int tableNum = 0;
+        for (int i = 0; i < countOfNewTables; i++) {
+            for (int j = 0; j < sizeOfOneCut; j++) {
+                linesInNewTables[i].add(oldTable.getLines().get(tableNum * sizeOfOneCut + j));
+            }
         }
 
-        newTwoTables.get(0).setLines(linesInFirstTable);
-        newTwoTables.get(1).setLines(linesInSecondTable);
+        for (int i = 0; i < countOfNewTables; i++) {
+            newTables[i].setLines(linesInNewTables[i]);
+        }
 
-        return new Table[2];
+        log.info(newTables[0].getLines().get(0));
+
+        return newTables;
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -62,16 +72,17 @@ public class RoutesController extends HttpServlet {
         Table<RouteBean> oldTable = bean.getAll();
 
 
-        Table[] tables = cutTable(2,oldTable);
+        Logger log = Logger.getRootLogger();
+        Table[] tables = cutTable(2, oldTable);
+        log.info(tables[0].getCountColumns());
+        log.info(tables[0].getCountLines());
+        //log.info(tables[0].getLines().get(2));
 
 
-        //int countOfTables = 2;
-        //Table[] tables = new Table[countOfTables];
-        //tables[0] = new TableBean<RouteBean>();
-        //tables[1] = new TableBean<RouteBean>();
 
 
-        request.getSession().setAttribute("routes_table", routesTable);
+        request.getSession().setAttribute("routes_table", tables[0]);
+        //request.getSession().setAttribute("routes_table", routesTable);
 
         String status = (String) request.getSession().getAttribute(Account.STATUS);
         if (status == null || !status.equals(Account.Status.IN))
