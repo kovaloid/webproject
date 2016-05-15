@@ -34,7 +34,6 @@
 
 <div class="main">
     <div class="well">
-
         <h2 align="center">${reg_text}</h2>
         <br/>
         <form action="main" method="post" class="navbar-form" role="form">
@@ -45,7 +44,9 @@
                         ${login_text}:
                     </td>
                     <td>
-                        <input title="${login_text}" class="form-control margin" type="text" name="username" size="30" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')">
+                        <input title="${login_text}" class="form-control margin" type="text" name="username" size="30"
+                               required oninvalid="this.setCustomValidity('${if_empty}')"
+                               oninput="setCustomValidity('')">
                     </td>
                 </tr>
                 <tr>
@@ -54,7 +55,8 @@
                     </td>
                     <td>
                         <input title="${password_text}" class="form-control margin" type="password" name="password"
-                               size="30" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')">
+                               size="30" required oninvalid="this.setCustomValidity('${if_empty}')"
+                               oninput="setCustomValidity('')">
                     </td>
                 </tr>
                 <tr>
@@ -63,7 +65,8 @@
                     </td>
                     <td>
                         <input title="${repeat_text}" class="form-control margin" type="password" name="repeat"
-                               size="30" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')">
+                               size="30" required oninvalid="this.setCustomValidity('${if_empty}')"
+                               oninput="setCustomValidity('')">
                     </td>
                 </tr>
                 <tr>
@@ -74,7 +77,6 @@
                 </tr>
             </table>
         </form>
-
     </div>
 </div>
 

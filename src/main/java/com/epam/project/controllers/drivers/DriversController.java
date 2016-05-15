@@ -26,7 +26,9 @@ public class DriversController extends HttpServlet {
         request.getSession().setAttribute("drivers_table", driversTable);
 
         String status = (String) request.getSession().getAttribute(Account.STATUS);
-        if (!status.equals(Account.Status.IN)) response.sendError(401);
-        else request.getRequestDispatcher("/WEB-INF/jsp/data_tables/cars.jsp").forward(request, response);
+        if (status == null || !status.equals(Account.Status.IN))
+            response.sendError(403);
+        else
+            request.getRequestDispatcher("/WEB-INF/jsp/data_tables/drivers.jsp").forward(request, response);
     }
 }

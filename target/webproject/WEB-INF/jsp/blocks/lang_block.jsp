@@ -8,7 +8,7 @@
 <fmt:message bundle="${loc}" key="local.lang.ru_button" var="ru_button"/>
 <fmt:message bundle="${loc}" key="local.lang.en_button" var="en_button"/>
 
-<c:set var="redirectURL" scope="session" value="${param.page}" />
+<c:set var="redirectURL" scope="session" value="${param.page}"/>
 
 <div class="lang">
     <div class="panel panel-info">
@@ -20,14 +20,14 @@
                 <input type="hidden" name="command" value="locale"/>
                 <input type="hidden" name="lang" value="ru"/>
                 <button type="submit" class="btn btn-success">
-                    ${ru_button} <img src="${pageContext.request.contextPath}/img/RU.png" />
+                    ${ru_button} <img src="${pageContext.request.contextPath}/img/RU.png"/>
                 </button>
             </form>
             <form action="main" method="post" class="navbar-form" role="form">
                 <input type="hidden" name="command" value="locale"/>
                 <input type="hidden" name="lang" value="en"/>
                 <button type="submit" class="btn btn-success">
-                    ${en_button} <img src="${pageContext.request.contextPath}/img/GB.png" />
+                    ${en_button} <img src="${pageContext.request.contextPath}/img/GB.png"/>
                 </button>
             </form>
         </div>

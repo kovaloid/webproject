@@ -23,16 +23,11 @@
 
 <div class="main">
     <div class="well">
-
         <div class="alert alert-danger" align="center">
             <h1>403 Access Denied</h1>
-            <p>
-                ${error_text}
-            </p>
-            <br/>
+            <p>${error_text}</p><br/>
             <input type="button" class="btn btn-success margin" onclick="history.back();" value="${back_button}"/>
         </div>
-
     </div>
 </div>
 

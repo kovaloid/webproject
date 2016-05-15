@@ -33,7 +33,8 @@ public class ValidRequestFilter implements Filter {
         String commandParam = req.getParameter("command");
         if (commandParam == null) {
             log.warn("[FILTER] Bad request to Dispatcher Servlet");
-            req.getRequestDispatcher("index.jsp");
+            request.setAttribute("exception", "Bad request to Dispatcher Servlet");
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         } else {
             boolean validRequest = commandParam.equals(Commands.LOGIN) ||
                     commandParam.equals(Commands.LOGOUT) ||
@@ -47,7 +48,8 @@ public class ValidRequestFilter implements Filter {
                 chain.doFilter(request, response);
             else {
                 log.warn("[FILTER] Bad parameter in request to Dispatcher Servlet");
-                req.getRequestDispatcher("index.jsp");
+                request.setAttribute("exception", "Bad parameter in request to Dispatcher Servlet");
+                request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
             }
         }
     }

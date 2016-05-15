@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
         version="2.0">
 
-    <description>Tag for autobase project</description>
+    <description>Tags for Autobase project</description>
     <display-name>My Tag</display-name>
     <tlib-version>1.0</tlib-version>
     <short-name>mytag</short-name>
@@ -17,33 +17,31 @@
         <tag-class>com.epam.project.tag.JSPTagPrintTable</tag-class>
         <body-content>empty</body-content>
         <attribute>
-            <description>Object that contains the data model from the table</description>
+            <description>Object that contains data model from table</description>
             <name>bean</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
-            <!--<type>com.epam.project.beans.ResultSetBean</type>-->
             <type>com.epam.project.beans.TableBean</type>
         </attribute>
         <attribute>
-            <description>!!!!</description>
+            <description>String that contains locale language</description>
             <name>locale</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
-            <!--<type>com.epam.project.beans.ResultSetBean</type>-->
             <type>java.lang.String</type>
         </attribute>
     </tag>
 
     <tag>
-        <description>Select box</description>
+        <description>Tag, which fills select box</description>
         <name>select_box</name>
         <tag-class>com.epam.project.tag.JSPTagSelectBox</tag-class>
         <body-content>empty</body-content>
         <attribute>
+            <description>Object that contains data model from table</description>
             <name>bean</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
-            <!--<type>com.epam.project.beans.ResultSetBean</type>-->
             <type>com.epam.project.beans.TableBean</type>
         </attribute>
     </tag>

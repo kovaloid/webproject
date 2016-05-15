@@ -14,7 +14,6 @@
     <fmt:message bundle="${loc}" key="local.content.about_page.name_value" var="name_value_text" />
     <fmt:message bundle="${loc}" key="local.content.about_page.address_value" var="address_value_text" />
 
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="author" content="Artem Kovalev" />
     <title>${about_subtitle} - ${page_title}</title>
@@ -36,9 +35,7 @@
 
 <div class="main">
     <div class="well">
-
         <h2>${about_subtitle}</h2>
-
         <table class="table">
             <tr>
                 <td rowspan="4" align="center">
@@ -76,7 +73,6 @@
                 </td>
             </tr>
         </table>
-
     </div>
 </div>
 

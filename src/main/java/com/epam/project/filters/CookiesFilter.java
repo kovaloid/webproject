@@ -21,8 +21,9 @@ public class CookiesFilter implements Filter {
         if (req.isRequestedSessionIdFromCookie()) {
             log.info("[FILTER] Cookies enabled");
         } else {
-            log.info("[FILTER] Cookies disabled");
-            req.getRequestDispatcher("index.jsp");
+            log.warn("[FILTER] Cookies disabled");
+            request.setAttribute("exception", "Cookies disabled, please enable it");
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
 
         Cookie[] cookies = req.getCookies();

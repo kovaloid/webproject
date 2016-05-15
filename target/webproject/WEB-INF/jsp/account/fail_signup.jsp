@@ -30,7 +30,6 @@
 
 <div class="main">
     <div class="well">
-
         <div class="alert alert-danger" align="center">
             <strong>${error_text}!</strong> ${sign_up_fail_text} <br/>
             <c:choose>
@@ -50,7 +49,6 @@
             <br/>
             <input type="button" class="btn btn-success margin" onclick="history.back();" value="${back_button}"/>
         </div>
-
     </div>
 </div>
 

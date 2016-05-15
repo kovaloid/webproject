@@ -13,7 +13,7 @@
 <fmt:message bundle="${loc}" key="local.input.if_empty" var="if_empty"/>
 <fmt:message bundle="${loc}" key="local.sign_in.access_level_text" var="access_level_text"/>
 
-<c:set var="successRedirectURL" scope="session" value="${param.page}" />
+<c:set var="successRedirectURL" scope="session" value="${param.page}"/>
 
 <div class="login">
     <div class="panel panel-info">
@@ -21,29 +21,27 @@
             <h3 class="panel-title">${signin_header}</h3>
         </div>
         <div class="panel-body">
-
-
             <c:if test="${sessionScope.status eq 'in'}">
-                <jsp:useBean id="user" class="com.epam.project.beans.UserBean" scope="session" />
+                <jsp:useBean id="user" class="com.epam.project.beans.UserBean" scope="session"/>
                 <p>${welcome_text}, ${user.login}</p>
                 <p>${access_level_text}: ${user.role}</p>
-
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="logout"/>
                     <button type="submit" class="btn btn-success margin">Sign Out</button>
                 </form>
             </c:if>
-
             <c:if test="${sessionScope.status ne 'in'}">
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="login"/>
-                    <input placeholder="${login_text}" class="form-control margin" type="text" name="login" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')"><br/>
-                    <input placeholder="${password_text}" class="form-control margin" type="password" name="password" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')"><br/>
+                    <input placeholder="${login_text}" class="form-control margin" type="text" name="login" required
+                           oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')"><br/>
+                    <input placeholder="${password_text}" class="form-control margin" type="password" name="password"
+                           required oninvalid="this.setCustomValidity('${if_empty}')"
+                           oninput="setCustomValidity('')"><br/>
                     <button type="submit" class="btn btn-success margin">${enter_button}</button>
                     <a href="${pageContext.request.contextPath}/signup">${reg_button}</a>
                 </form>
             </c:if>
-
         </div>
     </div>
 </div>

@@ -29,11 +29,8 @@
 
 <div class="main">
     <div class="well">
-
         <div class="alert alert-danger" align="center">
             <strong>${error_text}!</strong> ${auth_fail_text} <br/>
-
-
             <c:choose>
                 <c:when test="${requestScope.result_auth == 'fail_username'}">
                     ${bad_login_text}
@@ -47,9 +44,7 @@
             </c:choose>
             <br />
             <input type="button" class="btn btn-success margin" onclick="history.back();" value="${back_button}"/>
-
         </div>
-
     </div>
 </div>
 

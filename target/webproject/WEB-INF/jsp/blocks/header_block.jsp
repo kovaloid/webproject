@@ -30,7 +30,8 @@
                     <c:when test="${param.page eq 'contacts'}">
                         <li><a href="${pageContext.request.contextPath}/">${main_page}</a></li>
                         <li><a href="${pageContext.request.contextPath}/about">${about_page}</a></li>
-                        <li class="active"><a href="${pageContext.request.contextPath}/contacts">${contacts_page}</a></li>
+                        <li class="active"><a href="${pageContext.request.contextPath}/contacts">${contacts_page}</a>
+                        </li>
                     </c:when>
                     <c:otherwise>
                         <li><a href="${pageContext.request.contextPath}/">${main_page}</a></li>
@@ -38,7 +39,6 @@
                         <li><a href="${pageContext.request.contextPath}/contacts">${contacts_page}</a></li>
                     </c:otherwise>
                 </c:choose>
-
             </ul>
         </div>
     </div>

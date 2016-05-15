@@ -27,25 +27,22 @@
 
 <div class="main">
     <div class="well">
-
         <div class="alert alert-danger" align="center">
             <h1>${exception_text}!</h1>
             <p>
-                ${message_text} : <br/>
+                ${message_text}: <br/>
                 <c:if test="${requestScope.exception != null}">
-                    <c:out value="${requestScope.exception}"/>
+                    ${requestScope.exception}
                 </c:if>
                 <c:if test="${requestScope.exception == null}">
                     ${unknown_exception_text}
+                    <br/>
+                    <%=exception.getMessage()%>
                 </c:if>
-
-
-                <%=exception.getMessage()%>
             </p>
             <br/>
             <input type="button" class="btn btn-success margin" onclick="history.back();" value="${back_button}"/>
         </div>
-
     </div>
 </div>
 

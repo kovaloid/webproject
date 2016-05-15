@@ -41,12 +41,15 @@
         <location>/WEB-INF/jsp/errors/exception.jsp</location>
     </error-page>
 
+    <error-page>
+        <exception-type>com.epam.project.database.connection_pool.ConnectionPoolException</exception-type>
+        <location>/WEB-INF/jsp/errors/exception.jsp</location>
+    </error-page>
 
-
-        <error-page>
-            <exception-type>java.lang.Throwable</exception-type>
-            <location>/WEB-INF/jsp/errors/exception.jsp</location>
-        </error-page>
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/WEB-INF/jsp/errors/exception.jsp</location>
+    </error-page>
 
 
     <servlet>
