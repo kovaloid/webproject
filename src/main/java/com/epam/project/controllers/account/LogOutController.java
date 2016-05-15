@@ -1,6 +1,7 @@
 package com.epam.project.controllers.account;
 
 import com.epam.project.beans.UserBean;
+import com.epam.project.database.connection_pool.ConnectionPool;
 import com.epam.project.service.constants.Account;
 import org.apache.log4j.Logger;
 
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class LogOutController extends HttpServlet {
 
     private final static Logger log = Logger.getRootLogger();
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

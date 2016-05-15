@@ -1,5 +1,6 @@
 package com.epam.project.database.dao.autobase;
 
+import com.epam.project.beans.Table;
 import com.epam.project.beans.TableBean;
 import com.epam.project.beans.lines.RouteBean;
 import com.epam.project.database.dao.AbstractDAO;
@@ -10,12 +11,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RoutesDAO extends AbstractDAO<RouteBean> {
+
     @Override
-    public TableBean getAll() {
+    public Table<RouteBean> getAll() {
         Connection con = pool.takeConnection();
-        TableBean<RouteBean> routesTable = new TableBean<>();
         Statement stmt = null;
         ResultSet rs = null;
+        Table<RouteBean> routesTable = new TableBean<>();
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT ID, ROUTE_NAME, LENGTH, PRICE FROM AUTOBASE.ROUTES ORDER BY ID");
@@ -25,6 +27,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
             routesTable.setLines(lines);
             routesTable.setCountColumns(headers.size());
             routesTable.setCountLines(lines.size());
+            log.info("All records was selected in table [ROUTES]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);
@@ -47,7 +50,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
             if (rows != 1) {
                 throw new DAOException("On insert modify more or less than 1 record: " + rows);
             }
-            log.info(rows + " row(s) was inserted");
+            log.info("One record was inserted in table [ROUTES]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);
@@ -70,7 +73,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
             if (rows != 1) {
                 throw new DAOException("On update modify more or less than 1 record: " + rows);
             }
-            log.info(rows + " row(s) was updated");
+            log.info("One record was updated in table [ROUTES]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);
@@ -90,7 +93,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
             if (rows != 1) {
                 throw new DAOException("On delete modify more or less than 1 record: " + rows);
             }
-            log.info(rows + " row(s) was deleted");
+            log.info("One record was deleted in table [ROUTES]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);

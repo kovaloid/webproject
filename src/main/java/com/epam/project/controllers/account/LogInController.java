@@ -29,6 +29,8 @@ public class LogInController extends HttpServlet {
         String result = account.authenticate(login, password);
         String role = account.defineRole(login);
 
+        log.info(login+"   "+password+"   "+role);
+
         if (result.equals(Account.Result.SUCCESS)) {
             session.setAttribute(Account.USER, new UserBean(login, password, role));
             session.setAttribute(Account.STATUS, Account.Status.IN);

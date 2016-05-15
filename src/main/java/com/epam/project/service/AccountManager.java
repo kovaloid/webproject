@@ -1,19 +1,32 @@
 package com.epam.project.service;
 
+import com.epam.project.beans.Table;
 import com.epam.project.beans.UserBean;
-import com.epam.project.database.dao.AuthDAO;
+import com.epam.project.database.dao.DAO;
 import com.epam.project.database.dao.autobase.UsersDAO;
 import com.epam.project.service.constants.Account;
 import org.apache.log4j.Logger;
 
-public class AccountManager {
+import java.util.List;
 
+public class AccountManager {
     private final static Logger log = Logger.getRootLogger();
-    private AuthDAO<UserBean> auth = new UsersDAO();
+
+    private boolean checkSameLogin(String login) {
+        DAO<UserBean> usersDAO = new UsersDAO();
+        Table<UserBean> usersTable = usersDAO.getAll();
+        List<UserBean> lines = usersTable.getLines();
+        String current_login = login.trim();
+        for (int i = 0; i < usersTable.getCountLines(); i++) {
+            if ((current_login.equalsIgnoreCase(lines.get(i).getLogin())))
+                return false;
+        }
+        return true;
+    }
 
     private boolean isBadUsername(String login) {
         boolean condition_1 = (login.length() < 20) && (login.length() > 3);
-        boolean condition_2 = auth.checkSameLogin(new UserBean(login));
+        boolean condition_2 = checkSameLogin(login);
         // Имя пользователя (с ограничением 2-20 символов, которыми могут быть буквы и цифры, первый символ обязательно буква)
         //boolean condition_3 = username.matches("^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$");
         //return !(condition_1 && condition_2 && condition_3);
@@ -48,22 +61,46 @@ public class AccountManager {
         UserBean user = new UserBean();
         user.setLogin(login);
         user.setPassword(password);
-        AuthDAO<UserBean> auth = new UsersDAO();
-        auth.add(user);
+        DAO<UserBean> usersDAO = new UsersDAO();
+        usersDAO.add(user);
     }
 
     public String authenticate(String login, String password) {
-        UserBean user = new UserBean();
-        user.setLogin(login);
-        user.setPassword(password);
-        AuthDAO<UserBean> auth = new UsersDAO();
-        return auth.checkUser(user);
+        DAO<UserBean> usersDAO = new UsersDAO();
+        Table<UserBean> usersTable = usersDAO.getAll();
+        List<UserBean> lines = usersTable.getLines();
+        String current_login = login.trim();
+        String current_password = password.trim();
+        String result = null;
+        for (int i = 0; i < usersTable.getCountLines(); i++) {
+            if (current_login.equalsIgnoreCase(lines.get(i).getLogin())) {
+                if (current_password.equals(lines.get(i).getPassword())) {
+                    return Account.Result.SUCCESS;
+                } else {
+                    return Account.Result.FAIL_PASSWORD;
+                }
+            } else {
+                result = Account.Result.FAIL_LOGIN;
+            }
+        }
+        return result;
     }
 
     public String defineRole(String login) {
-        UserBean user = new UserBean();
-        user.setLogin(login);
-        AuthDAO<UserBean> auth = new UsersDAO();
-        return auth.defineRole(user);
+        DAO<UserBean> usersDAO = new UsersDAO();
+        Table<UserBean> usersTable = usersDAO.getAll();
+        List<UserBean> lines = usersTable.getLines();
+        String current_login = login.trim();
+        for (int i = 0; i < usersTable.getCountLines(); i++) {
+            if (current_login.equalsIgnoreCase(lines.get(i).getLogin())) {
+                String role = lines.get(i).getRole();
+                if (role == null) {
+                    return Account.Role.CLIENT;
+                } else if (role.trim().equalsIgnoreCase(Account.Role.ADMIN)) {
+                    return Account.Role.ADMIN;
+                }
+            }
+        }
+        return Account.Role.CLIENT;
     }
 }

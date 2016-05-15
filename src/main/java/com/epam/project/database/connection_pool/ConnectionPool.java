@@ -14,8 +14,8 @@ public class ConnectionPool {
     private final static ConnectionPool instance = new ConnectionPool();
     private final static Logger log = Logger.getRootLogger();
 
-    private BlockingQueue<Connection> connectionQueue;
-    private BlockingQueue<Connection> givenAwayConQueue;
+    private BlockingQueue<Connection> freeConnectionsQueue;
+    private BlockingQueue<Connection> reservedConnectionsQueue;
 
     private String driverName;
     private String url;
@@ -29,19 +29,19 @@ public class ConnectionPool {
 
     private ConnectionPool() {
         DBResourceManager dbResourceManager = DBResourceManager.getInstance();
-        this.driverName = dbResourceManager.getValue(DBParameter.DB_DRIVER);
-        this.url = dbResourceManager.getValue(DBParameter.DB_URL);
-        this.user = dbResourceManager.getValue(DBParameter.DB_USER);
-        this.password = dbResourceManager.getValue(DBParameter.DB_PASSWORD);
+        driverName = dbResourceManager.getValue(DBParameter.DB_DRIVER);
+        url = dbResourceManager.getValue(DBParameter.DB_URL);
+        user = dbResourceManager.getValue(DBParameter.DB_USER);
+        password = dbResourceManager.getValue(DBParameter.DB_PASSWORD);
         try {
-            this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOL_SIZE));
+            poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOL_SIZE));
         } catch (NumberFormatException e) {
             poolSize = 5;
         }
         try {
             initPoolData();
         } catch (ConnectionPoolException e) {
-            log.error(e);
+            log.error(e.getMessage());
         }
     }
 
@@ -49,24 +49,26 @@ public class ConnectionPool {
         Locale.setDefault(Locale.ENGLISH);
         try {
             Class.forName(driverName);
-            givenAwayConQueue = new ArrayBlockingQueue<>(poolSize);
-            connectionQueue = new ArrayBlockingQueue<>(poolSize);
+            reservedConnectionsQueue = new ArrayBlockingQueue<>(poolSize);
+            freeConnectionsQueue = new ArrayBlockingQueue<>(poolSize);
             for (int i = 0; i < poolSize; i++) {
                 Connection connection = DriverManager.getConnection(url, user, password);
                 PooledConnection pooledConnection = new PooledConnection(connection);
-                connectionQueue.add(pooledConnection);
+                freeConnectionsQueue.add(pooledConnection);
             }
         } catch (SQLException e_1) {
+            log.error(e_1.getMessage());
             throw new ConnectionPoolException("SQLException in Connection Pool", e_1);
         } catch (ClassNotFoundException e_2) {
+            log.error(e_2.getMessage());
             throw new ConnectionPoolException("Can't find database driver class", e_2);
         }
     }
 
     private void clearConnectionQueue() {
         try {
-            closeConnectionsQueue(givenAwayConQueue);
-            closeConnectionsQueue(connectionQueue);
+            closeConnectionsQueue(reservedConnectionsQueue);
+            closeConnectionsQueue(freeConnectionsQueue);
         } catch (SQLException e) {
             log.error("Error closing the connection", e);
         }
@@ -75,18 +77,18 @@ public class ConnectionPool {
     public Connection takeConnection() {
         Connection connection = null;
         try {
-            connection = connectionQueue.take();
-            givenAwayConQueue.add(connection);
+            connection = freeConnectionsQueue.take();
+            reservedConnectionsQueue.add(connection);
         } catch (InterruptedException e) {
             log.error("Error connecting to the data source", e);
         }
-        log.info("Connection Pool usage = " + givenAwayConQueue.size() + "/" + poolSize);
+        log.info("Connection is opened [" + reservedConnectionsQueue.size() + "/" + poolSize + "]");
         return connection;
     }
 
     public void dispose() throws Exception {
         clearConnectionQueue();
-        log.info("Connection Pool closed");
+        log.info("Connection Pool is closed");
     }
 
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
@@ -103,9 +105,9 @@ public class ConnectionPool {
         try {
             con.close();
         } catch (SQLException e) {
-            log.error("Connection isn't return to the connection_pool");
+            log.error("Connection isn't return to the Connection Pool");
         }
-        log.info("Connection is closed");
+        log.info("Connection is closed [" + reservedConnectionsQueue.size() + "/" + poolSize + "]");
     }
 
     public void closeConnection(Connection con, Statement st) {
@@ -119,19 +121,7 @@ public class ConnectionPool {
         } catch (SQLException e) {
             log.error("Connection isn't return to the connection_pool");
         }
-    }
-
-    public void closeStatement(Statement st, ResultSet rs) {
-        try {
-            rs.close();
-        } catch (SQLException e) {
-            log.error("ResultSet isn't closed");
-        }
-        try {
-            st.close();
-        } catch (SQLException e) {
-            log.error("Statement isn't closed");
-        }
+        log.info("Connection is closed [" + reservedConnectionsQueue.size() + "/" + poolSize + "]");
     }
 
     private void closeConnectionsQueue(BlockingQueue<Connection> queue) throws SQLException {
@@ -204,10 +194,10 @@ public class ConnectionPool {
             if (connection.isReadOnly()) {
                 connection.setReadOnly(false);
             }
-            if (!givenAwayConQueue.remove(this)) {
+            if (!reservedConnectionsQueue.remove(this)) {
                 throw new SQLException("Error deleting connection from the given away connections connection_pool");
             }
-            if (!connectionQueue.offer(this)) {
+            if (!freeConnectionsQueue.offer(this)) {
                 throw new SQLException("Error allocating connection in the connection_pool");
             }
         }

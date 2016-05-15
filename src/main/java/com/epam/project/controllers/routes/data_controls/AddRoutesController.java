@@ -14,17 +14,21 @@ import java.io.IOException;
 
 @WebServlet("/AddRoutesController")
 public class AddRoutesController extends HttpServlet {
-
     private final static Logger log = Logger.getRootLogger();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        doPost(request, response);
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            DAO<RouteBean> dao = new RoutesDAO();
+            String routeName = request.getParameter("route_name");
+            Integer length = Integer.valueOf(request.getParameter("length"));
+            Integer price = Integer.valueOf(request.getParameter("price"));
 
-            String name = request.getParameter("route_name");
-            Integer length = Integer.valueOf(request.getParameter("route_length"));
-            Integer price = Integer.valueOf(request.getParameter("route_name"));
-            dao.add(new RouteBean(name, length, price));
+            DAO<RouteBean> routesDAO = new RoutesDAO();
+            routesDAO.add(new RouteBean(routeName, length, price));
+
             request.getRequestDispatcher("RoutesController").forward(request, response);
         } catch (NumberFormatException e) {
             log.error(e.getMessage());
@@ -32,5 +36,4 @@ public class AddRoutesController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
     }
-
 }

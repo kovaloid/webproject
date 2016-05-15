@@ -14,15 +14,19 @@ import java.io.IOException;
 
 @WebServlet("/RemoveJournalController")
 public class RemoveJournalController extends HttpServlet {
-
     private final static Logger log = Logger.getRootLogger();
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        DAO<JournalBean> dao = new JournalDAO();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        doPost(request, response);
+    }
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            dao.remove(new JournalBean(id));
+            Integer id = Integer.parseInt(request.getParameter("id"));
+
+            DAO<JournalBean> journalDAO = new JournalDAO();
+            journalDAO.remove(new JournalBean(id));
+
             request.getRequestDispatcher("JournalController").forward(request, response);
         } catch (NumberFormatException e) {
             log.error(e.getMessage());

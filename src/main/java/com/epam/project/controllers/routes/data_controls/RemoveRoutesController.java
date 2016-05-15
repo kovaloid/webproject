@@ -14,22 +14,24 @@ import java.io.IOException;
 
 @WebServlet("/RemoveRoutesController")
 public class RemoveRoutesController extends HttpServlet {
-
     private final static Logger log = Logger.getRootLogger();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        doPost(request, response);
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            DAO<RouteBean> dao = new RoutesDAO();
-
             Integer id = Integer.parseInt(request.getParameter("id"));
-            dao.remove(new RouteBean(id));
+
+            DAO<RouteBean> routesDAO = new RoutesDAO();
+            routesDAO.remove(new RouteBean(id));
+
             request.getRequestDispatcher("RoutesController").forward(request, response);
         } catch (NumberFormatException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
-
     }
-
 }

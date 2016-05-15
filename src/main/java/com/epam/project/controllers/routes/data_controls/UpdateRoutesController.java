@@ -14,25 +14,27 @@ import java.io.IOException;
 
 @WebServlet("/UpdateRoutesController")
 public class UpdateRoutesController extends HttpServlet {
-
     private final static Logger log = Logger.getRootLogger();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        doPost(request, response);
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            DAO<RouteBean> dao = new RoutesDAO();
-
             Integer id = Integer.valueOf(request.getParameter("id"));
             String name = request.getParameter("route_name");
-            Integer length = Integer.valueOf(request.getParameter("route_length"));
-            Integer price = Integer.valueOf(request.getParameter("route_name"));
-            dao.update(new RouteBean(id, name, length, price));
+            Integer length = Integer.valueOf(request.getParameter("length"));
+            Integer price = Integer.valueOf(request.getParameter("price"));
+
+            DAO<RouteBean> routesDAO = new RoutesDAO();
+            routesDAO.update(new RouteBean(id, name, length, price));
+
             request.getRequestDispatcher("RoutesController").forward(request, response);
         } catch (NumberFormatException e) {
             log.error(e.getMessage());
             request.setAttribute("exception", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
         }
-
     }
-
 }

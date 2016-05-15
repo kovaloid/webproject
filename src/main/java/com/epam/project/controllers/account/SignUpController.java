@@ -21,10 +21,6 @@ public class SignUpController extends HttpServlet {
 
     private final static Logger log = Logger.getRootLogger();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        doPost(request, response);
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection con = pool.takeConnection();

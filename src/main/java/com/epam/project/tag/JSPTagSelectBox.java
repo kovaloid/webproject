@@ -11,9 +11,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 
 public class JSPTagSelectBox extends TagSupport {
-
-    private final Logger log = Logger.getRootLogger();
-
     private TableBean<Line> bean;
 
     public TableBean<Line> getBean() {

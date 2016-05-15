@@ -29,13 +29,13 @@
                     <select title="color" required name="color" class="form-control margin">
                         <option selected disabled>${choose_color}</option>
                         <c:forEach var="color" items="${sessionScope.colors_list}">
-                            <option value="${color}"><c:out value="${color}"/></option>
+                            <option value="${color}">${color}</option>
                         </c:forEach>
                     </select>
                     <select title="brand" required name="brand" class="form-control margin">
                         <option selected disabled>${choose_mark}</option>
                         <c:forEach var="car" items="${sessionScope.cars_list}">
-                            <option value="${car}"><c:out value="${car}"/></option>
+                            <option value="${car}">${car}</option>
                         </c:forEach>
                     </select>
                     <select title="driver" required name="driver_id" class="form-control margin">
@@ -88,7 +88,7 @@
                         <option selected disabled>${choose_color}</option>
 
                         <c:forEach var="color" items="${sessionScope.colors_list}">
-                            <option value="${color}"><c:out value="${color}"/></option>
+                            <option value="${color}">${color}</option>
                         </c:forEach>
 
                     </select>
@@ -96,7 +96,7 @@
                         <option selected disabled>${choose_mark}</option>
 
                         <c:forEach var="car" items="${sessionScope.cars_list}">
-                            <option value="${car}"><c:out value="${car}"/></option>
+                            <option value="${car}">${car}</option>
                         </c:forEach>
 
                     </select>

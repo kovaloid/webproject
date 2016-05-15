@@ -1,5 +1,6 @@
 package com.epam.project.database.dao.autobase;
 
+import com.epam.project.beans.Table;
 import com.epam.project.beans.TableBean;
 import com.epam.project.beans.lines.JournalBean;
 import com.epam.project.database.dao.AbstractDAO;
@@ -10,12 +11,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class JournalDAO extends AbstractDAO<JournalBean> {
+
     @Override
-    public TableBean getAll() {
+    public Table<JournalBean> getAll() {
         Connection con = pool.takeConnection();
-        TableBean<JournalBean> journalTable = new TableBean<>();
         Statement stmt = null;
         ResultSet rs = null;
+        Table<JournalBean> journalTable = new TableBean<>();
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT JOURNAL.ID, CAR_NUMBER, DATE_OUT, DATE_IN, ROUTE_NAME, SURNAME FROM AUTOBASE.JOURNAL "
@@ -29,6 +31,7 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
             journalTable.setLines(lines);
             journalTable.setCountColumns(headers.size());
             journalTable.setCountLines(lines.size());
+            log.info("All records was selected in table [JOURNAL]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);
@@ -51,7 +54,7 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
             if (rows != 1) {
                 throw new DAOException("On insert modify more or less than 1 record: " + rows);
             }
-            log.info(rows + " row(s) was inserted");
+            log.info("One record was inserted in table [JOURNAL]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);
@@ -72,7 +75,7 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
             if (rows != 1) {
                 throw new DAOException("On update modify more or less than 1 record: " + rows);
             }
-            log.info(rows + " row(s) was updated");
+            log.info("One record was updated in table [JOURNAL]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);
@@ -92,7 +95,7 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
             if (rows != 1) {
                 throw new DAOException("On delete modify more or less than 1 record: " + rows);
             }
-            log.info(rows + " row(s) was deleted");
+            log.info("One record was deleted in table [JOURNAL]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);

@@ -7,9 +7,10 @@ public class DriverBean implements Line {
     private String gender;
     private Integer phone;
 
-    public DriverBean() {}
+    public DriverBean() {
+    }
 
-    public DriverBean(int id) {
+    public DriverBean(Integer id) {
         this.id = id;
     }
 
@@ -31,7 +32,7 @@ public class DriverBean implements Line {
     @Override
     public String getColumn(int i) {
         String value;
-        switch(i) {
+        switch (i) {
             case 0:
                 value = String.valueOf(getId());
                 break;
@@ -41,9 +42,16 @@ public class DriverBean implements Line {
             case 2:
                 value = getSurname();
                 break;
+            case 3:
+                value = getGender();
+                break;
+            case 4:
+                value = String.valueOf(getPhone());
+                break;
             default:
-                value = "---";
+                value = NULL_VALUE;
         }
+        if (value == null) return NULL_VALUE;
         return value;
     }
 

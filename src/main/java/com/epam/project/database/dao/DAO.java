@@ -1,13 +1,13 @@
 package com.epam.project.database.dao;
 
-import com.epam.project.beans.TableBean;
+import com.epam.project.beans.Table;
 
 public interface DAO<T> {
-    TableBean getAll();
+    Table<T> getAll();
 
-    void add(T object);
+    void add(T line);
 
-    void update(T object);
+    void update(T line);
 
-    void remove(T object);
+    void remove(T line);
 }

@@ -6,9 +6,7 @@ import javax.servlet.*;
 import java.io.IOException;
 
 public class CharsetFilter implements Filter {
-
     private String encoding;
-
     private final static Logger log = Logger.getRootLogger();
 
     @Override
@@ -21,12 +19,11 @@ public class CharsetFilter implements Filter {
         request.setCharacterEncoding(encoding);
         response.setCharacterEncoding(encoding);
 
-        log.info("Charset '" + encoding + "' was set");
+        log.info("[FILTER] Charset '" + encoding + "' was set");
         chain.doFilter(request, response);
     }
 
     @Override
     public void destroy() {
     }
-
 }

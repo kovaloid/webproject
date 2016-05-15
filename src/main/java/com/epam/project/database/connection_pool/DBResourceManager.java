@@ -7,7 +7,7 @@ class DBResourceManager {
 
     private ResourceBundle bundle = ResourceBundle.getBundle("db");
 
-    public static DBResourceManager getInstance() {
+    static DBResourceManager getInstance() {
         return instance;
     }
 

@@ -26,7 +26,7 @@
                 maxWaitMillis="-1"/>
     -->
 
-    <!-- Tomcat Connection Pool Usage In Java Code -->
+    <!-- Tomcat Connection Pool Using In Java Code -->
     <!--
         Context initContext = new InitialContext();
         Context envContext  = (Context)initContext.lookup("java:/comp/env");

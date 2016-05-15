@@ -9,14 +9,14 @@ public class UserBean {
     public UserBean() {
     }
 
+    public UserBean(String login) {
+        this.login = login;
+    }
+
     public UserBean(String login, String password, String role) {
         this.login = login;
         this.password = password;
         this.role = role;
-    }
-
-    public UserBean(String login) {
-        this.login = login;
     }
 
     public Integer getId() {
@@ -50,6 +50,4 @@ public class UserBean {
     public void setRole(String role) {
         this.role = role;
     }
-
-
 }

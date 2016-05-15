@@ -1,13 +1,13 @@
 package com.epam.project.beans.lines;
 
 public class RouteBean implements Line {
-
-    private Integer id = null;
+    private Integer id;
     private String routeName;
     private Integer length;
     private Integer price;
 
-    public RouteBean() {}
+    public RouteBean() {
+    }
 
     public RouteBean(Integer id) {
         this.id = id;
@@ -29,20 +29,23 @@ public class RouteBean implements Line {
     @Override
     public String getColumn(int i) {
         String value;
-        switch(i) {
+        switch (i) {
             case 0:
                 value = String.valueOf(getId());
                 break;
             case 1:
-                if (getRouteName() == null)
-                    value = "---";
-                else
-                    value = getRouteName();
-                //value = getRouteName();
+                value = getRouteName();
+                break;
+            case 2:
+                value = String.valueOf(getLength());
+                break;
+            case 3:
+                value = String.valueOf(getPrice());
                 break;
             default:
-                value = "---";
+                value = NULL_VALUE;
         }
+        if (value == null) return NULL_VALUE;
         return value;
     }
 
@@ -50,7 +53,9 @@ public class RouteBean implements Line {
         return id;
     }
 
-    public void setId(int id) { this.id = id;  }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getRouteName() {
         return routeName;

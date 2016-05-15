@@ -45,7 +45,7 @@
                                     <option selected disabled>${monthSelect}</option>
 
                                     <c:forEach var="month" items="${sessionScope.months_list}">
-                                        <option value="${month}"><c:out value="${month}"/></option>
+                                        <option value="${month}">${month}</option>
                                     </c:forEach>
                                 </select>
                             </td>
@@ -118,7 +118,7 @@
                                     <option selected disabled>${monthSelect}</option>
 
                                     <c:forEach var="month" items="${sessionScope.months_list}">
-                                        <option value="${month}"><c:out value="${month}"/></option>
+                                        <option value="${month}">${month}</option>
                                     </c:forEach>
                                 </select>
                             </td>

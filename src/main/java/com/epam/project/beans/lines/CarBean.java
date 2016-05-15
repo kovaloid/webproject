@@ -17,18 +17,18 @@ public class CarBean implements Line {
         this.id = id;
     }
 
-    public CarBean(String number, String mark, String color, Integer driverId, String ready) {
+    public CarBean(String number, String brand, String color, Integer driverId, String ready) {
         this.number = number;
-        this.brand = mark;
+        this.brand = brand;
         this.color = color;
         this.driverId = driverId;
         this.ready = ready;
     }
 
-    public CarBean(Integer id, String number, String mark, String color, Integer driverId, String ready) {
+    public CarBean(Integer id, String number, String brand, String color, Integer driverId, String ready) {
         this.id = id;
         this.number = number;
-        this.brand = mark;
+        this.brand = brand;
         this.color = color;
         this.driverId = driverId;
         this.ready = ready;
@@ -60,8 +60,9 @@ public class CarBean implements Line {
                 value = getReady();
                 break;
             default:
-                value = "---";
+                value = NULL_VALUE;
         }
+        if (value == null) return NULL_VALUE;
         return value;
     }
 

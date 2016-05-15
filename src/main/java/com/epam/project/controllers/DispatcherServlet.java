@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @WebServlet("/main")
 public class DispatcherServlet extends HttpServlet {
-
     private final static Logger log = Logger.getRootLogger();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -103,9 +102,8 @@ public class DispatcherServlet extends HttpServlet {
                     }
                 break;
             default:
-                log.warn("Bad request for Dispatcher Servlet");
+                log.warn("Bad request to Dispatcher Servlet");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
-
 }

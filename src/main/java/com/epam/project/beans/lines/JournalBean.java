@@ -3,7 +3,7 @@ package com.epam.project.beans.lines;
 import java.sql.Date;
 
 public class JournalBean implements Line {
-    private Integer id = null;
+    private Integer id;
     private Integer carId;
     private String number;
     private Date dateIn;
@@ -15,17 +15,17 @@ public class JournalBean implements Line {
     public JournalBean() {
     }
 
-    public JournalBean(int id) {
+    public JournalBean(Integer id) {
         this.id = id;
     }
 
-    public JournalBean(Integer id, Date date_in) {
+    public JournalBean(Integer id, Date dateIn) {
         this.id = id;
-        this.dateIn = date_in;
+        this.dateIn = dateIn;
     }
 
-    public JournalBean(Date date_out, Integer carId, int routeId) {
-        this.dateOut = date_out;
+    public JournalBean(Date dateOut, Integer carId, Integer routeId) {
+        this.dateOut = dateOut;
         this.carId = carId;
         this.routeId = routeId;
     }
@@ -42,13 +42,13 @@ public class JournalBean implements Line {
                 break;
             case 2:
                 if (getDateOut() == null)
-                    value = "---";
+                    value = NULL_VALUE;
                 else
                     value = getDateOut().toString();
                 break;
             case 3:
                 if (getDateIn() == null)
-                    value = "---";
+                    value = NULL_VALUE;
                 else
                     value = getDateIn().toString();
                 break;
@@ -59,8 +59,9 @@ public class JournalBean implements Line {
                 value = getDriverSurname();
                 break;
             default:
-                value = "---";
+                value = NULL_VALUE;
         }
+        if (value == null) return NULL_VALUE;
         return value;
     }
 
