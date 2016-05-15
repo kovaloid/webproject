@@ -2,16 +2,19 @@ package com.epam.project.database.dao.autobase;
 
 import com.epam.project.beans.TableBean;
 import com.epam.project.beans.UserBean;
+import com.epam.project.beans.lines.CarBean;
 import com.epam.project.database.connection_pool.ConnectionPool;
 import com.epam.project.database.dao.AbstractDAO;
+import com.epam.project.database.dao.AuthDAO;
 import com.epam.project.database.dao.DAOException;
+import com.epam.project.database.dao.ReadyDAO;
 import com.epam.project.service.constants.Account;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UsersDAO extends AbstractDAO<UserBean> {
+public class UsersDAO extends AbstractDAO<UserBean> implements AuthDAO<UserBean> {
     @Override
     public TableBean getAll() {
         Connection con = pool.takeConnection();
@@ -117,7 +120,8 @@ public class UsersDAO extends AbstractDAO<UserBean> {
         return result;
     }
 
-    public static String checkUser(UserBean user) {
+    @Override
+    public String checkUser(UserBean user) {
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -146,7 +150,8 @@ public class UsersDAO extends AbstractDAO<UserBean> {
         return result;
     }
 
-    public static String defineRole(UserBean user) {
+    @Override
+    public String defineRole(UserBean user) {
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -169,7 +174,8 @@ public class UsersDAO extends AbstractDAO<UserBean> {
         return Account.Role.CLIENT;
     }
 
-    public static boolean checkSameLogin(UserBean user) {
+    @Override
+    public boolean checkSameLogin(UserBean user) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection con = pool.takeConnection();
         Statement stmt = null;

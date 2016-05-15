@@ -20,11 +20,20 @@ body {
     padding: 5px;
 }
 
-.data {
+.data_right {
     position: absolute;
     width: 300px;
     top: 280px;
     right: 30px;
+    text-align: center;
+    padding: 5px;
+}
+
+.data_left {
+    position: absolute;
+    width: 300px;
+    top: 300px;
+    left: 30px;
     text-align: center;
     padding: 5px;
 }

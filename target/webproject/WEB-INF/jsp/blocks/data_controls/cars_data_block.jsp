@@ -14,7 +14,7 @@
 <fmt:message bundle="${loc}" key="local.data.choose_mark_text" var="choose_mark"/>
 <fmt:message bundle="${loc}" key="local.data.car_num" var="car_num"/>
 
-<div class="data">
+<div class="data_right">
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">${data_header}</h3>
@@ -28,42 +28,56 @@
                     <input placeholder="${car_num}" class="form-control margin" type="text" name="car_number"><br/>
                     <select title="color" required name="color" class="form-control margin">
                         <option selected disabled>${choose_color}</option>
-                        <option value="blue">синий</option>
-                        <option value="red">красный</option>
-                        <option value="yellow">желтый</option>
-                        <option value="green">зеленый</option>
-                        <option value="orange">оранжевый</option>
-                        <option value="brown">коричневый</option>
-                        <option value="black">черный</option>
-                        <option value="white">белый</option>
+                        <c:forEach var="color" items="${sessionScope.colors_list}">
+                            <option value="${color}"><c:out value="${color}"/></option>
+                        </c:forEach>
                     </select>
                     <select title="brand" required name="brand" class="form-control margin">
                         <option selected disabled>${choose_mark}</option>
-                        <option value="Gazel">Газель</option>
-                        <option value="Mercedez">Мерседес</option>
-                        <option value="Ford">Форд</option>
-                        <option value="Lada">Лада</option>
-                        <option value="Volga">Волга</option>
+                        <c:forEach var="car" items="${sessionScope.cars_list}">
+                            <option value="${car}"><c:out value="${car}"/></option>
+                        </c:forEach>
                     </select>
                     <select title="driver" required name="driver_id" class="form-control margin">
                         <option selected disabled>${choose_driver}</option>
 
-                        <mytag:select_box bean="${sessionScope.drivers_select}" />
+                        <mytag:select_box bean="${sessionScope.drivers_list}"/>
 
                     </select>
-                    <!--<select title="driver" required name="ready" class="form-control margin">
-                        <option selected disabled>готов ли?</option>
-                        <option value="yes">готов</option>
-                        <option value="no">не готов</option>
 
-                    </select>--><br />
+                    <br/>
+
                     <label><input name="ready" type="radio" value="yes" checked> Исправен</label><br>
-                    <label><input name="ready" type="radio" value="no"> Не исправен</label><br />
+                    <label><input name="ready" type="radio" value="no"> Не исправен</label><br/>
 
 
                     <input type="submit" class="btn btn-success" value="${add_button}"/>
                 </form>
             </div>
+
+            <div class="alert alert-danger">
+                <form action="main" method="post" class="navbar-form" role="form">
+                    <input type="hidden" name="command" value="cars"/>
+                    <input type="hidden" name="do" value="remove"/>
+                    <input placeholder="ID" class="form-control margin" type="text" name="id"><br/>
+                    <input type="submit" class="btn btn-success" value="${remove_button}"/>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="data_left">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">${data_header}</h3>
+        </div>
+        <div class="panel-body">
+
             <div class="alert alert-warning">
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="cars"/>
@@ -72,50 +86,35 @@
                     <input placeholder="${car_num}" class="form-control margin" type="text" name="car_number"><br/>
                     <select title="color" required name="color" class="form-control margin">
                         <option selected disabled>${choose_color}</option>
-                        <option value="blue">синий</option>
-                        <option value="red">красный</option>
-                        <option value="yellow">желтый</option>
-                        <option value="green">зеленый</option>
-                        <option value="orange">оранжевый</option>
-                        <option value="brown">коричневый</option>
-                        <option value="black">черный</option>
-                        <option value="white">белый</option>
+
+                        <c:forEach var="color" items="${sessionScope.colors_list}">
+                            <option value="${color}"><c:out value="${color}"/></option>
+                        </c:forEach>
+
                     </select>
                     <select title="brand" required name="brand" class="form-control margin">
                         <option selected disabled>${choose_mark}</option>
-                        <option value="Gazel">Газель</option>
-                        <option value="Mercedez">Мерседес</option>
-                        <option value="Ford">Форд</option>
-                        <option value="Lada">Лада</option>
-                        <option value="Volga">Волга</option>
+
+                        <c:forEach var="car" items="${sessionScope.cars_list}">
+                            <option value="${car}"><c:out value="${car}"/></option>
+                        </c:forEach>
+
                     </select>
                     <select title="driver" required name="driver_id" class="form-control margin">
                         <option selected disabled>${choose_driver}</option>
 
 
-                        <mytag:select_box bean="${sessionScope.drivers_select}" />
+                        <mytag:select_box bean="${sessionScope.drivers_list}"/>
 
 
                     </select>
 
-                    <!--<select title="driver" required name="ready" class="form-control margin">
-                        <option selected disabled>готов ли?</option>
-                        <option value="yes">готов</option>
-                        <option value="no">не готов</option>
+                    <br/>
 
-                    </select>--><br />
                     <label><input name="ready" type="radio" value="yes" checked> Исправен</label><br>
-                    <label><input name="ready" type="radio" value="no"> Не исправен</label><br />
-                    
+                    <label><input name="ready" type="radio" value="no"> Не исправен</label><br/>
+
                     <input type="submit" class="btn btn-success" value="${update_button}"/>
-                </form>
-            </div>
-            <div class="alert alert-danger">
-                <form action="main" method="post" class="navbar-form" role="form">
-                    <input type="hidden" name="command" value="cars"/>
-                    <input type="hidden" name="do" value="remove"/>
-                    <input placeholder="ID" class="form-control margin" type="text" name="id"><br/>
-                    <input type="submit" class="btn btn-success" value="${remove_button}"/>
                 </form>
             </div>
 

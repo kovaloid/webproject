@@ -1,6 +1,7 @@
 package com.epam.project.service;
 
 import com.epam.project.beans.UserBean;
+import com.epam.project.database.dao.AuthDAO;
 import com.epam.project.database.dao.autobase.UsersDAO;
 import com.epam.project.service.constants.Account;
 import org.apache.log4j.Logger;
@@ -8,10 +9,11 @@ import org.apache.log4j.Logger;
 public class AccountManager {
 
     private final static Logger log = Logger.getRootLogger();
+    private AuthDAO<UserBean> auth = new UsersDAO();
 
     private boolean isBadUsername(String login) {
         boolean condition_1 = (login.length() < 20) && (login.length() > 3);
-        boolean condition_2 = UsersDAO.checkSameLogin(new UserBean(login));
+        boolean condition_2 = auth.checkSameLogin(new UserBean(login));
         // Имя пользователя (с ограничением 2-20 символов, которыми могут быть буквы и цифры, первый символ обязательно буква)
         //boolean condition_3 = username.matches("^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$");
         //return !(condition_1 && condition_2 && condition_3);
@@ -30,7 +32,7 @@ public class AccountManager {
         return !password.equals(repeat);
     }
 
-    public String signup(String login, String password, String repeat) {
+    public String checkForSignup(String login, String password, String repeat) {
         boolean bad_login = isBadUsername(login);
         boolean bad_password = isBadPassword(password);
         boolean bad_repeat = isBadRepeat(password, repeat);
@@ -42,16 +44,26 @@ public class AccountManager {
         return Account.Result.SUCCESS;
     }
 
+    public void signup(String login, String password) {
+        UserBean user = new UserBean();
+        user.setLogin(login);
+        user.setPassword(password);
+        AuthDAO<UserBean> auth = new UsersDAO();
+        auth.add(user);
+    }
+
     public String authenticate(String login, String password) {
         UserBean user = new UserBean();
         user.setLogin(login);
         user.setPassword(password);
-        return UsersDAO.checkUser(user);
+        AuthDAO<UserBean> auth = new UsersDAO();
+        return auth.checkUser(user);
     }
 
     public String defineRole(String login) {
         UserBean user = new UserBean();
         user.setLogin(login);
-        return UsersDAO.defineRole(user);
+        AuthDAO<UserBean> auth = new UsersDAO();
+        return auth.defineRole(user);
     }
 }
