@@ -7,12 +7,12 @@
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="locale" var="loc"/>
     <fmt:message bundle="${loc}" key="local.title" var="page_title"/>
-    <fmt:message bundle="${loc}" key="local.subtitle.reg" var="reg_subtitle"/>
-    <fmt:message bundle="${loc}" key="local.signin.reg" var="reg_text"/>
-    <fmt:message bundle="${loc}" key="local.signup.enter_login" var="login_text"/>
-    <fmt:message bundle="${loc}" key="local.signup.enter_password" var="password_text"/>
-    <fmt:message bundle="${loc}" key="local.signup.enter_repeat" var="repeat_text"/>
-    <fmt:message bundle="${loc}" key="local.signup.reg_button" var="reg_button"/>
+    <fmt:message bundle="${loc}" key="local.subtitle.sign_up" var="reg_subtitle"/>
+    <fmt:message bundle="${loc}" key="local.sign_in.sign_up_link" var="reg_text"/>
+    <fmt:message bundle="${loc}" key="local.sign_up.enter_login_text" var="login_text"/>
+    <fmt:message bundle="${loc}" key="local.sign_up.enter_password_text" var="password_text"/>
+    <fmt:message bundle="${loc}" key="local.sign_up.enter_repeat_text" var="repeat_text"/>
+    <fmt:message bundle="${loc}" key="local.sign_up.sign_up_button" var="reg_button"/>
     <fmt:message bundle="${loc}" key="local.input.if_empty" var="if_empty"/>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>

@@ -7,7 +7,7 @@
 <fmt:message bundle="${loc}" key="local.data.add_button" var="add_button"/>
 <fmt:message bundle="${loc}" key="local.data.update_button" var="update_button"/>
 <fmt:message bundle="${loc}" key="local.data.remove_button" var="remove_button"/>
-<fmt:message bundle="${loc}" key="local.data.new_route" var="new_route"/>
+<fmt:message bundle="${loc}" key="local.data.routes.route_name_input" var="new_route"/>
 
 <div class="data_right">
     <div class="panel panel-info">

@@ -24,6 +24,14 @@
             <!--<type>com.epam.project.beans.ResultSetBean</type>-->
             <type>com.epam.project.beans.TableBean</type>
         </attribute>
+        <attribute>
+            <description>!!!!</description>
+            <name>locale</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <!--<type>com.epam.project.beans.ResultSetBean</type>-->
+            <type>java.lang.String</type>
+        </attribute>
     </tag>
 
     <tag>

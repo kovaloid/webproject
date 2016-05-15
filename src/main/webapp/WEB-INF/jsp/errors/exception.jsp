@@ -8,12 +8,15 @@
 
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="locale" var="loc"/>
-    <fmt:message bundle="${loc}" key="local.error.other_error_1" var="text_1"/>
-    <fmt:message bundle="${loc}" key="local.error.other_error_2" var="text_2"/>
+    <fmt:message bundle="${loc}" key="local.title" var="page_title"/>
+    <fmt:message bundle="${loc}" key="local.exception.exception_text" var="exception_text"/>
+    <fmt:message bundle="${loc}" key="local.exception.message_text" var="message_text"/>
+    <fmt:message bundle="${loc}" key="local.exception.unknown_exception" var="unknown_exception_text"/>
+    <fmt:message bundle="${loc}" key="local.button.back" var="back_button"/>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="author" content="Artem Kovalev"/>
-    <title>Error</title>
+    <title>${exception_text} - ${page_title}</title>
     <link href="../../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <link href="../../../css/template.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="../../../img/favicon.png"/>
@@ -24,23 +27,20 @@
 
 <div class="main">
     <div class="well">
-
         <div class="alert alert-danger" align="center">
-            <h1>${text_1}!</h1>
+            <h1>${exception_text}!</h1>
             <p>
-                ${text_2} : <br/>
+                ${message_text}: <br/>
                 <c:if test="${requestScope.exception != null}">
-                    <c:out value="${requestScope.exception}"/>
+                    <%=exception.getMessage()%>
                 </c:if>
                 <c:if test="${requestScope.exception == null}">
-                    Unknown exception
+                    ${unknown_exception_text}
                 </c:if>
-
-
-                <%=exception.getMessage()%>
             </p>
+            <br/>
+            <input type="button" class="btn btn-success margin" onclick="history.back();" value="${back_button}"/>
         </div>
-
     </div>
 </div>
 

@@ -3,10 +3,10 @@
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale" var="loc"/>
-<fmt:message bundle="${loc}" key="local.menu.cars_button" var="cars_button"/>
-<fmt:message bundle="${loc}" key="local.menu.drivers_button" var="drivers_button"/>
-<fmt:message bundle="${loc}" key="local.menu.routes_button" var="routes_button"/>
-<fmt:message bundle="${loc}" key="local.menu.journal_button" var="journal_button"/>
+<fmt:message bundle="${loc}" key="local.subtitle.cars" var="cars_button"/>
+<fmt:message bundle="${loc}" key="local.subtitle.drivers" var="drivers_button"/>
+<fmt:message bundle="${loc}" key="local.subtitle.routes" var="routes_button"/>
+<fmt:message bundle="${loc}" key="local.subtitle.journal" var="journal_button"/>
 
 <br><br>
 <div class="alert alert-warning menu">

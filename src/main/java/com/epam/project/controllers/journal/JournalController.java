@@ -1,11 +1,12 @@
 package com.epam.project.controllers.journal;
 
 import com.epam.project.beans.Table;
+import com.epam.project.consts.Account;
 import com.epam.project.database.dao.*;
 import com.epam.project.database.dao.autobase.CarsDAO;
 import com.epam.project.database.dao.autobase.JournalDAO;
 import com.epam.project.database.dao.autobase.RoutesDAO;
-import com.epam.project.util.MonthDefiner;
+import com.epam.project.utils.MonthDefiner;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +39,8 @@ public class JournalController extends HttpServlet {
         List<String> monthsList = MonthDefiner.getMonthsList();
         request.getSession().setAttribute("months_list", monthsList);
 
-        request.getRequestDispatcher("/WEB-INF/jsp/data_tables/journal.jsp").forward(request, response);
+        String status = (String) request.getSession().getAttribute(Account.STATUS);
+        if (!status.equals(Account.Status.IN)) response.sendError(401);
+        else request.getRequestDispatcher("/WEB-INF/jsp/data_tables/cars.jsp").forward(request, response);
     }
 }

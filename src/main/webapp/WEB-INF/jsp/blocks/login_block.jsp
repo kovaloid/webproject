@@ -4,15 +4,16 @@
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale" var="loc"/>
-<fmt:message bundle="${loc}" key="local.signin.header" var="signin_header"/>
-<fmt:message bundle="${loc}" key="local.signin.login" var="login_text"/>
-<fmt:message bundle="${loc}" key="local.signin.password" var="password_text"/>
-<fmt:message bundle="${loc}" key="local.signin.enter" var="enter_button"/>
-<fmt:message bundle="${loc}" key="local.signin.reg" var="reg_button"/>
-<fmt:message bundle="${loc}" key="local.signin.welcome" var="welcome_text"/>
+<fmt:message bundle="${loc}" key="local.sign_in.header" var="signin_header"/>
+<fmt:message bundle="${loc}" key="local.sign_in.login_input" var="login_text"/>
+<fmt:message bundle="${loc}" key="local.sign_in.password_input" var="password_text"/>
+<fmt:message bundle="${loc}" key="local.sign_in.sign_in_button" var="enter_button"/>
+<fmt:message bundle="${loc}" key="local.sign_in.sign_up_link" var="reg_button"/>
+<fmt:message bundle="${loc}" key="local.sign_in.welcome_text" var="welcome_text"/>
 <fmt:message bundle="${loc}" key="local.input.if_empty" var="if_empty"/>
+<fmt:message bundle="${loc}" key="local.sign_in.access_level_text" var="access_level_text"/>
 
-<c:set var="successUrl" scope="session" value="${param.page}" />
+<c:set var="successRedirectURL" scope="session" value="${param.page}"/>
 
 <div class="login">
     <div class="panel panel-info">
@@ -20,29 +21,27 @@
             <h3 class="panel-title">${signin_header}</h3>
         </div>
         <div class="panel-body">
-
-
             <c:if test="${sessionScope.status eq 'in'}">
-                <jsp:useBean id="user" class="com.epam.project.beans.UserBean" scope="session" />
-                <p>${welcome_text}, <c:out value="${user.login}"/></p>
-                <p>Role is <c:out value="${user.role}"/></p>
-
+                <jsp:useBean id="user" class="com.epam.project.beans.UserBean" scope="session"/>
+                <p>${welcome_text}, ${user.login}</p>
+                <p>${access_level_text}: ${user.role}</p>
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="logout"/>
                     <button type="submit" class="btn btn-success margin">Sign Out</button>
                 </form>
             </c:if>
-
             <c:if test="${sessionScope.status ne 'in'}">
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="login"/>
-                    <input placeholder="${login_text}" class="form-control margin" type="text" name="username" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')"><br/>
-                    <input placeholder="${password_text}" class="form-control margin" type="password" name="password" required oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')"><br/>
+                    <input placeholder="${login_text}" class="form-control margin" type="text" name="login" required
+                           oninvalid="this.setCustomValidity('${if_empty}')" oninput="setCustomValidity('')"><br/>
+                    <input placeholder="${password_text}" class="form-control margin" type="password" name="password"
+                           required oninvalid="this.setCustomValidity('${if_empty}')"
+                           oninput="setCustomValidity('')"><br/>
                     <button type="submit" class="btn btn-success margin">${enter_button}</button>
                     <a href="${pageContext.request.contextPath}/signup">${reg_button}</a>
                 </form>
             </c:if>
-
         </div>
     </div>
 </div>

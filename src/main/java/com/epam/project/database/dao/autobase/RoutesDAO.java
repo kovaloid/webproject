@@ -27,7 +27,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
             routesTable.setLines(lines);
             routesTable.setCountColumns(headers.size());
             routesTable.setCountLines(lines.size());
-            log.info("All records was selected in table [ROUTES]");
+            log.info("All records were selected in table [ROUTES]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);
@@ -35,6 +35,33 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
             pool.closeConnection(con, stmt, rs);
         }
         return routesTable;
+    }
+
+    @Override
+    public RouteBean getByID(Integer id) {
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        RouteBean routeBean = new RouteBean();
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT ID, ROUTE_NAME, LENGTH, PRICE FROM AUTOBASE.ROUTES " +
+                    "WHERE ID = '" + id + "' ORDER BY ID");
+            List<RouteBean> lines = parseTableLines(rs);
+            if (lines.size() > 0) {
+                routeBean.setId(lines.get(0).getId());
+                routeBean.setRouteName(lines.get(0).getRouteName());
+                routeBean.setLength(lines.get(0).getLength());
+                routeBean.setPrice(lines.get(0).getPrice());
+            }
+            log.info("One record was selected in table [ROUTES]");
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            throw new DAOException(e);
+        } finally {
+            pool.closeConnection(con, stmt, rs);
+        }
+        return routeBean;
     }
 
     @Override

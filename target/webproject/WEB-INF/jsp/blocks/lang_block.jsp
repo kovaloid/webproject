@@ -8,7 +8,7 @@
 <fmt:message bundle="${loc}" key="local.lang.ru_button" var="ru_button"/>
 <fmt:message bundle="${loc}" key="local.lang.en_button" var="en_button"/>
 
-<c:set var="url" scope="session" value="${param.page}" />
+<c:set var="redirectURL" scope="session" value="${param.page}" />
 
 <div class="lang">
     <div class="panel panel-info">

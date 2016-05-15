@@ -9,13 +9,13 @@
 <fmt:message bundle="${loc}" key="local.data.add_button" var="add_button"/>
 <fmt:message bundle="${loc}" key="local.data.update_button" var="update_button"/>
 <fmt:message bundle="${loc}" key="local.data.remove_button" var="remove_button"/>
-<fmt:message bundle="${loc}" key="local.data.time_out_text" var="time_out"/>
-<fmt:message bundle="${loc}" key="local.data.time_in_text" var="time_in"/>
-<fmt:message bundle="${loc}" key="local.data.choose_car_text" var="choose_car"/>
-<fmt:message bundle="${loc}" key="local.data.choose_route_text" var="choose_route"/>
-<fmt:message bundle="${loc}" key="local.data.time_day" var="day"/>
-<fmt:message bundle="${loc}" key="local.data.time_month" var="monthSelect"/>
-<fmt:message bundle="${loc}" key="local.data.time_year" var="year"/>
+<fmt:message bundle="${loc}" key="local.data.journal.date_out_text" var="time_out"/>
+<fmt:message bundle="${loc}" key="local.data.journal.date_in_text" var="time_in"/>
+<fmt:message bundle="${loc}" key="local.data.journal.choose_car_select" var="choose_car"/>
+<fmt:message bundle="${loc}" key="local.data.journal.choose_route_select" var="choose_route"/>
+<fmt:message bundle="${loc}" key="local.data.journal.day_input" var="day"/>
+<fmt:message bundle="${loc}" key="local.data.journal.month_select" var="monthSelect"/>
+<fmt:message bundle="${loc}" key="local.data.journal.year_input" var="year"/>
 
 <div class="data_right">
     <div class="panel panel-info">
@@ -23,12 +23,10 @@
             <h3 class="panel-title">${data_header}</h3>
         </div>
         <div class="panel-body">
-
             <div class="alert alert-success">
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="journal"/>
                     <input type="hidden" name="do" value="add"/>
-
                     <table>
                         <tr>
                             <td colspan="3">
@@ -43,7 +41,6 @@
                             <td>
                                 <select title="${monthSelect}" required name="month_out" class="form-control">
                                     <option selected disabled>${monthSelect}</option>
-
                                     <c:forEach var="month" items="${sessionScope.months_list}">
                                         <option value="${month}">${month}</option>
                                     </c:forEach>
@@ -55,23 +52,17 @@
                             </td>
                         </tr>
                     </table>
-
                     <select title="num" required name="car_id" class="form-control margin">
                         <option selected disabled>${choose_car}</option>
-
-                        <mytag:select_box bean="${sessionScope.cars_list}" />
-
+                        <mytag:select_box bean="${sessionScope.cars_list}"/>
                     </select>
                     <select title="route" required name="route_id" class="form-control margin">
                         <option selected disabled>${choose_route}</option>
-
-                        <mytag:select_box bean="${sessionScope.routes_list}" />
-
+                        <mytag:select_box bean="${sessionScope.routes_list}"/>
                     </select>
                     <input type="submit" class="btn btn-success" value="${add_button}"/>
                 </form>
             </div>
-
             <div class="alert alert-danger">
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="journal"/>
@@ -80,11 +71,9 @@
                     <input type="submit" class="btn btn-success" value="${remove_button}"/>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
-
 
 
 <div class="data_left">
@@ -93,15 +82,11 @@
             <h3 class="panel-title">${data_header}</h3>
         </div>
         <div class="panel-body">
-
             <div class="alert alert-warning">
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="journal"/>
                     <input type="hidden" name="do" value="update"/>
                     <input placeholder="ID" class="form-control margin" type="text" name="id"><br/>
-
-
-
                     <table>
                         <tr>
                             <td colspan="3">
@@ -128,12 +113,9 @@
                             </td>
                         </tr>
                     </table>
-
-
                     <input type="submit" class="btn btn-success" value="${update_button}"/>
                 </form>
             </div>
-
         </div>
     </div>
 </div>

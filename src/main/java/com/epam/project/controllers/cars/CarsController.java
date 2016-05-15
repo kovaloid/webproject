@@ -1,11 +1,12 @@
 package com.epam.project.controllers.cars;
 
 import com.epam.project.beans.Table;
+import com.epam.project.consts.Account;
 import com.epam.project.database.dao.DAO;
 import com.epam.project.database.dao.autobase.CarsDAO;
 import com.epam.project.database.dao.autobase.DriversDAO;
-import com.epam.project.util.CarDefiner;
-import com.epam.project.util.ColorDefiner;
+import com.epam.project.utils.CarDefiner;
+import com.epam.project.utils.ColorDefiner;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,6 +38,8 @@ public class CarsController extends HttpServlet {
         List<String> carsList = CarDefiner.getCarsList();
         request.getSession().setAttribute("cars_list", carsList);
 
-        request.getRequestDispatcher("/WEB-INF/jsp/data_tables/cars.jsp").forward(request, response);
+        String status = (String) request.getSession().getAttribute(Account.STATUS);
+        if (!status.equals(Account.Status.IN)) response.sendError(401);
+        else request.getRequestDispatcher("/WEB-INF/jsp/data_tables/cars.jsp").forward(request, response);
     }
 }

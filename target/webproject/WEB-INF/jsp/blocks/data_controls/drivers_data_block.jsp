@@ -7,8 +7,8 @@
 <fmt:message bundle="${loc}" key="local.data.add_button" var="add_button"/>
 <fmt:message bundle="${loc}" key="local.data.update_button" var="update_button"/>
 <fmt:message bundle="${loc}" key="local.data.remove_button" var="remove_button"/>
-<fmt:message bundle="${loc}" key="local.data.first_name" var="first_name"/>
-<fmt:message bundle="${loc}" key="local.data.second_name" var="second_name"/>
+<fmt:message bundle="${loc}" key="local.data.drivers.name_input" var="first_name"/>
+<fmt:message bundle="${loc}" key="local.data.drivers.surname_input" var="second_name"/>
 
 <div class="data_right">
     <div class="panel panel-info">

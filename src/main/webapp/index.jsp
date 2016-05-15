@@ -9,10 +9,10 @@
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="locale" var="loc"/>
     <fmt:message bundle="${loc}" key="local.title" var="page_title"/>
-    <fmt:message bundle="${loc}" key="local.main_wall.head" var="wall_head"/>
-    <fmt:message bundle="${loc}" key="local.main_wall.text_1" var="wall_text_1"/>
-    <fmt:message bundle="${loc}" key="local.main_wall.text_2" var="wall_text_2"/>
-    <fmt:message bundle="${loc}" key="local.main_wall.text_3" var="wall_text_3"/>
+    <fmt:message bundle="${loc}" key="local.content.main_page.header" var="wall_head"/>
+    <fmt:message bundle="${loc}" key="local.content.main_page.text_1" var="wall_text_1"/>
+    <fmt:message bundle="${loc}" key="local.content.main_page.text_2" var="wall_text_2"/>
+    <fmt:message bundle="${loc}" key="local.content.main_page.text_3" var="wall_text_3"/>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="author" content="Artem Kovalev"/>

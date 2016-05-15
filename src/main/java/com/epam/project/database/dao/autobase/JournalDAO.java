@@ -31,7 +31,7 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
             journalTable.setLines(lines);
             journalTable.setCountColumns(headers.size());
             journalTable.setCountLines(lines.size());
-            log.info("All records was selected in table [JOURNAL]");
+            log.info("All records were selected in table [JOURNAL]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);
@@ -39,6 +39,39 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
             pool.closeConnection(con, stmt, rs);
         }
         return journalTable;
+    }
+
+    @Override
+    public JournalBean getByID(Integer id) {
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        JournalBean journalBean = new JournalBean();
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT JOURNAL.ID, CAR_NUMBER, DATE_OUT, DATE_IN, ROUTE_NAME, SURNAME FROM AUTOBASE.JOURNAL "
+                    + "JOIN AUTOBASE.CARS ON CAR_ID = CARS.ID "
+                    + "JOIN AUTOBASE.ROUTES ON ROUTE_ID = ROUTES.ID "
+                    + "JOIN AUTOBASE.DRIVERS ON DRIVER_ID = DRIVERS.ID "
+                    + "WHERE JOURNAL.ID = '" + id + "' "
+                    + "ORDER BY JOURNAL.ID");
+            List<JournalBean> lines = parseTableLines(rs);
+            if (lines.size() > 0) {
+                journalBean.setId(lines.get(0).getId());
+                journalBean.setNumber(lines.get(0).getNumber());
+                journalBean.setDateOut(lines.get(0).getDateOut());
+                journalBean.setDateIn(lines.get(0).getDateIn());
+                journalBean.setRouteName(lines.get(0).getRouteName());
+                journalBean.setDriverSurname(lines.get(0).getDriverSurname());
+            }
+            log.info("One record was selected in table [JOURNAL]");
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            throw new DAOException(e);
+        } finally {
+            pool.closeConnection(con, stmt, rs);
+        }
+        return journalBean;
     }
 
     @Override

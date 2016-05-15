@@ -5,9 +5,9 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale" var="loc"/>
 <fmt:message bundle="${loc}" key="local.title" var="page_title"/>
-<fmt:message bundle="${loc}" key="local.navpanel.main_page" var="main_page"/>
-<fmt:message bundle="${loc}" key="local.navpanel.about_page" var="about_page"/>
-<fmt:message bundle="${loc}" key="local.navpanel.contacts_page" var="contacts_page"/>
+<fmt:message bundle="${loc}" key="local.subtitle.main_page" var="main_page"/>
+<fmt:message bundle="${loc}" key="local.subtitle.about_page" var="about_page"/>
+<fmt:message bundle="${loc}" key="local.subtitle.contacts_page" var="contacts_page"/>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">

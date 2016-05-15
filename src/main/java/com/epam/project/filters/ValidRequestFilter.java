@@ -1,6 +1,6 @@
 package com.epam.project.filters;
 
-import com.epam.project.service.constants.Commands;
+import com.epam.project.consts.Commands;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;

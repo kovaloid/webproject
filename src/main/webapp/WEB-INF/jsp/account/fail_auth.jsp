@@ -8,11 +8,17 @@
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="locale" var="loc"/>
     <fmt:message bundle="${loc}" key="local.title" var="page_title"/>
-    <fmt:message bundle="${loc}" key="local.error.auth" var="error_text"/>
+    <fmt:message bundle="${loc}" key="local.subtitle.auth_fail" var="auth_fail_subtitle"/>
+    <fmt:message bundle="${loc}" key="local.error.text" var="error_text"/>
+    <fmt:message bundle="${loc}" key="local.content.account_error.auth_fail" var="auth_fail_text"/>
+    <fmt:message bundle="${loc}" key="local.content.account_error.bad_login" var="bad_login_text"/>
+    <fmt:message bundle="${loc}" key="local.content.account_error.bad_password" var="bad_password_text"/>
+    <fmt:message bundle="${loc}" key="local.content.account_error.other" var="other_error_text"/>
+    <fmt:message bundle="${loc}" key="local.button.back" var="back_button"/>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="author" content="Artem Kovalev"/>
-    <title>${page_title}</title>
+    <title>${auth_fail_subtitle} - ${page_title}</title>
     <link href="../../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <link href="../../../css/template.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="../../../img/favicon.png"/>
@@ -23,27 +29,22 @@
 
 <div class="main">
     <div class="well">
-
-        <div class="alert alert-danger">
-            <strong>Error!</strong> ${error_text} <br/>
-
-
+        <div class="alert alert-danger" align="center">
+            <strong>${error_text}!</strong> ${auth_fail_text} <br/>
             <c:choose>
                 <c:when test="${requestScope.result_auth == 'fail_username'}">
-                    Bad username
+                    ${bad_login_text}
                 </c:when>
                 <c:when test="${requestScope.result_auth == 'fail_password'}">
-                    Bad password
+                    ${bad_password_text}
                 </c:when>
                 <c:otherwise>
-                    Other error
+                    ${other_error_text}
                 </c:otherwise>
             </c:choose>
             <br />
-            <input type="button" class="btn btn-success margin" onclick="history.back();" value="Назад"/>
-
+            <input type="button" class="btn btn-success margin" onclick="history.back();" value="${back_button}"/>
         </div>
-
     </div>
 </div>
 

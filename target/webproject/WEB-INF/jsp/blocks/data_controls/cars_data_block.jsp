@@ -9,10 +9,10 @@
 <fmt:message bundle="${loc}" key="local.data.add_button" var="add_button"/>
 <fmt:message bundle="${loc}" key="local.data.update_button" var="update_button"/>
 <fmt:message bundle="${loc}" key="local.data.remove_button" var="remove_button"/>
-<fmt:message bundle="${loc}" key="local.data.choose_driver_text" var="choose_driver"/>
-<fmt:message bundle="${loc}" key="local.data.choose_color_text" var="choose_color"/>
-<fmt:message bundle="${loc}" key="local.data.choose_mark_text" var="choose_mark"/>
-<fmt:message bundle="${loc}" key="local.data.car_num" var="car_num"/>
+<fmt:message bundle="${loc}" key="local.data.cars.choose_driver_select" var="choose_driver"/>
+<fmt:message bundle="${loc}" key="local.data.cars.choose_color_select" var="choose_color"/>
+<fmt:message bundle="${loc}" key="local.data.cars.choose_brand_select" var="choose_mark"/>
+<fmt:message bundle="${loc}" key="local.data.cars.car_number_input" var="car_num"/>
 
 <div class="data_right">
     <div class="panel panel-info">

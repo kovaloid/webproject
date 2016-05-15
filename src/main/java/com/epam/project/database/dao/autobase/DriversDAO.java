@@ -27,7 +27,7 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
             driversTable.setLines(lines);
             driversTable.setCountColumns(headers.size());
             driversTable.setCountLines(lines.size());
-            log.info("All records was selected in table [DRIVERS]");
+            log.info("All records were selected in table [DRIVERS]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);
@@ -35,6 +35,34 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
             pool.closeConnection(con, stmt, rs);
         }
         return driversTable;
+    }
+
+    @Override
+    public DriverBean getByID(Integer id) {
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        DriverBean driverBean = new DriverBean();
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT ID, NAME, SURNAME, GENDER, PHONE FROM AUTOBASE.DRIVERS " +
+                    "WHERE ID = '" + id + "' ORDER BY ID");
+            List<DriverBean> lines = parseTableLines(rs);
+            if (lines.size() > 0) {
+                driverBean.setId(lines.get(0).getId());
+                driverBean.setName(lines.get(0).getName());
+                driverBean.setSurname(lines.get(0).getSurname());
+                driverBean.setGender(lines.get(0).getGender());
+                driverBean.setPhone(lines.get(0).getPhone());
+            }
+            log.info("One record was selected in table [DRIVERS]");
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            throw new DAOException(e);
+        } finally {
+            pool.closeConnection(con, stmt, rs);
+        }
+        return driverBean;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.epam.project.controllers;
 
+import com.epam.project.consts.Commands;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -21,82 +22,82 @@ public class DispatcherServlet extends HttpServlet {
         String doParam;
         String command = request.getParameter("command");
         switch (command) {
-            case "locale":
+            case Commands.LOCALE:
                 request.getRequestDispatcher("LocaleController").forward(request, response);
                 break;
-            case "login":
+            case Commands.LOGIN:
                 request.getRequestDispatcher("LogInController").forward(request, response);
                 break;
-            case "logout":
+            case Commands.LOGOUT:
                 request.getRequestDispatcher("LogOutController").forward(request, response);
                 break;
-            case "signup":
+            case Commands.SIGNUP:
                 request.getRequestDispatcher("SignUpController").forward(request, response);
                 break;
-            case "cars":
+            case Commands.CARS:
                 doParam = request.getParameter("do");
                 if (doParam == null)
                     request.getRequestDispatcher("CarsController").forward(request, response);
                 else
                     switch (doParam) {
-                        case "add":
+                        case Commands.ADD:
                             request.getRequestDispatcher("AddCarsController").forward(request, response);
                             break;
-                        case "update":
+                        case Commands.UPDATE:
                             request.getRequestDispatcher("UpdateCarsController").forward(request, response);
                             break;
-                        case "remove":
+                        case Commands.REMOVE:
                             request.getRequestDispatcher("RemoveCarsController").forward(request, response);
                             break;
                     }
                 break;
-            case "drivers":
+            case Commands.DRIVERS:
                 doParam = request.getParameter("do");
                 if (doParam == null)
                     request.getRequestDispatcher("DriversController").forward(request, response);
                 else
                     switch (doParam) {
-                        case "add":
+                        case Commands.ADD:
                             request.getRequestDispatcher("AddDriversController").forward(request, response);
                             break;
-                        case "update":
+                        case Commands.UPDATE:
                             request.getRequestDispatcher("UpdateDriversController").forward(request, response);
                             break;
-                        case "remove":
+                        case Commands.REMOVE:
                             request.getRequestDispatcher("RemoveDriversController").forward(request, response);
                             break;
                     }
                 break;
-            case "routes":
+            case Commands.ROUTES:
                 doParam = request.getParameter("do");
                 if (doParam == null)
                     request.getRequestDispatcher("RoutesController").forward(request, response);
                 else
                     switch (doParam) {
-                        case "add":
+                        case Commands.ADD:
                             request.getRequestDispatcher("AddRoutesController").forward(request, response);
                             break;
-                        case "update":
+                        case Commands.UPDATE:
                             request.getRequestDispatcher("UpdateRoutesController").forward(request, response);
                             break;
-                        case "remove":
+                        case Commands.REMOVE:
                             request.getRequestDispatcher("RemoveRoutesController").forward(request, response);
                             break;
                     }
                 break;
-            case "journal":
+            case Commands.JOURNAL:
                 doParam = request.getParameter("do");
                 if (doParam == null)
                     request.getRequestDispatcher("JournalController").forward(request, response);
                 else
                     switch (doParam) {
-                        case "add":
+                        case Commands.ADD:
                             request.getRequestDispatcher("AddJournalController").forward(request, response);
                             break;
-                        case "update":
+                        case Commands.UPDATE:
                             request.getRequestDispatcher("UpdateJournalController").forward(request, response);
                             break;
-                        case "remove":
+                        case Commands.REMOVE:
                             request.getRequestDispatcher("RemoveJournalController").forward(request, response);
                             break;
                     }

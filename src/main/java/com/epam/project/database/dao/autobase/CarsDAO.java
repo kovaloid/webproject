@@ -21,15 +21,15 @@ public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
         Table<CarBean> carsTable = new TableBean<>();
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT CARS.ID, CAR_NUMBER, COLOR, BRAND, NAME, SURNAME, READY FROM AUTOBASE.CARS "
-                    + "JOIN AUTOBASE.DRIVERS ON DRIVER_ID = DRIVERS.ID ORDER BY CARS.ID");
+            rs = stmt.executeQuery("SELECT CARS.ID, CAR_NUMBER, COLOR, BRAND, NAME, SURNAME, READY FROM AUTOBASE.CARS " +
+                    "JOIN AUTOBASE.DRIVERS ON DRIVER_ID = DRIVERS.ID ORDER BY CARS.ID");
             List<String> headers = parseTableHeaders(rs);
             List<CarBean> lines = parseTableLines(rs);
             carsTable.setHeaders(headers);
             carsTable.setLines(lines);
             carsTable.setCountColumns(headers.size());
             carsTable.setCountLines(lines.size());
-            log.info("All records was selected in table [CARS]");
+            log.info("All records were selected in table [CARS]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);
@@ -40,6 +40,36 @@ public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
     }
 
     @Override
+    public CarBean getByID(Integer id) {
+        Connection con = pool.takeConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        CarBean carBean = new CarBean();
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT CARS.ID, CAR_NUMBER, COLOR, BRAND, NAME, SURNAME, READY FROM AUTOBASE.CARS " +
+                    "JOIN AUTOBASE.DRIVERS ON DRIVER_ID = DRIVERS.ID WHERE CARS.ID = '" + id + "' ORDER BY CARS.ID");
+            List<CarBean> lines = parseTableLines(rs);
+            if (lines.size() > 0) {
+                carBean.setId(lines.get(0).getId());
+                carBean.setNumber(lines.get(0).getNumber());
+                carBean.setColor(lines.get(0).getColor());
+                carBean.setBrand(lines.get(0).getBrand());
+                carBean.setDriverName(lines.get(0).getDriverName());
+                carBean.setDriverSurname(lines.get(0).getDriverSurname());
+                carBean.setReady(lines.get(0).getReady());
+            }
+            log.info("One record was selected in table [CARS]");
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            throw new DAOException(e);
+        } finally {
+            pool.closeConnection(con, stmt, rs);
+        }
+        return carBean;
+    }
+
+    @Override
     public Table<CarBean> getAllReady() {
         Connection con = pool.takeConnection();
         Statement stmt = null;
@@ -47,11 +77,11 @@ public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
         Table<CarBean> carsTable = new TableBean<>();
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT ID, CAR_NUMBER FROM AUTOBASE.CARS WHERE READY='yes'");
+            rs = stmt.executeQuery("SELECT ID, CAR_NUMBER FROM AUTOBASE.CARS WHERE READY='да'");
             List<CarBean> lines = parseTableLinesReady(rs);
             carsTable.setLines(lines);
             carsTable.setCountLines(lines.size());
-            log.info("Ready records was selected in table [CARS]");
+            log.info("Ready records were selected in table [CARS]");
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException(e);

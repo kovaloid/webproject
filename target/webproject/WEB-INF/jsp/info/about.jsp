@@ -7,7 +7,13 @@
     <fmt:setLocale value="${sessionScope.locale}" />
     <fmt:setBundle basename="locale" var="loc" />
     <fmt:message bundle="${loc}" key="local.title" var="page_title" />
-    <fmt:message bundle="${loc}" key="local.navpanel.about_page" var="about_subtitle" />
+    <fmt:message bundle="${loc}" key="local.subtitle.about_page" var="about_subtitle" />
+    <fmt:message bundle="${loc}" key="local.content.about_page.name" var="name_text" />
+    <fmt:message bundle="${loc}" key="local.content.about_page.year" var="year_text" />
+    <fmt:message bundle="${loc}" key="local.content.about_page.address" var="address_text" />
+    <fmt:message bundle="${loc}" key="local.content.about_page.name_value" var="name_value_text" />
+    <fmt:message bundle="${loc}" key="local.content.about_page.address_value" var="address_value_text" />
+
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="author" content="Artem Kovalev" />
@@ -31,7 +37,7 @@
 <div class="main">
     <div class="well">
 
-        <h2>Об автобазе</h2>
+        <h2>${about_subtitle}</h2>
 
         <table class="table">
             <tr>
@@ -39,23 +45,23 @@
                     <img src="${pageContext.request.contextPath}/img/cars.jpg" height="150" width="200" />
                 </td>
                 <td>
-                    <b>Название</b>
+                    <b>${name_text}</b>
                 </td>
                 <td>
-                    Автобаза "Заря"
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <b>Адрес</b>
-                </td>
-                <td>
-                    СПб, ул. Ленина, д. 10
+                    ${name_value_text}
                 </td>
             </tr>
             <tr>
                 <td>
-                    <b>Год основания</b>
+                    <b>${address_text}</b>
+                </td>
+                <td>
+                    ${address_value_text}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>${year_text}</b>
                 </td>
                 <td>
                     1992

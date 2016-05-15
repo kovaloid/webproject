@@ -3,7 +3,7 @@ package com.epam.project.controllers.journal.data_controls;
 import com.epam.project.beans.lines.JournalBean;
 import com.epam.project.database.dao.DAO;
 import com.epam.project.database.dao.autobase.JournalDAO;
-import com.epam.project.util.DateHelper;
+import com.epam.project.utils.DateHelper;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

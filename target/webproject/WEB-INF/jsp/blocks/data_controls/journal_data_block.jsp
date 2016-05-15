@@ -9,13 +9,13 @@
 <fmt:message bundle="${loc}" key="local.data.add_button" var="add_button"/>
 <fmt:message bundle="${loc}" key="local.data.update_button" var="update_button"/>
 <fmt:message bundle="${loc}" key="local.data.remove_button" var="remove_button"/>
-<fmt:message bundle="${loc}" key="local.data.time_out_text" var="time_out"/>
-<fmt:message bundle="${loc}" key="local.data.time_in_text" var="time_in"/>
-<fmt:message bundle="${loc}" key="local.data.choose_car_text" var="choose_car"/>
-<fmt:message bundle="${loc}" key="local.data.choose_route_text" var="choose_route"/>
-<fmt:message bundle="${loc}" key="local.data.time_day" var="day"/>
-<fmt:message bundle="${loc}" key="local.data.time_month" var="monthSelect"/>
-<fmt:message bundle="${loc}" key="local.data.time_year" var="year"/>
+<fmt:message bundle="${loc}" key="local.data.journal.date_out_text" var="time_out"/>
+<fmt:message bundle="${loc}" key="local.data.journal.date_in_text" var="time_in"/>
+<fmt:message bundle="${loc}" key="local.data.journal.choose_car_select" var="choose_car"/>
+<fmt:message bundle="${loc}" key="local.data.journal.choose_route_select" var="choose_route"/>
+<fmt:message bundle="${loc}" key="local.data.journal.day_input" var="day"/>
+<fmt:message bundle="${loc}" key="local.data.journal.month_select" var="monthSelect"/>
+<fmt:message bundle="${loc}" key="local.data.journal.year_input" var="year"/>
 
 <div class="data_right">
     <div class="panel panel-info">

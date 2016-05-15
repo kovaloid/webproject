@@ -1,6 +1,7 @@
 package com.epam.project.controllers.routes;
 
 import com.epam.project.beans.Table;
+import com.epam.project.consts.Account;
 import com.epam.project.database.dao.DAO;
 import com.epam.project.database.dao.autobase.RoutesDAO;
 import org.apache.log4j.Logger;
@@ -24,6 +25,8 @@ public class RoutesController extends HttpServlet {
         Table routesTable = routesDAO.getAll();
         request.getSession().setAttribute("routes_table", routesTable);
 
-        request.getRequestDispatcher("/WEB-INF/jsp/data_tables/routes.jsp").forward(request, response);
+        String status = (String) request.getSession().getAttribute(Account.STATUS);
+        if (!status.equals(Account.Status.IN)) response.sendError(401);
+        else request.getRequestDispatcher("/WEB-INF/jsp/data_tables/cars.jsp").forward(request, response);
     }
 }

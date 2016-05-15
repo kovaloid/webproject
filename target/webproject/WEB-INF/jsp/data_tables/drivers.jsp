@@ -40,13 +40,7 @@
     <div class="well">
 
         <c:if test="${sessionScope.status eq 'in'}">
-            <mytag:print_table bean="${sessionScope.drivers_table}"/>
-        </c:if>
-
-        <c:if test="${sessionScope.status ne 'in'}">
-            <div class="alert alert-danger">
-                <strong>Error!</strong> Login, please.
-            </div>
+            <mytag:print_table bean="${sessionScope.drivers_table}" locale="${sessionScope.locale}" />
         </c:if>
 
     </div>
