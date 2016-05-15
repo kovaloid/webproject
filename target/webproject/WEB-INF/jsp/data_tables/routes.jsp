@@ -34,6 +34,7 @@
 <div class="main">
     <div class="well">
         <mytag:print_table bean="${sessionScope.routes_table}" locale="${sessionScope.locale}"/>
+        <mytag:print_table bean="${sessionScope.routes_table2}" locale="${sessionScope.locale}"/>
     </div>
 </div>
 
