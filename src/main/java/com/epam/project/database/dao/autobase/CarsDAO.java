@@ -15,6 +15,7 @@ public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
 
     @Override
     public Table<CarBean> getAll() {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -41,6 +42,7 @@ public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
 
     @Override
     public CarBean getByID(Integer id) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -71,6 +73,7 @@ public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
 
     @Override
     public Table<CarBean> getAllReady() {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -78,9 +81,12 @@ public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT ID, CAR_NUMBER FROM AUTOBASE.CARS WHERE READY='да'");
+            List<String> headers = parseTableHeaders(rs);
             List<CarBean> lines = parseTableLinesReady(rs);
             carsTable.setLines(lines);
+            carsTable.setHeaders(headers);
             carsTable.setCountLines(lines.size());
+            carsTable.setCountColumns(headers.size());
             log.info("Ready records were selected in table [CARS]");
         } catch (SQLException e) {
             log.error(e.getMessage());
@@ -93,6 +99,7 @@ public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
 
     @Override
     public void add(CarBean car) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
@@ -117,6 +124,7 @@ public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
 
     @Override
     public void update(CarBean car) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
@@ -142,6 +150,7 @@ public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
 
     @Override
     public void remove(CarBean car) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {

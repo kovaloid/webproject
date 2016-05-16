@@ -14,6 +14,7 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
 
     @Override
     public Table<JournalBean> getAll() {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -43,6 +44,7 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
 
     @Override
     public JournalBean getByID(Integer id) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -76,6 +78,7 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
 
     @Override
     public void add(JournalBean journal) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
@@ -98,6 +101,7 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
 
     @Override
     public void update(JournalBean journal) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
@@ -119,6 +123,7 @@ public class JournalDAO extends AbstractDAO<JournalBean> {
 
     @Override
     public void remove(JournalBean journal) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {

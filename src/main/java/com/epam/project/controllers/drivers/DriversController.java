@@ -4,6 +4,7 @@ import com.epam.project.beans.Table;
 import com.epam.project.consts.Account;
 import com.epam.project.database.dao.DAO;
 import com.epam.project.database.dao.autobase.DriversDAO;
+import com.epam.project.utils.TableSeparator;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -23,7 +24,14 @@ public class DriversController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         DAO driversDAO = new DriversDAO();
         Table driversTable = driversDAO.getAll();
-        request.getSession().setAttribute("drivers_table", driversTable);
+
+        Table[] driversTablesArray = TableSeparator.separate(driversTable);
+        int driversTablesAmount = driversTablesArray.length;
+        int driversTableNumber = TableSeparator.getTableNumber(request.getParameter("number"), driversTablesAmount);
+
+        request.getSession().setAttribute("drivers_table_number", driversTableNumber);
+        request.getSession().setAttribute("drivers_tables_amount", driversTablesAmount);
+        request.getSession().setAttribute("drivers_table", driversTablesArray[driversTableNumber-1]);
 
         String status = (String) request.getSession().getAttribute(Account.STATUS);
         if (status == null || !status.equals(Account.Status.IN))

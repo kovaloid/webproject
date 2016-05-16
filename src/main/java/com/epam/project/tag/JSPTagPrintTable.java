@@ -8,6 +8,8 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class JSPTagPrintTable extends TagSupport {
     private TableBean<Line> bean;
@@ -47,68 +49,36 @@ public class JSPTagPrintTable extends TagSupport {
     }
 
     private String getLocaleHeader(String headerDataBaseName, String locale) {
-        if (locale.equalsIgnoreCase("ru")) {
-            switch (headerDataBaseName) {
-                case "CAR_NUMBER":
-                    return "Номер машины";
-                case "COLOR":
-                    return "Цвет";
-                case "BRAND":
-                    return "Марка";
-                case "READY":
-                    return "Исправность";
-                case "NAME":
-                    return "Имя";
-                case "SURNAME":
-                    return "Фамилия";
-                case "GENDER":
-                    return "Пол";
-                case "PHONE":
-                    return "Телефон";
-                case "DATE_OUT":
-                    return "Дата отбытия";
-                case "DATE_IN":
-                    return "Дата прибытия";
-                case "ROUTE_NAME":
-                    return "Маршрут";
-                case "LENGTH":
-                    return "Длина пути";
-                case "PRICE":
-                    return "Цена";
-                default:
-                    return headerDataBaseName;
-            }
-        } else {
-            switch (headerDataBaseName) {
-                case "CAR_NUMBER":
-                    return "Car number";
-                case "COLOR":
-                    return "Color";
-                case "BRAND":
-                    return "Brand";
-                case "READY":
-                    return "Is ready";
-                case "NAME":
-                    return "Name";
-                case "SURNAME":
-                    return "Surname";
-                case "GENDER":
-                    return "Gender";
-                case "PHONE":
-                    return "Phone";
-                case "DATE_OUT":
-                    return "Date out";
-                case "DATE_IN":
-                    return "Date in";
-                case "ROUTE_NAME":
-                    return "Route name";
-                case "LENGTH":
-                    return "Length";
-                case "PRICE":
-                    return "Price";
-                default:
-                    return headerDataBaseName;
-            }
+        ResourceBundle bundle = ResourceBundle.getBundle("locale", new Locale(locale));
+        switch (headerDataBaseName) {
+            case "CAR_NUMBER":
+                return bundle.getString("local.table.CAR_NUMBER");
+            case "COLOR":
+                return bundle.getString("local.table.COLOR");
+            case "BRAND":
+                return bundle.getString("local.table.BRAND");
+            case "READY":
+                return bundle.getString("local.table.READY");
+            case "NAME":
+                return bundle.getString("local.table.NAME");
+            case "SURNAME":
+                return bundle.getString("local.table.SURNAME");
+            case "GENDER":
+                return bundle.getString("local.table.GENDER");
+            case "PHONE":
+                return bundle.getString("local.table.PHONE");
+            case "DATE_OUT":
+                return bundle.getString("local.table.DATE_OUT");
+            case "DATE_IN":
+                return bundle.getString("local.table.DATE_IN");
+            case "ROUTE_NAME":
+                return bundle.getString("local.table.ROUTE_NAME");
+            case "LENGTH":
+                return bundle.getString("local.table.LENGTH");
+            case "PRICE":
+                return bundle.getString("local.table.PRICE");
+            default:
+                return headerDataBaseName;
         }
     }
 

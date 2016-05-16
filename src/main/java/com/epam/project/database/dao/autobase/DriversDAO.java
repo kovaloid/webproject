@@ -14,6 +14,7 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
 
     @Override
     public Table<DriverBean> getAll() {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -39,6 +40,7 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
 
     @Override
     public DriverBean getByID(Integer id) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -67,6 +69,7 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
 
     @Override
     public void add(DriverBean driver) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
@@ -90,6 +93,7 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
 
     @Override
     public void update(DriverBean driver) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
@@ -114,6 +118,7 @@ public class DriversDAO extends AbstractDAO<DriverBean> {
 
     @Override
     public void remove(DriverBean driver) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {

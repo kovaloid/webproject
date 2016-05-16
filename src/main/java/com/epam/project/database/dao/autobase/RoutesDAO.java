@@ -14,6 +14,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
 
     @Override
     public Table<RouteBean> getAll() {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -39,6 +40,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
 
     @Override
     public RouteBean getByID(Integer id) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -66,6 +68,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
 
     @Override
     public void add(RouteBean route) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
@@ -88,6 +91,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
 
     @Override
     public void update(RouteBean route) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
@@ -111,6 +115,7 @@ public class RoutesDAO extends AbstractDAO<RouteBean> {
 
     @Override
     public void remove(RouteBean route) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {

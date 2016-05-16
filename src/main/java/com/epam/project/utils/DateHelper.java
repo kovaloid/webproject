@@ -101,11 +101,12 @@ public class DateHelper {
 
     public static Date convert(String day, String month, String year) {
         String dateString = year + "-" + month + "-" + day;
-        Date date = new Date(0);
+        Date date;
         try {
             date = Date.valueOf(dateString);
         } catch (IllegalArgumentException e) {
             log.error("Can't convert date from string");
+            date = new Date(0);
         }
         return date;
     }

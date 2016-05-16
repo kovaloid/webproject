@@ -30,13 +30,13 @@ public class RoutesController extends HttpServlet {
         DAO routesDAO = new RoutesDAO();
         Table routesTable = routesDAO.getAll();
 
-        Table[] tables = TableSeparator.separate(2, routesTable);
+        Table[] routesTablesArray = TableSeparator.separate(routesTable);
+        int routesTablesAmount = routesTablesArray.length;
+        int routesTableNumber = TableSeparator.getTableNumber(request.getParameter("number"), routesTablesAmount);
 
-
-
-        request.getSession().setAttribute("routes_table", tables[0]);
-        request.getSession().setAttribute("routes_table2", tables[1]);
-        //request.getSession().setAttribute("routes_table", routesTable);
+        request.getSession().setAttribute("routes_table_number", routesTableNumber);
+        request.getSession().setAttribute("routes_tables_amount", routesTablesAmount);
+        request.getSession().setAttribute("routes_table", routesTablesArray[routesTableNumber-1]);
 
         String status = (String) request.getSession().getAttribute(Account.STATUS);
         if (status == null || !status.equals(Account.Status.IN))

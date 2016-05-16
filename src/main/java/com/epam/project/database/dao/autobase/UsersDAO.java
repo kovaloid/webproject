@@ -13,6 +13,7 @@ public class UsersDAO extends AbstractDAO<UserBean> {
 
     @Override
     public Table<UserBean> getAll() {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -38,6 +39,7 @@ public class UsersDAO extends AbstractDAO<UserBean> {
 
     @Override
     public UserBean getByID(Integer id) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -65,6 +67,7 @@ public class UsersDAO extends AbstractDAO<UserBean> {
 
     @Override
     public void add(UserBean user) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
@@ -87,6 +90,7 @@ public class UsersDAO extends AbstractDAO<UserBean> {
 
     @Override
     public void update(UserBean user) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {
@@ -110,6 +114,7 @@ public class UsersDAO extends AbstractDAO<UserBean> {
 
     @Override
     public void remove(UserBean user) {
+        assert pool != null;
         Connection con = pool.takeConnection();
         PreparedStatement stmt = null;
         try {

@@ -27,10 +27,10 @@
     <jsp:param name="page" value="about" />
 </jsp:include>
 <jsp:include page="/WEB-INF/jsp/blocks/login_block.jsp">
-    <jsp:param name="page" value="about" />
+    <jsp:param name="page" value="${pageContext.request.contextPath}/about" />
 </jsp:include>
 <jsp:include page="/WEB-INF/jsp/blocks/lang_block.jsp">
-    <jsp:param name="page" value="about" />
+    <jsp:param name="page" value="${pageContext.request.contextPath}/about" />
 </jsp:include>
 
 <div class="main">

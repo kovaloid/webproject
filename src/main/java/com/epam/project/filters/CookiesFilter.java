@@ -20,24 +20,22 @@ public class CookiesFilter implements Filter {
 
         if (req.isRequestedSessionIdFromCookie()) {
             log.info("[FILTER] Cookies enabled");
+            Cookie[] cookies = req.getCookies();
+            StringBuffer cookiesLog = new StringBuffer();
+            cookiesLog.append("[FILTER] Cookies: { ");
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    cookiesLog.append("[").append(cookie.getName()).append(" = ").append(cookie.getValue()).append("] ");
+                }
+            }
+            cookiesLog.append("}");
+            log.info(cookiesLog);
+            chain.doFilter(request, response);
         } else {
             log.warn("[FILTER] Cookies disabled");
             request.setAttribute("exception", "Cookies disabled, please enable it");
-            request.getRequestDispatcher("/WEB-INF/jsp/errors/exception.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/errors/cookies.jsp").forward(request, response);
         }
-
-        Cookie[] cookies = req.getCookies();
-        StringBuffer cookiesLog = new StringBuffer();
-        cookiesLog.append("[FILTER] Cookies: { ");
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                cookiesLog.append("[").append(cookie.getName()).append(" = ").append(cookie.getValue()).append("] ");
-            }
-        }
-        cookiesLog.append("}");
-        log.info(cookiesLog);
-
-        chain.doFilter(request, response);
     }
 
     @Override

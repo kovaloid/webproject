@@ -11,8 +11,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
 public class ConnectionPool {
-    private final static ConnectionPool instance = new ConnectionPool();
+    private static boolean isOK = true;
     private final static Logger log = Logger.getRootLogger();
+    private final static ConnectionPool instance = new ConnectionPool();
 
     private BlockingQueue<Connection> freeConnectionsQueue;
     private BlockingQueue<Connection> reservedConnectionsQueue;
@@ -24,7 +25,8 @@ public class ConnectionPool {
     private int poolSize;
 
     public static ConnectionPool getInstance() {
-        return instance;
+        if (isOK) return instance;
+        else return null;
     }
 
     private ConnectionPool() {
@@ -40,8 +42,10 @@ public class ConnectionPool {
         }
         try {
             initPoolData();
+            log.info("Connection Pool is opened");
         } catch (ConnectionPoolException e) {
             log.error(e.getMessage());
+            isOK = false;
         }
     }
 
@@ -57,10 +61,8 @@ public class ConnectionPool {
                 freeConnectionsQueue.add(pooledConnection);
             }
         } catch (SQLException e_1) {
-            log.error(e_1.getMessage());
-            throw new ConnectionPoolException("SQLException in Connection Pool", e_1);
+            throw new ConnectionPoolException("Can't get connections to database", e_1);
         } catch (ClassNotFoundException e_2) {
-            log.error(e_2.getMessage());
             throw new ConnectionPoolException("Can't find database driver class", e_2);
         }
     }
@@ -75,15 +77,18 @@ public class ConnectionPool {
     }
 
     public Connection takeConnection() {
-        Connection connection = null;
-        try {
-            connection = freeConnectionsQueue.take();
-            reservedConnectionsQueue.add(connection);
-        } catch (InterruptedException e) {
-            log.error("Error connecting to the data source", e);
+        if (isOK) {
+            Connection connection = null;
+            try {
+                connection = freeConnectionsQueue.take();
+                reservedConnectionsQueue.add(connection);
+            } catch (InterruptedException e) {
+                log.error("Error connecting to the data source", e);
+            }
+            log.info("Connection is opened [" + reservedConnectionsQueue.size() + "/" + poolSize + "]");
+            return connection;
         }
-        log.info("Connection is opened [" + reservedConnectionsQueue.size() + "/" + poolSize + "]");
-        return connection;
+        return null;
     }
 
     public void dispose() throws Exception {
@@ -93,35 +98,43 @@ public class ConnectionPool {
 
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
         try {
-            rs.close();
-        } catch (SQLException e) {
-            log.error("ResultSet isn't closed");
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                log.error("ResultSet isn't closed");
+            }
+            try {
+                st.close();
+            } catch (SQLException e) {
+                log.error("Statement isn't closed");
+            }
+            try {
+                con.close();
+            } catch (SQLException e) {
+                log.error("Connection isn't return to the Connection Pool");
+            }
+            log.info("Connection is closed [" + reservedConnectionsQueue.size() + "/" + poolSize + "]");
+        } catch (NullPointerException e) {
+            log.error("Connection has null pointer");
         }
-        try {
-            st.close();
-        } catch (SQLException e) {
-            log.error("Statement isn't closed");
-        }
-        try {
-            con.close();
-        } catch (SQLException e) {
-            log.error("Connection isn't return to the Connection Pool");
-        }
-        log.info("Connection is closed [" + reservedConnectionsQueue.size() + "/" + poolSize + "]");
     }
 
     public void closeConnection(Connection con, Statement st) {
         try {
-            st.close();
-        } catch (SQLException e) {
-            log.error("Statement isn't closed");
+            try {
+                st.close();
+            } catch (SQLException e) {
+                log.error("Statement isn't closed");
+            }
+            try {
+                con.close();
+            } catch (SQLException e) {
+                log.error("Connection isn't return to the connection_pool");
+            }
+            log.info("Connection is closed [" + reservedConnectionsQueue.size() + "/" + poolSize + "]");
+        } catch (NullPointerException e) {
+            log.error("Connection has null pointer");
         }
-        try {
-            con.close();
-        } catch (SQLException e) {
-            log.error("Connection isn't return to the connection_pool");
-        }
-        log.info("Connection is closed [" + reservedConnectionsQueue.size() + "/" + poolSize + "]");
     }
 
     private void closeConnectionsQueue(BlockingQueue<Connection> queue) throws SQLException {
@@ -195,10 +208,10 @@ public class ConnectionPool {
                 connection.setReadOnly(false);
             }
             if (!reservedConnectionsQueue.remove(this)) {
-                throw new SQLException("Error deleting connection from the given away connections connection_pool");
+                throw new SQLException("Error deleting connection from the given away connections Connection Pool");
             }
             if (!freeConnectionsQueue.offer(this)) {
-                throw new SQLException("Error allocating connection in the connection_pool");
+                throw new SQLException("Error allocating connection in the Connection Pool");
             }
         }
 

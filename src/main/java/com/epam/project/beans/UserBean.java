@@ -1,6 +1,8 @@
 package com.epam.project.beans;
 
-public class UserBean {
+import com.epam.project.beans.lines.Line;
+
+public class UserBean implements Line {
     private Integer id;
     private String login;
     private String password;
@@ -17,6 +19,29 @@ public class UserBean {
         this.login = login;
         this.password = password;
         this.role = role;
+    }
+
+    @Override
+    public String getColumn(int i) {
+        String value;
+        switch (i) {
+            case 0:
+                value = String.valueOf(getId());
+                break;
+            case 1:
+                value = getLogin();
+                break;
+            case 2:
+                value = getPassword();
+                break;
+            case 3:
+                value = getRole();
+                break;
+            default:
+                value = NULL_VALUE;
+        }
+        if (value == null) return NULL_VALUE;
+        return value;
     }
 
     public Integer getId() {

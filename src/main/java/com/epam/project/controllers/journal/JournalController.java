@@ -7,6 +7,7 @@ import com.epam.project.database.dao.autobase.CarsDAO;
 import com.epam.project.database.dao.autobase.JournalDAO;
 import com.epam.project.database.dao.autobase.RoutesDAO;
 import com.epam.project.utils.MonthDefiner;
+import com.epam.project.utils.TableSeparator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,14 @@ public class JournalController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         DAO journalDAO = new JournalDAO();
         Table journalTable = journalDAO.getAll();
-        request.getSession().setAttribute("journal_table", journalTable);
+
+        Table[] journalTablesArray = TableSeparator.separate(journalTable);
+        int journalTablesAmount = journalTablesArray.length;
+        int journalTableNumber = TableSeparator.getTableNumber(request.getParameter("number"), journalTablesAmount);
+
+        request.getSession().setAttribute("journal_table_number", journalTableNumber);
+        request.getSession().setAttribute("journal_tables_amount", journalTablesAmount);
+        request.getSession().setAttribute("journal_table", journalTablesArray[journalTableNumber-1]);
 
         ReadyDAO carsDAO = new CarsDAO();
         Table carsTable = carsDAO.getAllReady();

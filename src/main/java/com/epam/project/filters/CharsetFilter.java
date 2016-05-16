@@ -1,9 +1,12 @@
 package com.epam.project.filters;
 
+import com.epam.project.database.connection_pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class CharsetFilter implements Filter {
     private String encoding;
