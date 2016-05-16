@@ -6,6 +6,13 @@ import org.apache.log4j.Logger;
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * Database Connection Filter.
+ * <p>This filter checks connection to database.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class DBConnectionFilter implements Filter {
     private final static Logger log = Logger.getRootLogger();
 

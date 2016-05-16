@@ -17,6 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Cars Controller.
+ * <p>This controller gets data table from Cars DAO, separate it into small tables
+ * and transfers to JSP, where this tables are built. Also controller gets Drivers
+ * DAO for build 'select box' list in data control area on JSP</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/CarsController")
 public class CarsController extends HttpServlet {
 
@@ -34,7 +43,7 @@ public class CarsController extends HttpServlet {
 
         request.getSession().setAttribute("cars_table_number", carsTableNumber);
         request.getSession().setAttribute("cars_tables_amount", carsTablesAmount);
-        request.getSession().setAttribute("cars_table", carsTablesArray[carsTableNumber-1]);
+        request.getSession().setAttribute("cars_table", carsTablesArray[carsTableNumber - 1]);
 
         DAO driversDAO = new DriversDAO();
         Table driversTable = driversDAO.getAll();

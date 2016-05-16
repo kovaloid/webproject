@@ -12,6 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * LogOut Controller.
+ * <p>This controller sets attribute 'status' at 'out'.
+ * Then there is removal of user bean.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/LogOutController")
 public class LogOutController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

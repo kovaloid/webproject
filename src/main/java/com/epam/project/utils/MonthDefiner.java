@@ -3,6 +3,12 @@ package com.epam.project.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This util class help to define and get all numbers of months.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class MonthDefiner {
     private static List<String> months = new ArrayList<>();
 

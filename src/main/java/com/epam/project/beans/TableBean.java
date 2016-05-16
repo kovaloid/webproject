@@ -2,6 +2,13 @@ package com.epam.project.beans;
 
 import java.util.List;
 
+/**
+ * Table Bean.
+ * <p>It's a Table Interface implementation.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class TableBean<T> implements Table<T> {
     private List<String> headers;
     private List<T> lines;

@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Remove Routes Controller.
+ * <p>This controller removes one record in Routes table.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/RemoveRoutesController")
 public class RemoveRoutesController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

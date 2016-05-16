@@ -10,6 +10,12 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * DAO class to access the data about 'Journal' in database.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class JournalDAO extends AbstractDAO<JournalBean> {
 
     @Override

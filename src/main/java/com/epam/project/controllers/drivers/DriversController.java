@@ -14,6 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Drivers Controller.
+ * <p>This controller gets data table from Drivers DAO, separate it into
+ * small tables and transfers to JSP, where this tables are built.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/DriversController")
 public class DriversController extends HttpServlet {
 

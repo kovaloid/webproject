@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Remove Journal Controller.
+ * <p>This controller removes one record in Journal table.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/RemoveJournalController")
 public class RemoveJournalController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

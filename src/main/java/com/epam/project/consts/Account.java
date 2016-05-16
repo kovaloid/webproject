@@ -1,5 +1,11 @@
 package com.epam.project.consts;
 
+/**
+ * Constants of this interface is used for account management.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public interface Account {
     String LOGIN = "login";
     String PASSWORD = "password";

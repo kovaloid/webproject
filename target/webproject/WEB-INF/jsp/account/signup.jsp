@@ -44,7 +44,7 @@
                         ${login_text}:
                     </td>
                     <td>
-                        <input title="${login_text}" class="form-control margin" type="text" name="username" size="30"
+                        <input title="${login_text}" class="form-control margin" type="text" name="login" size="30"
                                required oninvalid="this.setCustomValidity('${if_empty}')"
                                oninput="setCustomValidity('')">
                     </td>

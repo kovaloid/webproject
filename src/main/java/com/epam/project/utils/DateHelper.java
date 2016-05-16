@@ -4,6 +4,12 @@ import org.apache.log4j.Logger;
 
 import java.sql.Date;
 
+/**
+ * This util class help to convert from String to Date.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class DateHelper {
     private static final Logger log = Logger.getRootLogger();
 
@@ -99,6 +105,14 @@ public class DateHelper {
         return monthNumber;
     }
 
+    /**
+     * This method create Date from three Strings of day, month and year.
+     *
+     * @param day string number of day
+     * @param month string number of month
+     * @param year string number of year
+     * @return 1.0
+     */
     public static Date convert(String day, String month, String year) {
         String dateString = year + "-" + month + "-" + day;
         Date date;

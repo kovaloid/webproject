@@ -19,6 +19,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Routes Controller.
+ * <p>This controller gets data table from Routes DAO, separate it into
+ * small tables and transfers to JSP, where this tables are built.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/RoutesController")
 public class RoutesController extends HttpServlet {
 

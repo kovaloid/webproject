@@ -2,6 +2,13 @@ package com.epam.project.beans;
 
 import com.epam.project.beans.lines.Line;
 
+/**
+ * User Bean.
+ * <p>It's is a data model of one user.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class UserBean implements Line {
     private Integer id;
     private String login;

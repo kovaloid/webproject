@@ -8,6 +8,12 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Abstract DAO implements DAO and add two methods for work with tables.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public abstract class AbstractDAO<T> implements DAO<T> {
     protected final static ConnectionPool pool = ConnectionPool.getInstance();
     protected final static Logger log = Logger.getRootLogger();
@@ -24,8 +30,20 @@ public abstract class AbstractDAO<T> implements DAO<T> {
     @Override
     public abstract void remove(T line);
 
+    /**
+     * Method that gets ResultSet of table content and parse it to List.
+     *
+     * @param rs result set object
+     * @return list collection of table lines
+     */
     protected abstract List<T> parseTableLines(ResultSet rs);
 
+    /**
+     * Method that gets ResultSet of table headers and parse it to List.
+     *
+     * @param rs result set object
+     * @return list collection of table headers
+     */
     protected List<String> parseTableHeaders(ResultSet rs) {
         List<String> headers = new LinkedList<>();
         try {

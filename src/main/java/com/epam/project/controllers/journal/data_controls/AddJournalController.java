@@ -14,6 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 
+/**
+ * Add Journal Controller.
+ * <p>This controller adds new record in Journal table.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/AddJournalController")
 public class AddJournalController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

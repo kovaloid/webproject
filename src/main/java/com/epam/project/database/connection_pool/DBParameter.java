@@ -1,5 +1,11 @@
 package com.epam.project.database.connection_pool;
 
+/**
+ * Interface for constants from 'db.properties' file.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 interface DBParameter {
     String DB_DRIVER = "db.driver";
     String DB_URL = "db.url";

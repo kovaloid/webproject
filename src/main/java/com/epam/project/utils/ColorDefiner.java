@@ -3,6 +3,12 @@ package com.epam.project.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This util class help to define and get all colors of cars.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class ColorDefiner {
     private static final List<String> colors = new ArrayList<>();
 

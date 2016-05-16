@@ -10,6 +10,12 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 
+/**
+ * This tag make select box lists on JSP.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class JSPTagSelectBox extends TagSupport {
     private TableBean<Line> bean;
 
@@ -21,6 +27,9 @@ public class JSPTagSelectBox extends TagSupport {
         this.bean = bean;
     }
 
+    /**
+     * Main method of tag class.
+     */
     public int doStartTag() throws JspException {
         try {
             JspWriter out = pageContext.getOut();

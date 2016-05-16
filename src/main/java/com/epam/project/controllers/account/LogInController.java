@@ -10,6 +10,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
+/**
+ * LogIn Controller.
+ * <p>This controller gets 'login' and 'password' parameters from login form.
+ * Then there is a check of these parameters. If verification is successful,
+ * controller set attribute 'status' at 'in' and redirects to current page
+ * that named 'successRedirectURL'. If verification is failed, controller
+ * forwards to error page.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/LogInController")
 public class LogInController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

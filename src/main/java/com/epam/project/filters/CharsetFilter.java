@@ -1,13 +1,17 @@
 package com.epam.project.filters;
 
-import com.epam.project.database.connection_pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 
+/**
+ * Charset Filter.
+ * <p>This filter sets charset at 'utf-8'.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class CharsetFilter implements Filter {
     private String encoding;
     private final static Logger log = Logger.getRootLogger();

@@ -1,9 +1,15 @@
 package com.epam.project.consts;
 
+/**
+ * Constants of this interface is used for control of all requests commands.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public interface Commands {
     String LOGIN = "login";
     String LOGOUT = "logout";
-    String SIGNUP = "signUp";
+    String SIGNUP = "signup";
     String LOCALE = "locale";
 
     String CARS = "cars";

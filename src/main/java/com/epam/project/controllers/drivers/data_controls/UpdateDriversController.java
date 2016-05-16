@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Update Drivers Controller.
+ * <p>This controller updates one record in Drivers table.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/UpdateDriversController")
 public class UpdateDriversController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

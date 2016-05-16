@@ -8,8 +8,21 @@ import com.epam.project.consts.Separator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This util class help to separate big tables to array of small tables.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class TableSeparator implements Separator {
 
+    /**
+     * This method convert String value of table number to int value.
+     *
+     * @param numberParam string number of table
+     * @param tablesAmount amount of separated tables
+     * @return 1.0
+     */
     public static int getTableNumber(String numberParam, int tablesAmount) {
         int tableNumber;
         try {
@@ -22,6 +35,12 @@ public class TableSeparator implements Separator {
         return tableNumber;
     }
 
+    /**
+     * This method separate big table to array of small tables.
+     *
+     * @param sourceTable big table
+     * @return array of small tables
+     */
     public static Table<Line>[] separate(Table sourceTable) {
         return separate(sizeOfNewTable, sourceTable);
     }

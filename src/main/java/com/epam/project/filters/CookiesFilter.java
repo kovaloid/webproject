@@ -7,6 +7,13 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * Cookies Filter.
+ * <p>This filter checks: user enabled cookies or not.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class CookiesFilter implements Filter {
     private final static Logger log = Logger.getRootLogger();
 

@@ -1,5 +1,12 @@
 package com.epam.project.beans.lines;
 
+/**
+ * Driver Bean.
+ * <p>It's is a data model of one driver.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class DriverBean implements Line {
     private Integer id;
     private String name;

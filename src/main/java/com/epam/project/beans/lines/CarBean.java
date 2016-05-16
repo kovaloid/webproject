@@ -1,5 +1,12 @@
 package com.epam.project.beans.lines;
 
+/**
+ * Car Bean.
+ * <p>It's is a data model of one car.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class CarBean implements Line {
     private Integer id;
     private String number;

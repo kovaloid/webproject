@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Update Routes Controller.
+ * <p>This controller updates one record in Routes table.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/UpdateRoutesController")
 public class UpdateRoutesController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

@@ -8,6 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Enumeration;
 
+/**
+ * Valid Request Filter.
+ * <p>This filter checks: request parameters is valid or not.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class ValidRequestFilter implements Filter {
     private final static Logger log = Logger.getRootLogger();
 

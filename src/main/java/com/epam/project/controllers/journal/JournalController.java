@@ -17,6 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Journal Controller.
+ * <p>This controller gets data table from Journal DAO, separate it into small tables
+ * and transfers to JSP, where this tables are built. Also controller gets Routes and
+ * Ready Cars DAOs for build 'select box' lists in data control area on JSP</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/JournalController")
 public class JournalController extends HttpServlet {
 

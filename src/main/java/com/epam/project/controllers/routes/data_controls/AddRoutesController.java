@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Add Routes Controller.
+ * <p>This controller adds new record in Routes table.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/AddRoutesController")
 public class AddRoutesController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

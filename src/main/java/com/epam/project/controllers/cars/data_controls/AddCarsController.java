@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Add Cars Controller.
+ * <p>This controller adds new record in Cars table.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/AddCarsController")
 public class AddCarsController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

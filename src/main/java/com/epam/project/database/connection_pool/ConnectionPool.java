@@ -10,6 +10,14 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
+/**
+ * Connection Pool.
+ * <p>Connection Pool is a cache of database connections maintained so that the
+ * connections can be reused when future requests to the database are required.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class ConnectionPool {
     private static boolean isOK = true;
     private final static Logger log = Logger.getRootLogger();
@@ -24,11 +32,19 @@ public class ConnectionPool {
     private String password;
     private int poolSize;
 
+    /**
+     * A method that returns instance of Connection Pool if it is created successfully.
+     *
+     * @return connection pool object
+     */
     public static ConnectionPool getInstance() {
         if (isOK) return instance;
         else return null;
     }
 
+    /**
+     * Constructor gets values from 'db.properties' an initializes class fields.
+     */
     private ConnectionPool() {
         DBResourceManager dbResourceManager = DBResourceManager.getInstance();
         driverName = dbResourceManager.getValue(DBParameter.DB_DRIVER);
@@ -49,6 +65,11 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Method initialize database driver and connections queues.
+     *
+     * @throws ConnectionPoolException when can't get connection or can't find driver
+     */
     private void initPoolData() throws ConnectionPoolException {
         Locale.setDefault(Locale.ENGLISH);
         try {
@@ -67,6 +88,9 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Method clears two queues.
+     */
     private void clearConnectionQueue() {
         try {
             closeConnectionsQueue(reservedConnectionsQueue);
@@ -76,6 +100,12 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Method takes one connection from Free Connections Queue and
+     * add it to Reserved Connections Queue.
+     *
+     * @return connection object
+     */
     public Connection takeConnection() {
         if (isOK) {
             Connection connection = null;
@@ -91,11 +121,23 @@ public class ConnectionPool {
         return null;
     }
 
+    /**
+     * Method closes Connection Pool and clear all queues with connections.
+     *
+     * @throws Exception
+     */
     public void dispose() throws Exception {
         clearConnectionQueue();
         log.info("Connection Pool is closed");
     }
 
+    /**
+     * Method closes Connection with associated Statement and ResultSet objects.
+     *
+     * @param con connection object
+     * @param st statement object
+     * @param rs result set object
+     */
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
         try {
             try {
@@ -119,6 +161,12 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Method closes Connection with associated Statement object.
+     *
+     * @param con connection object
+     * @param st statement object
+     */
     public void closeConnection(Connection con, Statement st) {
         try {
             try {
@@ -137,6 +185,12 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Method closes one queue.
+     *
+     * @param queue freeConnectionsQueue or reservedConnectionQueue object
+     * @throws SQLException
+     */
     private void closeConnectionsQueue(BlockingQueue<Connection> queue) throws SQLException {
         Connection connection;
         while ((connection = queue.poll()) != null) {
@@ -147,6 +201,13 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Pooled Connection.
+     * <p>This class implements Connection interface and overrides all methods.</p>
+     *
+     * @author Artem Kovalev
+     * @version 1.0
+     */
     private class PooledConnection implements Connection {
         private Connection connection;
 

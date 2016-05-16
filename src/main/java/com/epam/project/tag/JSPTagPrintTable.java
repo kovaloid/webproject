@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * This tag print table on JSP.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class JSPTagPrintTable extends TagSupport {
     private TableBean<Line> bean;
     private String locale;
@@ -31,6 +37,9 @@ public class JSPTagPrintTable extends TagSupport {
         this.locale = locale;
     }
 
+    /**
+     * Main method of tag class.
+     */
     public int doStartTag() throws JspException {
         try {
             JspWriter out = pageContext.getOut();
@@ -48,6 +57,13 @@ public class JSPTagPrintTable extends TagSupport {
         return SKIP_BODY;
     }
 
+    /**
+     * Method get simple database header and convert it to local header.
+     *
+     * @param headerDataBaseName header string from database
+     * @param locale             locale string
+     * @return locale header string
+     */
     private String getLocaleHeader(String headerDataBaseName, String locale) {
         ResourceBundle bundle = ResourceBundle.getBundle("locale", new Locale(locale));
         switch (headerDataBaseName) {
@@ -82,6 +98,11 @@ public class JSPTagPrintTable extends TagSupport {
         }
     }
 
+    /**
+     * Method make html table header string.
+     *
+     * @return html table header string
+     */
     private String getTableHeader() {
         StringBuilder header = new StringBuilder();
         header.append("\t\t<tr>\n");
@@ -92,6 +113,11 @@ public class JSPTagPrintTable extends TagSupport {
         return header.toString();
     }
 
+    /**
+     * Method make html table body string.
+     *
+     * @return html table body string
+     */
     private String getTableBody() {
         StringBuilder body = new StringBuilder();
         for (int i = 0; i < bean.getCountLines(); i++) {

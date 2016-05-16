@@ -14,6 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 
+/**
+ * Update Journal Controller.
+ * <p>This controller updates one record in Journal table.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/UpdateJournalController")
 public class UpdateJournalController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

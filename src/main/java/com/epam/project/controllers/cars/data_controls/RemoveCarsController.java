@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Remove Cars Controller.
+ * <p>This controller removes one record in Cars table.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/RemoveCarsController")
 public class RemoveCarsController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Dispatcher Servlet Controller.
+ * <p>It's main controller of application. All requests go through it.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/main")
 public class DispatcherServlet extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

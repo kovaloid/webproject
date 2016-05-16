@@ -11,6 +11,12 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * DAO class to access the data about 'Cars' in database.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class CarsDAO extends AbstractDAO<CarBean> implements ReadyDAO<CarBean> {
 
     @Override

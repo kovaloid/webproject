@@ -12,6 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * SignUp Controller.
+ * <p>This controller gets 'login', 'password' and 'repeat' parameters from
+ * sign up form. Then there is a check of these parameters. If verification
+ * is successful, controller registers user and logs in to account. If
+ * verification is failed, controller forwards to error page.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/SignUpController")
 public class SignUpController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

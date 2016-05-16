@@ -7,6 +7,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
+/**
+ * Locale Controller.
+ * <p>This controller change session language. It can be called
+ * by clicking locale button on right panel of site.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/LocaleController")
 public class LocaleController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();

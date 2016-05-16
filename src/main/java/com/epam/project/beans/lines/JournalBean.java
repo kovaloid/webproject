@@ -2,6 +2,13 @@ package com.epam.project.beans.lines;
 
 import java.sql.Date;
 
+/**
+ * Journal Bean.
+ * <p>It's is a data model of one journal record.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class JournalBean implements Line {
     private Integer id;
     private Integer carId;

@@ -1,5 +1,11 @@
 package com.epam.project.database.dao;
 
+/**
+ * DAO Exception.
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 public class DAOException extends RuntimeException {
     public DAOException() {
         super();

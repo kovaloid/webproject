@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Add Drivers Controller.
+ * <p>This controller adds new record in Drivers table.</p>
+ *
+ * @author Artem Kovalev
+ * @version 1.0
+ */
 @WebServlet("/AddDriversController")
 public class AddDriversController extends HttpServlet {
     private final static Logger log = Logger.getRootLogger();
