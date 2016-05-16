@@ -3,7 +3,6 @@
  - Release date: 18.05.2016
  - Author: Artem Kovalev
  - E-mail: <kov3000@yandex.ru>
-***
  - Language: Java 1.8
  - Server: Tomcat 8.0.33
  - RDBMS: Oracle XE 11.2.0
