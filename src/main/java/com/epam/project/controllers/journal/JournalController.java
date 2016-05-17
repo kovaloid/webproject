@@ -43,7 +43,8 @@ public class JournalController extends HttpServlet {
 
         request.getSession().setAttribute("journal_table_number", journalTableNumber);
         request.getSession().setAttribute("journal_tables_amount", journalTablesAmount);
-        request.getSession().setAttribute("journal_table", journalTablesArray[journalTableNumber-1]);
+        if (journalTablesAmount != 0)
+            request.getSession().setAttribute("journal_table", journalTablesArray[journalTableNumber - 1]);
 
         ReadyDAO carsDAO = new CarsDAO();
         Table carsTable = carsDAO.getAllReady();

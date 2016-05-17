@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Add Drivers Controller.
@@ -32,7 +34,27 @@ public class AddDriversController extends HttpServlet {
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String gender = request.getParameter("gender");
-            Integer phone = Integer.valueOf(request.getParameter("phone"));
+
+            String locale = (String) request.getSession().getAttribute("locale");
+            if (locale == null) locale = "en";
+            ResourceBundle bundle = ResourceBundle.getBundle("locale", new Locale(locale));
+
+            String phoneParam = request.getParameter("phone");
+
+            if (phoneParam.equals("")) phoneParam = "0";
+            if (phoneParam.length() > 8)
+                throw new NumberFormatException("[phone] " + bundle.getString("local.data.exception.large_value"));
+
+            Integer phone;
+
+            try {
+                phone = Integer.valueOf(phoneParam);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("[phone] " + bundle.getString("local.data.exception.string_value"));
+            }
+
+            if (phone < 0)
+                throw new NumberFormatException("[phone] " + bundle.getString("local.data.exception.negative_value"));
 
             DAO<DriverBean> driversDAO = new DriversDAO();
             driversDAO.add(new DriverBean(name, surname, gender, phone));

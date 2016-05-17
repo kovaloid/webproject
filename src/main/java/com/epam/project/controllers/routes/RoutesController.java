@@ -44,7 +44,8 @@ public class RoutesController extends HttpServlet {
 
         request.getSession().setAttribute("routes_table_number", routesTableNumber);
         request.getSession().setAttribute("routes_tables_amount", routesTablesAmount);
-        request.getSession().setAttribute("routes_table", routesTablesArray[routesTableNumber-1]);
+        if (routesTablesAmount != 0)
+            request.getSession().setAttribute("routes_table", routesTablesArray[routesTableNumber - 1]);
 
         String status = (String) request.getSession().getAttribute(Account.STATUS);
         if (status == null || !status.equals(Account.Status.IN))

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Add Routes Controller.
@@ -29,9 +31,41 @@ public class AddRoutesController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
+            String locale = (String) request.getSession().getAttribute("locale");
+            if (locale == null) locale = "en";
+            ResourceBundle bundle = ResourceBundle.getBundle("locale", new Locale(locale));
+
             String routeName = request.getParameter("route_name");
-            Integer length = Integer.valueOf(request.getParameter("length"));
-            Integer price = Integer.valueOf(request.getParameter("price"));
+            String lengthParam = request.getParameter("length");
+            String priceParam = request.getParameter("price");
+
+            if (lengthParam.equals("")) lengthParam = "0";
+            if (lengthParam.length() > 8)
+                throw new NumberFormatException("[length] " + bundle.getString("local.data.exception.large_value"));
+
+            if (priceParam.equals("")) priceParam = "0";
+            if (priceParam.length() > 8)
+                throw new NumberFormatException("[price] " + bundle.getString("local.data.exception.large_value"));
+
+            Integer length;
+            Integer price;
+
+            try {
+                length = Integer.valueOf(lengthParam);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("[length] " + bundle.getString("local.data.exception.string_value"));
+            }
+
+            try {
+                price = Integer.valueOf(priceParam);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("[price] " + bundle.getString("local.data.exception.string_value"));
+            }
+
+            if (length < 0)
+                throw new NumberFormatException("[length] " + bundle.getString("local.data.exception.negative_value"));
+            if (price < 0)
+                throw new NumberFormatException("[price] " + bundle.getString("local.data.exception.negative_value"));
 
             DAO<RouteBean> routesDAO = new RoutesDAO();
             routesDAO.add(new RouteBean(routeName, length, price));

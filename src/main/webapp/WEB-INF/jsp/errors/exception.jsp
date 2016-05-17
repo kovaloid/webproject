@@ -35,7 +35,8 @@
                     ${requestScope.exception}
                 </c:if>
                 <c:if test="${requestScope.exception == null}">
-                    ${unknown_exception_text}
+                    <%--${unknown_exception_text}<br />--%>
+                    <%=exception.getMessage()%>
                 </c:if>
             </p>
             <br/>

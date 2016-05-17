@@ -43,7 +43,8 @@ public class CarsController extends HttpServlet {
 
         request.getSession().setAttribute("cars_table_number", carsTableNumber);
         request.getSession().setAttribute("cars_tables_amount", carsTablesAmount);
-        request.getSession().setAttribute("cars_table", carsTablesArray[carsTableNumber - 1]);
+        if (carsTablesAmount != 0)
+            request.getSession().setAttribute("cars_table", carsTablesArray[carsTableNumber - 1]);
 
         DAO driversDAO = new DriversDAO();
         Table driversTable = driversDAO.getAll();

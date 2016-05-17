@@ -65,6 +65,7 @@ public class JSPTagPrintTable extends TagSupport {
      * @return locale header string
      */
     private String getLocaleHeader(String headerDataBaseName, String locale) {
+        if (locale == null) locale = "en";
         ResourceBundle bundle = ResourceBundle.getBundle("locale", new Locale(locale));
         switch (headerDataBaseName) {
             case "CAR_NUMBER":

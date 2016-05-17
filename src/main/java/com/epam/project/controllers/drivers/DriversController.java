@@ -39,7 +39,8 @@ public class DriversController extends HttpServlet {
 
         request.getSession().setAttribute("drivers_table_number", driversTableNumber);
         request.getSession().setAttribute("drivers_tables_amount", driversTablesAmount);
-        request.getSession().setAttribute("drivers_table", driversTablesArray[driversTableNumber-1]);
+        if (driversTablesAmount != 0)
+            request.getSession().setAttribute("drivers_table", driversTablesArray[driversTableNumber - 1]);
 
         String status = (String) request.getSession().getAttribute(Account.STATUS);
         if (status == null || !status.equals(Account.Status.IN))

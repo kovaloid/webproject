@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Update Journal Controller.
@@ -36,7 +38,26 @@ public class UpdateJournalController extends HttpServlet {
             String yearIn = request.getParameter("year_in");
             Date dateIn = DateHelper.convert(dayIn, monthIn, yearIn);
 
-            Integer id = Integer.valueOf(request.getParameter("id"));
+            String locale = (String) request.getSession().getAttribute("locale");
+            if (locale == null) locale = "en";
+            ResourceBundle bundle = ResourceBundle.getBundle("locale", new Locale(locale));
+
+            String idParam = request.getParameter("id");
+
+            if (idParam.equals("")) idParam = "0";
+            if (idParam.length() > 8)
+                throw new NumberFormatException("[id] " + bundle.getString("local.data.exception.large_value"));
+
+            Integer id;
+
+            try {
+                id = Integer.valueOf(idParam);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("[id] " + bundle.getString("local.data.exception.string_value"));
+            }
+
+            if (id < 0)
+                throw new NumberFormatException("[id] " + bundle.getString("local.data.exception.negative_value"));
 
             DAO<JournalBean> journalDAO = new JournalDAO();
             journalDAO.update(new JournalBean(id, dateIn));

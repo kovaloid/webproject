@@ -34,23 +34,29 @@
 <div class="main">
     <div class="well">
 
-        <c:if test="${sessionScope.journal_tables_amount ne 1}">
-            <div align="center">
-                <ul class="pagination">
-                    <c:forEach var="i" begin="1" end="${sessionScope.journal_tables_amount}">
-                        <c:if test="${sessionScope.journal_table_number eq i}">
-                            <li class="active"><a href="${pageContext.request.contextPath}/main?command=journal&number=${i}">${i}</a></li>
-                        </c:if>
-                        <c:if test="${sessionScope.journal_table_number ne i}">
-                            <li><a href="${pageContext.request.contextPath}/main?command=journal&number=${i}">${i}</a></li>
-                        </c:if>
-                    </c:forEach>
-                </ul>
-            </div>
+        <c:if test="${sessionScope.journal_tables_amount ne 0}">
+            <c:if test="${sessionScope.journal_tables_amount ne 1}">
+                <div align="center">
+                    <ul class="pagination">
+                        <c:forEach var="i" begin="1" end="${sessionScope.journal_tables_amount}">
+                            <c:if test="${sessionScope.journal_table_number eq i}">
+                                <li class="active"><a
+                                        href="${pageContext.request.contextPath}/main?command=journal&number=${i}">${i}</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${sessionScope.journal_table_number ne i}">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/main?command=journal&number=${i}">${i}</a>
+                                </li>
+                            </c:if>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:if>
+
+            <mytag:print_table bean="${sessionScope.journal_table}" locale="${sessionScope.locale}"/>
+
         </c:if>
-
-        <mytag:print_table bean="${sessionScope.journal_table}" locale="${sessionScope.locale}"/>
-
     </div>
 </div>
 

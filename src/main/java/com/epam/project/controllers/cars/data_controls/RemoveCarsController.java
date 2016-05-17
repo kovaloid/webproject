@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Remove Cars Controller.
@@ -29,7 +31,26 @@ public class RemoveCarsController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            Integer id = Integer.parseInt(request.getParameter("id"));
+            String locale = (String) request.getSession().getAttribute("locale");
+            if (locale == null) locale = "en";
+            ResourceBundle bundle = ResourceBundle.getBundle("locale", new Locale(locale));
+
+            String idParam = request.getParameter("id");
+
+            if (idParam.equals("")) idParam = "0";
+            if (idParam.length() > 8)
+                throw new NumberFormatException("[id] " + bundle.getString("local.data.exception.large_value"));
+
+            Integer id;
+
+            try {
+                id = Integer.valueOf(idParam);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("[id] " + bundle.getString("local.data.exception.string_value"));
+            }
+
+            if (id < 0)
+                throw new NumberFormatException("[id] " + bundle.getString("local.data.exception.negative_value"));
 
             DAO<CarBean> carsDAO = new CarsDAO();
             carsDAO.remove(new CarBean(id));
