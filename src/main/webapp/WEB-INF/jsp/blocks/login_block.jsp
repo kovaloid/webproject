@@ -7,7 +7,8 @@
 <fmt:message bundle="${loc}" key="local.sign_in.header" var="signin_header"/>
 <fmt:message bundle="${loc}" key="local.sign_in.login_input" var="login_text"/>
 <fmt:message bundle="${loc}" key="local.sign_in.password_input" var="password_text"/>
-<fmt:message bundle="${loc}" key="local.sign_in.sign_in_button" var="enter_button"/>
+<fmt:message bundle="${loc}" key="local.sign_in.log_in_button" var="enter_button"/>
+<fmt:message bundle="${loc}" key="local.sign_in.log_out_button" var="log_out_button"/>
 <fmt:message bundle="${loc}" key="local.sign_in.sign_up_link" var="reg_button"/>
 <fmt:message bundle="${loc}" key="local.sign_in.welcome_text" var="welcome_text"/>
 <fmt:message bundle="${loc}" key="local.input.if_empty" var="if_empty"/>
@@ -27,7 +28,7 @@
                 <p>${access_level_text}: ${user.role}</p>
                 <form action="main" method="post" class="navbar-form" role="form">
                     <input type="hidden" name="command" value="logout"/>
-                    <button type="submit" class="btn btn-success margin">Sign Out</button>
+                    <button type="submit" class="btn btn-success margin">${log_out_button}</button>
                 </form>
             </c:if>
             <c:if test="${sessionScope.status ne 'in'}">
